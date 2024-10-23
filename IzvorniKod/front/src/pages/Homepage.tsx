@@ -1,10 +1,9 @@
-import './styles/App.css';
+import '../styles/Homepage.css';
+import Logo from "../components/Logo.tsx";
+import Login from "../components/Login.tsx";
+import Footer from "../components/Footer.tsx";
 
-import Logo from "./components/Logo.tsx";
-import Login from "./components/Login.tsx";
-import Footer from "./components/Footer.tsx";
-
-function App(){
+function Homepage(){
   return (
       <div className="bg-gray-700 border-2 border-gray-500">
           <div className="flex">
@@ -27,7 +26,6 @@ function App(){
 
       </div>
   )
-
 }
 
-export default App;
+export default Homepage;
