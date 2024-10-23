@@ -22,16 +22,16 @@
 .about {
     height: 10vh;
     color: #aeadad;
-    text-align: center;  /* Center text */
-    background-color: #3B3B3B; /* A dark gray background */
+    text-align: center;  
+    background-color: #3B3B3B; 
     display: flex;
-    justify-content: center;  /* Centers items horizontally */
-    align-items: center;      /* Centers items vertically */
+    justify-content: center; 
+    align-items: center;     
 }
 
 .footer-container {
     display: flex;
-    gap: 2rem;               /* Adds space between the paragraphs */
+    gap: 2rem;               
 }
 
 .button-1 {
@@ -40,7 +40,6 @@
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
     border-radius: 999px;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
     box-sizing: border-box;
     cursor: pointer;
     font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -57,12 +56,15 @@
     word-break: break-word;
     border: 0;
 }
+.button-1:hover{
+    transform: scale(1.1);
+    box-shadow: #c3c3f2 0 10px 20px -10px;
+}
 
 
 .button-2 {
     background: #5E5DF0;
     border-radius: 999px;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
     box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
@@ -79,4 +81,8 @@
     width: fit-content;
     word-break: break-word;
     border: 0;
+}
+.button-2:hover{
+    transform: scale(1.1);
+    box-shadow: #5E5DF0 0 10px 20px -10px;
 }

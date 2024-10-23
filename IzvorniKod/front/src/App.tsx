@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 
 import Logo from "./components/Logo.tsx";
 import Login from "./components/Login.tsx";

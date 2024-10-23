@@ -6,6 +6,7 @@ function Footer() {
                 <p>Terms of Service</p>
                 <p>Privacy Policy</p>
                 <p>Pricing</p>
+                <p>Contact</p>
             </div>
         </>
     )
