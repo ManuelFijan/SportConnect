@@ -1,32 +1,43 @@
 # SportConnect
 
-# Programsko inženjerstvo
-
-> Ime projekta u naslovu ima cilj opisati namjenu projekta te pomoći u podizanju početnog interesa za projekt prezentirajući osnovnu svrhu projekta.
-> Isključivo ovisi o Vama!
-> 
-> Naravno, nijedan predložak nije idealan za sve projekte jer su potrebe i ciljevi različiti. Ne bojte se naglasiti Vaš cilj u ovoj početnoj stranici projekta, podržat ćemo ga bez obzira usredotočili se Vi više na tenologiju ili marketing.
-> 
-> Zašto ovaj dokument? Samo manji dio timova je do sada propoznao potrebu (a i meni je lakše pratiti Vaš rad).  
+# Programsko inženjerstvo 
 
 # Opis projekta
 Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
 
-Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije »Zato što je to bio zadatak i nismo imali ideje za drugo.«). Koji problem rješavate?
-> Obzirom da je ovo zadani projekt navedite i što želite/jeste novo  naučili.
+Cilj našeg projekta je razviti aplikaciju SportConnect, društvenu mrežu koja povezuje klijente i trenere/profesionalce iz područja sporta, fitnessa i zdrave prehrane. Naša motivacija je olakšati pristup kvalitetnim informacijama i savjetima o zdravom načinu života, omogućujući korisnicima da pronađu trenere i sadržaje prilagođene svojim potrebama, uz povoljnije cijene od individualnih usluga trenera i nutricionista.
 
-> Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
+Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima, savjetima i planovima profesionalaca iz raznih područja zdravog života, a također omogućava direktnu komunikaciju između korisnika i stručnjaka putem poruka i notifikacija.
 
 # Funkcijski zahtjevi
 > Navedite ključne zahtjeve Vašeg projekta.
 
 
 # Tehnologije
+Front-end: React
 
-#Instalcija
+Back-end: Spring
+
+Baza podataka: PostgreSQL
+
+Autentifikacija: OAuth 2.0/Firebase Authentication
+
+Notifikacije i poruke: Firebase Cloud Messaging/FreeChat
+
+Deployment: Render ili Heroku
+
+Plaćanje: PayPal/Stripe
+
 # Članovi tima 
-> Popis članova tima/linkovi/ glavni doprinos
->
+| Ime člana | Područje rada | 
+|----------|----------|
+| Klara Katić | Dizajn, baza podataka, frontend | 
+| Hana Čerić | Baza podataka, backend | 
+| Vid Knežević | Frontend | 
+| Luka Zuanović | Frontend | 
+| Luka Đuretić | Frontend, backend | 
+| Viktor Pijanec | Backend, baza podataka | 
+| Manuel Fijan | Backend, baza podataka | 
 
 # Kontribucije
 >Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md
@@ -38,41 +49,59 @@ Kao studenti sigurno ste upoznati s minimumom prihvatljivog ponašanja definiran
 Očekujemo da ćete poštovati [etički kodeks IEEE-a](https://www.ieee.org/about/corporate/governance/p7-8.html) koji ima važnu obrazovnu funkciju sa svrhom postavljanja najviših standarda integriteta, odgovornog ponašanja i etičkog ponašanja u profesionalnim aktivnosti. Time profesionalna zajednica programskih inženjera definira opća načela koja definiranju  moralni karakter, donošenje važnih poslovnih odluka i uspostavljanje jasnih moralnih očekivanja za sve pripadnike zajenice.
 
 Kodeks ponašanja skup je provedivih pravila koja služe za jasnu komunikaciju očekivanja i zahtjeva za rad zajednice/tima. Njime se jasno definiraju obaveze, prava, neprihvatljiva ponašanja te  odgovarajuće posljedice (za razliku od etičkog kodeksa). U ovom repozitoriju dan je jedan od široko prihvačenih kodeks ponašanja za rad u zajednici otvorenog koda.
->### Poboljšajte funkcioniranje tima:
->* definirajte načina na koji će rad biti podijeljen među članovima grupe
->* dogovorite kako će grupa međusobno komunicirati.
->* ne gubite vrijeme na dogovore na koji će grupa rješavati sporove primjenite standarde!
->* implicitno podrazmijevamo da će svi članovi grupe slijediti kodeks ponašanja.
- 
->###  Prijava problema
->Najgore što se može dogoditi je da netko šuti kad postoje problemi. Postoji nekoliko stvari koje možete učiniti kako biste najbolje riješili sukobe i probleme:
->* Obratite mi se izravno [e-pošta](mailto:vlado.sruk@fer.hr) i  učinit ćemo sve što je u našoj moći da u punom povjerenju saznamo koje korake trebamo poduzeti kako bismo riješili problem.
->* Razgovarajte s vašim asistentom jer ima najbolji uvid u dinamiku tima. Zajedno ćete saznati kako riješiti sukob i kako izbjeći daljnje utjecanje u vašem radu.
->* Ako se osjećate ugodno neposredno razgovarajte o problemu. Manje incidente trebalo bi rješavati izravno. Odvojite vrijeme i privatno razgovarajte s pogođenim članom tima te vjerujte u iskrenost.
 
 # 📝 Licenca
-Važeča (1)
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
-Ovaj repozitorij sadrži otvoreni obrazovni sadržaji (eng. Open Educational Resources)  i licenciran je prema pravilima Creative Commons licencije koja omogućava da preuzmete djelo, podijelite ga s drugima uz 
-uvjet da navođenja autora, ne upotrebljavate ga u komercijalne svrhe te dijelite pod istim uvjetima [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License HR][cc-by-nc-sa].
->
-> ### Napomena:
->
-> Svi paketi distribuiraju se pod vlastitim licencama.
-> Svi upotrijebleni materijali  (slike, modeli, animacije, ...) distribuiraju se pod vlastitim licencama.
+## License Overview
 
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+This project contains components under different licenses:
 
-[cc-by-nc-sa]: https://creativecommons.org/licenses/by-nc/4.0/deed.hr 
-[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
-[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+- **Code**: All software code in this project is licensed under the MIT License.
+- **Educational Content**: Documentation, blog posts, fitness plans, and recipes are licensed under the Creative Commons BY-NC-SA 4.0 license.
+- **Images and Multimedia**: All images, models, and media are licensed under the CC0 1.0 Universal license.
 
-Orginal [![cc0-1.0][cc0-1.0-shield]][cc0-1.0]
->
->COPYING: All the content within this repository is dedicated to the public domain under the CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.
->
-[![CC0-1.0][cc0-1.0-image]][cc0-1.0]
+## License for Code
+
+All the software code in this repository is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+Copyright (c) [2024] [SportConnect]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+## License for Educational Content
+
+The educational content in this repository, including documentation, blog posts, fitness plans, and recipes, is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+![License](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)
+
+You are free to:
+
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material
+
+Under the following terms:
+
+- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- **NonCommercial** — You may not use the material for commercial purposes.
+- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+## License for Images and Other Media
+
+All images, models, and other multimedia files in this repository are licensed under the [CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/).
+
+![License](https://licensebuttons.net/l/zero/1.0/88x31.png)
+
+This means you can copy, modify, distribute, and perform the work, even for commercial purposes, all without asking permission.
+
+
+
 
 [cc0-1.0]: https://creativecommons.org/licenses/by/1.0/deed.en
 [cc0-1.0-image]: https://licensebuttons.net/l/by/1.0/88x31.png
