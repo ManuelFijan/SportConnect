@@ -1,0 +1,132 @@
+.image{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    height: 90vh;
+    padding: 2rem;
+}
+
+.quote{
+    color: white;
+    text-align: left;
+    font-weight: bold;
+    padding-top: 2.25rem;
+}
+
+.about {
+    height: 10vh;
+    color: #aeadad;
+    text-align: center;  
+    background-color: #3B3B3B; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+}
+
+.footer-container {
+    display: flex;
+    gap: 6rem;         
+}
+
+.footer-container a {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.button-1 {
+    background: white;
+    color: black;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-radius: 999px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    padding: 0.6rem 7.5rem;
+    width: fit-content;
+}
+
+.button-1:hover{
+    transform: scale(1.1);
+    box-shadow: #c3c3f2 0 10px 20px -10px;
+}
+
+.crta{
+    width: 8rem;
+}
+
+.button-2 {
+    background: #5E5DF0;
+    border-radius: 999px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    padding: 0.6rem 5rem;
+    width: fit-content;
+}
+
+.button-2:hover{
+    transform: scale(1.1);
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+}
+
+@media (max-width: 833px) {
+    .button-1{
+        font-size: 14px;
+        padding: 0.5rem 5rem;
+    }
+
+    .button-2{
+        font-size: 14px;
+        padding: 0.5rem 2.5rem;
+    }
+
+    .crta{
+        width: 5.5rem;
+    }
+
+    .logo{
+        margin-top: 7rem;
+    }
+
+    .footer-container {
+        gap: 3rem; 
+    }
+}
+
+@media (max-width: 600px) {
+    .button-1{
+        font-size: 14px;
+        padding: 0.5rem 3rem;
+    }
+
+    .button-2{
+        font-size: 14px;
+        padding: 0.5rem 1rem;
+    }
+
+    .crta{
+        width: 4rem;
+    }
+
+    .logo{
+        margin-top: 7rem;
+    }
+
+    .footer-container {
+        gap: 1.5rem; 
+    }
+}
