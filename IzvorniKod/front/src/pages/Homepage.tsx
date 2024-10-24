@@ -12,7 +12,7 @@ function Homepage(){
 
   return (
     <>
-        <div className={(bool ? 'blur-bg' : '')+" bg-gray-700 border-2 border-gray-500"}>
+        <div className={(bool ? 'blur-' : '')+"container1 bg-gray-700 border-2 border-gray-500"}>
             <div className="flex">
                 {/*LIJEVO - SLIKA*/}
                 <div className="image w-50">
