@@ -17,20 +17,20 @@ Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima,
 > FUNKCIJSKI ZAHTJEVI; 
 - pristup informacija same aplikacije -> svi aktivni korisnici (klijenti, partneri i admini)
 - stvaranje profila/prijava -> klijenti i partneri
-spremanje i označavanje objava -> klijenti i partneri
-komunikacija sa ostalim korisnicima -> klijenti i partneri
-spremanje i označavanje drugih objava -> klijenti i partneri
-odabiranje i otkazivanje ranga za plaćanje -> klijenti i partneri (brončanog i srebrnog ranga)
-uplate -> klijenti i partneri (brončanog i srebrnog ranga)
+- spremanje i označavanje objava -> klijenti i partneri
+- komunikacija sa ostalim korisnicima -> klijenti i partneri
+- spremanje i označavanje drugih objava -> klijenti i partneri
+- odabiranje i otkazivanje ranga za plaćanje -> klijenti i partneri (brončanog i srebrnog ranga)
+- uplate -> klijenti i partneri (brončanog i srebrnog ranga)
 
-kreiranje i uređivanje plaćenih objava -> partneri
-kreiranje i uređivanje besplatnih objava -> partneri
-isplate -> partneri
+- kreiranje i uređivanje plaćenih objava -> partneri
+- kreiranje i uređivanje besplatnih objava -> partneri
+- isplate -> partneri
 
-odabiranje besplatnog ranga -> klijenti
+- odabiranje besplatnog ranga -> klijenti
 
-adminsko brisanje sadržaja -> admin
-adminsko filtriranje rangova -> admin
+- adminsko brisanje sadržaja -> admin
+- adminsko filtriranje rangova -> admin
 
 # Tehnologije
 Front-end: React
