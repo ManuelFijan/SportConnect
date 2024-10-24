@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
 import NotFoundPage from './pages/NotFoundPage.tsx'
 import Homepage from './pages/Homepage.tsx'
-import SignInPage from './pages/SignInPage.tsx'
+//import SignInPage from './pages/SignInPage.tsx'
 import CreateAccountPage from './pages/CreateAccountPage.tsx'
 import AboutUsPage from './pages/AboutUsPage.tsx'
 import TermsOfServicePage from './pages/TermsOfServicePage.tsx'
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/sign-in',
-    element: <SignInPage/>,
+    element: <Homepage/>,
     errorElement: <NotFoundPage/>
   },
   {

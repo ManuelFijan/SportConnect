@@ -59,7 +59,7 @@
     box-shadow: #c3c3f2 0 10px 20px -10px;
 }
 
-.crta{
+.line{
     width: 8rem;
 }
 
@@ -83,6 +83,13 @@
     box-shadow: #5E5DF0 0 10px 20px -10px;
 }
 
+
+
+.blur-bg {
+    filter: blur(8px); 
+}
+
+
 @media (max-width: 833px) {
     .button-1{
         font-size: 14px;
@@ -94,7 +101,7 @@
         padding: 0.5rem 2.5rem;
     }
 
-    .crta{
+    .line{
         width: 5.5rem;
     }
 
@@ -118,7 +125,7 @@
         padding: 0.5rem 1rem;
     }
 
-    .crta{
+    .line{
         width: 4rem;
     }
 

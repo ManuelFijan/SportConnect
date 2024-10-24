@@ -8,14 +8,14 @@ function Login() {
             </Link>
 
             <div className="flex ml-1.5 mt-1">
-                <div className="crta bg-gray-500  h-[1px] mt-[0.8rem]">
+                <div className="line bg-gray-500  h-[1px] mt-[0.8rem]">
                 </div>
 
                 <div>
                     <p className="text-white pl-2 pr-2 mt-[0.1rem]">or</p>
                 </div>
 
-                <div className="crta bg-gray-500 h-[1px] mt-[0.8rem]">
+                <div className="line bg-gray-500 h-[1px] mt-[0.8rem]">
                 </div>
             </div>
 
