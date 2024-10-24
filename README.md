@@ -17,7 +17,8 @@ Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima,
 > FUNKCIJSKI ZAHTJEVI; 
 
 * stvaranje profila/prijava -> korisnici 
-* kreiranje i uređivanje objava -> partneri
+* kreiranje i uređivanje plaćenih objava -> partneri
+* kreiranje i uređivanje besplatnih objava -> partneri
 * spremanje i označavanje objava -> korisnici (klijenti i partneri)
 * pristup informacija same aplikacije -> svi aktivni korisnici
 * odabiranje i otkazivanje ranga za plaćanje -> klijenti i partneri (brončanog i srebrnog ranga)
