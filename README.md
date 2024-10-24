@@ -5,7 +5,7 @@
 # Opis projekta
 Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
 
-Cilj našeg projekta je razviti aplikaciju SportConnect, društvenu mrežu koja povezuje klijente i trenere/profesionalce iz područja sporta, fitnessa i zdrave prehrane. Naša motivacija je olakšati pristup kvalitetnim informacijama i savjetima o zdravom načinu života, omogućujući korisnicima da pronađu trenere i sadržaje prilagođene svojim potrebama, uz povoljnije cijene od individualnih usluga trenera i nutricionista.
+Cilj našeg projekta je razviti aplikaciju SportConnect, društvenu mrežu koja povezuje klijente i trenere/profesionalce (partnere) iz područja sporta, fitnessa i zdrave prehrane. Naša motivacija je olakšati pristup kvalitetnim informacijama i savjetima o zdravom načinu života, omogućujući korisnicima da pronađu trenere i sadržaje prilagođene svojim potrebama, uz povoljnije cijene od individualnih usluga trenera i nutricionista.
 
 Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima, savjetima i planovima profesionalaca iz raznih područja zdravog života, a također omogućava direktnu komunikaciju između korisnika i stručnjaka putem poruka i notifikacija.
 
