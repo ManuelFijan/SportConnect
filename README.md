@@ -14,7 +14,7 @@ Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima,
 - aktivni; korisnici (klijenti, partneri), admin 
 - pasivni; baza podataka
 
-FUNKCIJSKI ZAHTJEVI; 
+> FUNKCIJSKI ZAHTJEVI; 
 
 * stvaranje profila/prijava -> korisnici 
 * kreiranje i uređivanje objava -> partneri
