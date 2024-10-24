@@ -10,8 +10,23 @@ Cilj našeg projekta je razviti aplikaciju SportConnect, društvenu mrežu koja 
 Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima, savjetima i planovima profesionalaca iz raznih područja zdravog života, a također omogućava direktnu komunikaciju između korisnika i stručnjaka putem poruka i notifikacija.
 
 # Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
+> AKTORI; 
+- aktivni; korisnici (klijenti, partneri), admin 
+- pasivni; baza podataka
 
+FUNKCIJSKI ZAHTJEVI; 
+
+* stvaranje profila/prijava -> korisnici 
+* kreiranje i uređivanje objava -> partneri
+* spremanje i označavanje objava -> korisnici (klijenti i partneri)
+* pristup informacija same aplikacije -> svi aktivni korisnici
+* odabiranje i otkazivanje ranga za plaćanje -> klijenti i partneri (brončanog i srebrnog ranga)
+* komunikacija sa ostalim korisnicima ->klijenti i partneri
+* spremanje i označavanje drugih objava -> klijenti i  partneri
+* uplate -> klijenti i partneri (brončanog i srebrnog ranga)
+* isplate -> partneri
+* adminsko brisanje sadržaja -> admin
+* adminsko filtriranje rangova -> admin
 
 # Tehnologije
 Front-end: React
