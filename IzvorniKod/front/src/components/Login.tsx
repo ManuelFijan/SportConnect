@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Login() {
+    const location = useLocation()
+    const bool = location.pathname === '/sign-in'
+
+    /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini
+    nemaju funkcionalnost */
     return (
         <>
-            <Link to="/sign-in" className="">
+            <Link to={bool ? '' : "/sign-in"} className="">
                 <button className="button-1" role="button">Sign in</button>
             </Link>
 
@@ -19,7 +24,7 @@ function Login() {
                 </div>
             </div>
 
-            <Link to="/create-an-account" className="">
+            <Link to={bool ? '' : "/create-an-account"} className="">
                 <button className="button-2" role="button">Create an account</button>
             </Link>
         </>

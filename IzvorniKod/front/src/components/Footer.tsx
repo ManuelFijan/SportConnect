@@ -1,26 +1,32 @@
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Footer() {
+    const location = useLocation()
+    const bool = location.pathname === '/sign-in'
+    
+    /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini
+    nemaju funkcionalnost */
     return (
         <>
             <div className="footer-container">
-                <Link to="/about-us" className="">
+                <Link to={bool ? '' : "/about-us"} className="">
                     <p>About Us</p>
                 </Link>
 
-                <Link to="/terms-of-service" className="">
+                <Link to={bool ? '' : "/terms-of-service"} className="">
                     <p>Terms of Service</p>
                 </Link>
 
-                <Link to="/privacy-policy" className="">
+                <Link to={bool ? '' : "/privacy-policy"} className="">
                     <p>Privacy Policy</p>
                 </Link>
 
-                <Link to="/pricing" className="">
+                <Link to={bool ? '' : "/pricing"} className="">
                     <p>Pricing</p>
                 </Link>
                 
-                <Link to="/contact" className="">
+                <Link to={bool ? '' : "/contact"} className="">
                     <p>Contact</p>
                 </Link>
             </div>

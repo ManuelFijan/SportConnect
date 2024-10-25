@@ -1,7 +1,7 @@
 .login2{
     background-color: whitesmoke;
     border-radius: 1.3rem;
-    height: 25rem;
+    height: 27rem;
     width: 30%;
     border: 2px white;
     position: absolute;
@@ -20,7 +20,7 @@ form input{
 }
 
 .buttons{
-    margin-top: 0.8rem;
+    margin-top: 1.1rem;
     display: flex;
     justify-content: space-between;
 }
@@ -65,7 +65,7 @@ h2 img{
     left: 0.2rem;
 }
 div div h2{
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 
