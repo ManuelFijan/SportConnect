@@ -64,7 +64,7 @@ const SignInPage = () => {
         <p>We've been missing you!</p>
         <p>Find out what's new.</p>
 
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           <input type="text" onChange={inputOnChange} placeholder="E-mail / username" className="form-control mt-3" maxLength={50} required/>
           {bool1 ? '' : <div style={{ color: 'red' }}>{errorMessage}</div>}
           <input type="password" onChange={passwordOnChange} placeholder="Password" className="form-control mt-3" maxLength={20} required/>

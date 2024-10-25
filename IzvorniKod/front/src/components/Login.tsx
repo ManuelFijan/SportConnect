@@ -9,7 +9,7 @@ function Login() {
     return (
         <>
             <Link to={bool ? '' : "/sign-in"} className="">
-                <button className="button-1" role="button">Sign in</button>
+                <button className={bool ? "sign-button-1" : "button-1"} role="button">Sign in</button>
             </Link>
 
             <div className="flex ml-1.5 mt-1">
@@ -25,7 +25,7 @@ function Login() {
             </div>
 
             <Link to={bool ? '' : "/create-an-account"} className="">
-                <button className="button-2" role="button">Create an account</button>
+                <button className={bool ? "sign-button-2" : "button-2"} role="button">Create an account</button>
             </Link>
         </>
     )
