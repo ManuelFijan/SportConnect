@@ -8,14 +8,14 @@ const SignInPage = () => {
     <div className="login-container">
       <div className="login2">
         <h2>
-          Welcome back <img src="/public/party-popper.png" alt="welcome pic" className='pic w-7'/><br />
+          Welcome back <img src="/party-popper.png" alt="welcome pic" className='pic w-7'/><br />
         </h2>
         <p>We've been missing you!</p>
         <p>Find out what's new.</p>
 
         <form>
-          <input type="text" placeholder="E-mail / username" className="form-control" required/>
-          <input type="password" placeholder="Password" className="form-control mt-2" required/>
+          <input type="text" placeholder="E-mail / username" className="form-control mt-3" required/>
+          <input type="password" placeholder="Password" className="form-control mt-3" required/>
 
           <div className='buttons'>
             <button type="submit" className="btn1">Sign in</button>

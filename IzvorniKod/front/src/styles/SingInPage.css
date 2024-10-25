@@ -20,7 +20,7 @@ form input{
 }
 
 .buttons{
-    margin-top: 0.8rem;
+    margin-top: 1.1rem;
     display: flex;
     justify-content: space-between;
 }
@@ -65,7 +65,7 @@ h2 img{
     left: 0.2rem;
 }
 div div h2{
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 
