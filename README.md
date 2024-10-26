@@ -59,43 +59,42 @@ Plaćanje: PayPal/Stripe
 | Manuel Fijan | Backend, baza podataka | 
 
 # Kontribucije
-## Contributing to SportConnect
+## Prilog projektu SportConnect
 
-Thank you for considering contributing to SportConnect! This file outlines the guidelines and practices we follow to ensure an organized and collaborative development process.
+Hvala vam što razmatrate mogućnost doprinosa projektu SportConnect! Ova datoteka opisuje smjernice i prakse koje slijedimo kako bismo osigurali organiziran i suradnički razvojni proces.
 
-### How to Get Started
+### Kako započeti
 
-1. **Fork the Repository**: Fork the project on GitHub and clone your fork locally.
-2. **Set Up the Environment**:
-   - **Front-End**: Install dependencies using `npm install` for React.
-   - **Back-End**: Set up the Java Spring environment and install dependencies.
-   - **Database**: Configure PostgreSQL and run the database migration scripts.
-   - **Authentication**: Set up OAuth 2.0 or Firebase Authentication as specified.
-3. **Create a Branch**: For each feature or bug fix, create a new branch with a meaningful name (e.g., `feature/user-authentication`).
+1. **Fork the Repository**: Forkajte projekt na GitHubu i klonirajte svoj fork lokalno.
+2. **Postavite okruženje**:
+   - **Front-End**: Instalirajte potrebne ovisnosti pomoću naredbe `npm install` za React.
+   - **Back-End**: Postavite Java Spring okruženje i instalirajte ovisnosti.
+   - **Baza podataka**: Konfigurirajte PostgreSQL i pokrenite skripte za migraciju baze podataka.
+   - **Autentifikacija**: Postavite OAuth 2.0 ili Firebase Authentication prema uputama.
+3. **Kreirajte granu (Branch)**: Za svaku novu funkcionalnost ili ispravak pogreške, kreirajte novu granu s opisnim nazivom (npr. `feature/user-authentication`).
 
-### Code Standards
+### Standardi koda (Code Standards)
 
-- Follow consistent naming conventions and structure across the codebase.
-- Test your changes before committing, using unit tests where applicable.
-- Code reviews ensure quality, so be prepared for feedback.
+- Pridržavajte se dosljednih konvencija imenovanja i strukture unutar baze koda.
+- Testirajte svoje promjene prije predaje, koristeći jedinčne testove gdje je primjenjivo.
+- Pregledi koda osiguravaju kvalitetu, stoga budite spremni na povratne informacije.
 
-### Commit Messages
+### Poruke pri predaji (Commit Messages)
 
-- Use concise, descriptive commit messages in the following format:
-  - `feat: add new user authentication feature`
-  - `fix: correct user profile display on mobile`
-  - `docs: update README with setup instructions`
+- Koristite sažete i opisne poruke pri predaji u sljedećem formatu:
+  - `feat: dodana nova funkcija autentifikacije korisnika`
+  - `fix: ispravljen prikaz korisničkog profila na mobilnim uređajima`
+  - `docs: ažuriran README s uputama za postavljanje`
 
-### Issue and Pull Request Process
+### Postupak za probleme i zahtjeve za povlačenje (Issue and Pull Request Process)
 
-1. **Issues**: Check if an issue already exists for your task or bug. Otherwise, open a new issue and provide as much detail as possible.
-2. **Pull Requests**: Submit PRs only after you finish the related task or bug. Include a description of changes, tests included, and link any related issues.
-3. **Testing**: Ensure all tests pass before submission.
+1. **Problemi (Issues)**: Provjerite postoji li već problem za vaš zadatak ili pogrešku. Ako ne postoji, otvorite novi problem i pružite što više detalja.
+2. **Zahtjevi za povlačenje (Pull Requests)**: Predajte PR-ove tek nakon što završite povezani zadatak ili ispravku pogreške. Uključite opis promjena, izvedene testove i povežite sve relevantne probleme.
+3. **Testiranje**: Osigurajte da svi testovi prolaze prije predaje.
 
-### Code of Conduct
+### Pravila ponašanja
 
-We aim to foster an inclusive and welcoming community. Please respect all contributors and users, communicate constructively, and maintain professionalism in all project interactions.
-
+Cilj nam je njegovanje uključive i podržavajuće zajednice. Molimo vas da poštujete sve suradnike i korisnike, komunicirate konstruktivno te zadržite profesionalnost u svim interakcijama unutar projekta.
 
 
 
