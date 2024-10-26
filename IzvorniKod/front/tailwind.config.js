@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         gold: '#DAA520', // Define a custom gold color
+        bronze: '#cd7f32'
       },
     },
   },
