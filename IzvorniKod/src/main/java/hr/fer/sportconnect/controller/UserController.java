@@ -6,9 +6,11 @@ import hr.fer.sportconnect.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collections;
+
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -22,8 +24,17 @@ public class UserController {
     }
 
     @GetMapping("/signedin")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        return Collections.singletonMap("name", principal.getAttribute("login"));
+    public Map<String, Object> user(OAuth2AuthenticationToken authenticationToken,
+                                    @AuthenticationPrincipal OAuth2User principal) {
+        // Get provider (registration ID) such as "google" or "github"
+        String provider = authenticationToken.getAuthorizedClientRegistrationId();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("name", principal.getAttribute("name"));
+        response.put("email", principal.getAttribute("email"));
+        response.put("provider", provider); // Shows "google" or "github"
+
+        return response;
     }
 
     @PostMapping("/register")
@@ -32,5 +43,3 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 }
-
-
