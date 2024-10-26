@@ -59,7 +59,43 @@ Plaćanje: PayPal/Stripe
 | Manuel Fijan | Backend, baza podataka | 
 
 # Kontribucije
->Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md
+## Contributing to SportConnect
+
+Thank you for considering contributing to SportConnect! This file outlines the guidelines and practices we follow to ensure an organized and collaborative development process.
+
+### How to Get Started
+
+1. **Fork the Repository**: Fork the project on GitHub and clone your fork locally.
+2. **Set Up the Environment**:
+   - **Front-End**: Install dependencies using `npm install` for React.
+   - **Back-End**: Set up the Java Spring environment and install dependencies.
+   - **Database**: Configure PostgreSQL and run the database migration scripts.
+   - **Authentication**: Set up OAuth 2.0 or Firebase Authentication as specified.
+3. **Create a Branch**: For each feature or bug fix, create a new branch with a meaningful name (e.g., `feature/user-authentication`).
+
+### Code Standards
+
+- Follow consistent naming conventions and structure across the codebase.
+- Test your changes before committing, using unit tests where applicable.
+- Code reviews ensure quality, so be prepared for feedback.
+
+### Commit Messages
+
+- Use concise, descriptive commit messages in the following format:
+  - `feat: add new user authentication feature`
+  - `fix: correct user profile display on mobile`
+  - `docs: update README with setup instructions`
+
+### Issue and Pull Request Process
+
+1. **Issues**: Check if an issue already exists for your task or bug. Otherwise, open a new issue and provide as much detail as possible.
+2. **Pull Requests**: Submit PRs only after you finish the related task or bug. Include a description of changes, tests included, and link any related issues.
+3. **Testing**: Ensure all tests pass before submission.
+
+### Code of Conduct
+
+We aim to foster an inclusive and welcoming community. Please respect all contributors and users, communicate constructively, and maintain professionalism in all project interactions.
+
 
 
 
