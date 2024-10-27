@@ -9,7 +9,7 @@ const Price: React.FC<PriceProps> = ({ price }) => {
         <p className="price">
             ${price}{' '}
             <span className="month">
-        / Mo
+        / Month
       </span>
         </p>
     );
