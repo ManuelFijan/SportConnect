@@ -124,8 +124,15 @@ div div h2{
     margin-left: 0.8rem;
 }
 
-.about{
+.about-create-page{
     margin-top: 560px;
+    height: 10vh;
+    color: #aeadad;
+    text-align: center;  
+    background-color: #3B3B3B; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
 }
 
 @media (max-width: 1318px) {
@@ -184,7 +191,7 @@ div div h2{
         width: 14rem;
     }
 
-    .about{
+    .about-create-page{
         margin-top: 670px;
     }
 }
@@ -275,7 +282,7 @@ div div h2{
         margin-top: 1rem;
     }
 
-    .about{
+    .about-create-page{
         margin-top: 850px;
     }
 }

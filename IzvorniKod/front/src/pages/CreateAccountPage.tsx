@@ -252,7 +252,7 @@ function CreateAccountPage(){
                 <img src="./SignIn.png" alt="motivatePicture" />
             </div>
 
-            <div className="about bg-gray-700">
+            <div className="about-create-page bg-gray-700">
                 <Footer/>
             </div>
         </div>
