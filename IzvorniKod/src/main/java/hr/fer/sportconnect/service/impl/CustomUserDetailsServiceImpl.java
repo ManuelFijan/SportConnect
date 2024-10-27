@@ -1,4 +1,4 @@
-package hr.fer.sportconnect.service;
+package hr.fer.sportconnect.service.impl;
 
 import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.UserRepository;
@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * Logika vezana za autentifikaciju
+ */
+
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public CustomUserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

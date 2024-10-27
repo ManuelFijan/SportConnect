@@ -1,5 +1,10 @@
 package hr.fer.sportconnect.dto;
 
+/**
+ * Podaci koje poslužitelj vraća korisniku nakon logiranja u sustav. Vraća korisnika i token kojim se prijavio.
+ * Bearer je najčešći tip tokena koji se koristi, omogućava korisnicima pristup zaštićenim resursima, npr. različiti endpointovi s osobnim informacijama.
+ */
+
 public class LoginResponseDto {
     private String accessToken;
     private String tokenType = "Bearer";

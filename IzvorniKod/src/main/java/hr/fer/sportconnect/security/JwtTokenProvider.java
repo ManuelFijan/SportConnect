@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import javax.crypto.SecretKey;
 
+/**
+ * Generira i validira tokene za autentifikaciju
+ */
+
 @Component
 public class JwtTokenProvider {
 

@@ -7,6 +7,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+/**
+ * Zadužen za pretvorbu entiteta u njihove DTO oblike i obrnuto.
+ * ComponentModel omogućuje da mapper bude moguće injektirati.
+ * Mapping daje dodatnu kontrolu nad time kako će se podaci mapirati. U ovom slučaju se pojedini atributi ignoriraju.
+ */
+
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 

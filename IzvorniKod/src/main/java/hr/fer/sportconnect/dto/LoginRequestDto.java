@@ -2,6 +2,10 @@ package hr.fer.sportconnect.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Podaci koji se koriste tijekom logina, odnosno koje korisnik šalje poslužitelju.
+ */
+
 public class LoginRequestDto {
     @NotNull(message = "Email is required")
     private String email;

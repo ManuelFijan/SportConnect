@@ -2,6 +2,10 @@ package hr.fer.sportconnect.dto;
 
 import hr.fer.sportconnect.enums.UserType;
 
+/**
+ * Zadužen za prijenos podataka korisnika između servisnog sloja i modela. Navodimo samo one atribute koje želimo da se šalju "vanjskom" svijetu.
+ */
+
 public class UserDto {
     private Long userId;
     private String email;
