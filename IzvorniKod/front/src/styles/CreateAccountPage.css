@@ -1,7 +1,6 @@
 .create-acc-container{
     background: #374151;
     width: auto;
-    min-height: 59rem;
 }
 
 .create-card{
@@ -11,13 +10,14 @@
     width: 50%;
     border: 2px white;
     position: absolute;
-    top: 10%;
+    top: 20%;
     left: 24%;
     padding: 2rem;
 }
 
 .logopic{
-    width: 9rem;
+    width: 12rem;
+    margin-left: 30px;
 }
 .logopic img{
     padding-top: 1.5rem;
@@ -124,6 +124,9 @@ div div h2{
     margin-left: 0.8rem;
 }
 
+.about{
+    margin-top: 560px;
+}
 
 @media (max-width: 1318px) {
     .create-card{
@@ -155,9 +158,14 @@ div div h2{
 }
 
 @media (max-width: 1034px) {
+    .logopic{
+        width: 9rem;
+    }
+
     .create-card{
         width: 56%;
-        left:20%;
+        left: 20%;
+        top: 23%;
     }
 
     .picture{
@@ -175,12 +183,16 @@ div div h2{
     .btn-group{
         width: 14rem;
     }
+
+    .about{
+        margin-top: 670px;
+    }
 }
 
 @media (max-width: 924px) {
     .create-card{
         width: 58%;
-        left:17%;
+        left: 20%;
     }
 
     .logopic{
@@ -229,16 +241,14 @@ div div h2{
     .btn-group{
         width: 14rem;
     }
-
-
 }
 
 @media (max-width: 693px) {
     .create-card{
         width: 75%;
-        left:22%;
-        top: 4%;
-        height: 57rem;
+        left:16%;
+        top: 17%;
+        height: 50rem;
     }
 
     .left-container{
@@ -263,6 +273,10 @@ div div h2{
 
     .link{
         margin-top: 1rem;
+    }
+
+    .about{
+        margin-top: 850px;
     }
 }
 

@@ -1,6 +1,7 @@
 import '../styles/CreateAccountPage.css'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 
 function CreateAccountPage(){
@@ -162,7 +163,7 @@ function CreateAccountPage(){
     
 
     return (
-        <div className="create-acc-container">
+        <div className="create-acc-container min-h-screen">
             <div className='logopic'>
                 <img src="/logo.png"/>
             </div>
@@ -249,6 +250,10 @@ function CreateAccountPage(){
             </div>
             <div className='picture'>
                 <img src="./SignIn.png" alt="motivatePicture" />
+            </div>
+
+            <div className="about bg-gray-700">
+                <Footer/>
             </div>
         </div>
     )  
