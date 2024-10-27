@@ -71,7 +71,7 @@ const SignInPage = () => {
           {bool2 ? '' : <div style={{ color: 'red' }}>{errorMessage2}</div>}
 
           <div className='buttons'>
-            <button type="submit" className="btn1">Sign in</button>
+            <button type="submit" className="btn1 mr-2">Sign in</button>
             <Link to={'/'}>
                 <button className="close-btn">
                     Close
