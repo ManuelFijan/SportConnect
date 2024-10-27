@@ -163,7 +163,7 @@ function CreateAccountPage(){
     
 
     return (
-        <div className="create-acc-container min-h-screen">
+        <div className="create-acc-container min-h-screen min-w-screen">
             <div className='logopic'>
                 <img src="/logo.png"/>
             </div>

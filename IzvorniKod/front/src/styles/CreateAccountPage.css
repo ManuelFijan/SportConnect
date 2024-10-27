@@ -1,6 +1,5 @@
 .create-acc-container{
     background: #374151;
-    width: auto;
 }
 
 .create-card{
@@ -16,7 +15,7 @@
 }
 
 .logopic{
-    width: 12rem;
+    width: 10rem;
     margin-left: 30px;
 }
 .logopic img{
@@ -125,7 +124,7 @@ div div h2{
 }
 
 .about-create-page{
-    margin-top: 560px;
+    margin-top: 57rem;
     height: 10vh;
     color: #aeadad;
     text-align: center;  
@@ -142,7 +141,7 @@ div div h2{
     }
 
     .picture{
-        width: 15rem;
+        width: 14rem;
     }
 
     .left-container{
@@ -177,6 +176,7 @@ div div h2{
 
     .picture{
         width: 12rem;
+        margin-top: 1.5rem;
     }
 
     .left-container{
@@ -189,10 +189,6 @@ div div h2{
 
     .btn-group{
         width: 14rem;
-    }
-
-    .about-create-page{
-        margin-top: 670px;
     }
 }
 
@@ -211,6 +207,7 @@ div div h2{
 
     .picture{
         width: 10rem;
+        margin-top: 1.5rem;
     }
 
     .left-container{
@@ -255,7 +252,7 @@ div div h2{
         width: 75%;
         left:16%;
         top: 17%;
-        height: 50rem;
+        height: 57rem;
     }
 
     .left-container{
@@ -280,10 +277,6 @@ div div h2{
 
     .link{
         margin-top: 1rem;
-    }
-
-    .about-create-page{
-        margin-top: 850px;
     }
 }
 

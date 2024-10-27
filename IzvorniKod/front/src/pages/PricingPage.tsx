@@ -6,7 +6,7 @@ import Footer from "../components/Footer.tsx";
 
 const PricingPage: React.FC = () => {
     return (
-        <div className="Pricing bg-gray-700 pt-24 min-h-screen min-w-screen">
+        <div className="Pricing bg-gray-700 pt-24 min-w-screen min-h-full">
             <h1>Pricing Table</h1>
             <div className="pricing-table">
                 {pricingCards.map((card) => (
@@ -21,7 +21,7 @@ const PricingPage: React.FC = () => {
                     />
                 ))}
             </div>
-            <div className="about bg-gray-700 pt-28 mt-4">
+            <div className="about bg-gray-700 mt-[60px] ">
                 <Footer />
             </div>
         </div>
