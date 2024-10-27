@@ -8,17 +8,17 @@ import {Link} from "react-router-dom";
 const getBorderColor = (color: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'): string => {
     switch (color) {
         case 'bronze':
-            return '#cd7f32'; // Bronze color
+            return '#cd7f32';
         case 'silver':
-            return 'silver'; // Silver color
+            return 'silver';
         case 'gold':
-            return 'gold'; // Gold color
+            return 'gold';
         case 'green':
-            return 'green'; // Green color
+            return 'green';
         case 'gray':
-            return 'gray'; // Gray color
+            return 'gray';
         default:
-            return 'transparent'; // Fallback if no match
+            return 'transparent';
     }
 };
 
@@ -28,7 +28,7 @@ interface PricingCardProps {
     price: number;
     features: string[];
     isFeatureIncluded: boolean[];
-    borderColor: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'; // Updated to specific string literals
+    borderColor: 'bronze' | 'silver' | 'gold' | 'green' | 'gray';
     buttonText: string;
 }
 
@@ -39,7 +39,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
                                                      isFeatureIncluded,
                                                      borderColor,
                                                      buttonText
-                                                 }) => {
+                                                }) => {
     return (
         <div
             className={`card ${borderColor}`}

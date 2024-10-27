@@ -1,19 +1,16 @@
-/* Main Pricing Section */
 .Pricing {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5rem;
-
 }
 
-.Pricing h1 { /* Pricing Table */
+.Pricing h1 {
     font-size: 3rem;
     color: white;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 4rem; /* Adjust as needed */
+    margin-bottom: 4rem; 
 }
 
 .pricing-table {
@@ -21,18 +18,14 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-
-
 }
 
 .card {
-    background-color: #4c4cae;
-    border-radius: 1000px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 270px;
     padding: 1rem;
-
+    border-radius: 500px;
 }
 
 .card ul{
@@ -41,22 +34,20 @@
     justify-content: left;
     align-items: flex-start;
     padding-bottom: 1rem;
-
 }
-.card h2 { /* Silver */
+
+.card h2 {
     font-size: 3rem;
 }
 
 .card .price {
     font-size: 2rem;
-    color: #000;
 }
 
 .card .month {
     color: #000;
     font-size: 1.5rem;
 }
-
 
 .card ul li {
     padding-bottom: 0.75rem;
@@ -83,7 +74,7 @@
     color: #fff;
     cursor: pointer;
     font-size: 1.4rem;
-    padding: 1rem 2.5rem;
+    padding: 0.7rem 2.5rem;
     transition: background-color 0.2s;
 }
 
@@ -91,29 +82,27 @@
     filter: brightness(70%);
 }
 
-/* Card Border Variants */
-.green {
-    background-color: #cd7f32;
-
-}
 .green h2,
 .green .price{
     color: green;
     background-color: white;
 }
+
 .green button {
     color: white;
     background-color: green;
 }
 
 .bronze {
-    border: 2px solid #cd7f32; /* Replace with actual value for $bronze */
+    border: 2px solid #cd7f32; 
 }
+
 .bronze h2,
 .bronze .price{
     color: #cd7f32;
     background-color: white;
 }
+
 .bronze button {
     color: white;
     background-color: #cd7f32;
@@ -128,6 +117,7 @@
     color: silver;
     background-color: white;
 }
+
 .silver button {
     color: white;
     background-color: silver;
@@ -136,12 +126,14 @@
 .gold {
     border: 2px solid gold;
 }
+
 .gold h2,
 .gold .price
 {
     color: gold;
     background-color: white;
 }
+
 .gold button{
     color: white;
     background-color: gold;
@@ -150,20 +142,10 @@
 .gray {
     border: 2px solid gray;
 }
+
 .gray h2,
 .gray .price,
 .gray button {
     color: gray;
     background-color: gray;
-}
-
-@media (max-width: 833px) {
-    .footer-container {
-        gap: 3rem;
-    }
-}
-@media (max-width: 600px) {
-    .footer-container {
-        gap: 1.5rem;
-    }
 }
