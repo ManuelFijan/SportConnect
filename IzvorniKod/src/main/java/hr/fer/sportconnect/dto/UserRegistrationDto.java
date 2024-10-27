@@ -1,5 +1,6 @@
 package hr.fer.sportconnect.dto;
 
+import hr.fer.sportconnect.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,7 +12,7 @@ public class UserRegistrationDto {
     private String email;
 
     @NotNull(message = "Password is required")
-    @Size(min = 8, message = "Password should be at least 8 characters")
+    @Size(min = 6, message = "Password should be at least 6 characters")
     private String password;
 
     @NotNull(message = "First name is required")
@@ -22,6 +23,9 @@ public class UserRegistrationDto {
 
     @NotNull(message = "Username is required")
     private String userName;
+
+    @NotNull(message = "User type is required")
+    private UserType userType;
 
     public String getEmail() {
         return email;
@@ -61,5 +65,13 @@ public class UserRegistrationDto {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

@@ -1,10 +1,14 @@
 package hr.fer.sportconnect.dto;
 
+import hr.fer.sportconnect.enums.UserType;
+
 public class UserDto {
     private Long userId;
     private String email;
     private String firstName;
     private String lastName;
+    private String userName;
+    private UserType userType;
 
     public Long getUserId() {
         return userId;
@@ -36,5 +40,21 @@ public class UserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

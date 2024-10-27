@@ -14,22 +14,32 @@ public class User {
     private Long userId;
     @Column(unique = true, nullable = false)
     private String email;
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
     @Column(nullable = false)
+    private String firstName;
+    @Column(nullable = false)
+    private String lastName;
+    @Column(unique = true, nullable = false)
     private String userName;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserType userType;
     @Column(nullable = false)
     private LocalDateTime dateJoined = LocalDateTime.now();
+    @Column(nullable = false)
     private boolean isBanned = false;
 
     public User() {
 
     }
 
-    public User(Long userId, String email, String passwordHash, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned) {
+    public User(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned) {
         this.userId = userId;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userName = userName;
         this.userType = userType;
         this.dateJoined = dateJoined;
@@ -58,6 +68,22 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUserName() {

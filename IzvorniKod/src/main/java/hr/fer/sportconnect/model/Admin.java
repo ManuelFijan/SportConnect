@@ -8,7 +8,8 @@ public class Admin extends User {
     public Admin() {
     }
 
-    public Admin(Long userId, String email, String passwordHash, String userName, LocalDateTime dateJoined, boolean isBanned) {
-        super(userId, email, passwordHash, userName, UserType.ADMIN, dateJoined, isBanned);
+    public Admin(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned) {
+        super(userId, email, passwordHash, firstName, lastName, userName, userType, dateJoined, isBanned);
     }
+
 }

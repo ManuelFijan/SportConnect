@@ -1,11 +1,23 @@
 package hr.fer.sportconnect.controller;
 
+import hr.fer.sportconnect.dto.LoginRequestDto;
+import hr.fer.sportconnect.dto.LoginResponseDto;
 import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.dto.UserRegistrationDto;
-import hr.fer.sportconnect.service.UserService;
+import hr.fer.sportconnect.mappers.UserMapper;
+import hr.fer.sportconnect.model.User;
+import hr.fer.sportconnect.repository.UserRepository;
+import hr.fer.sportconnect.security.JwtTokenProvider;
+import hr.fer.sportconnect.service.impl.UserServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +29,18 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider tokenProvider;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider, UserRepository userRepository, UserMapper userMapper) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/signedin")
@@ -37,8 +57,26 @@ public class UserController {
         return response;
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
+
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = tokenProvider.generateToken(authentication);
+
+            User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
+            UserDto userDto = userMapper.toDto(user);
+
+            return ResponseEntity.ok(new LoginResponseDto(token, userDto));
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserRegistrationDto registrationDto) {
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserRegistrationDto registrationDto) {
         UserDto userDto = userService.registerUser(registrationDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
