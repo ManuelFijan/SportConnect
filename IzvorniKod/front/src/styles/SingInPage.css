@@ -1,7 +1,7 @@
 .login2{
     background-color: whitesmoke;
     border-radius: 1.3rem;
-    height: 27rem;
+    height: 31rem;
     width: 30%;
     border: 2px white;
     position: absolute;
@@ -13,7 +13,13 @@
 form input{
     margin-bottom: 0.1rem;
 }
+form{
+    display: inline;
+}
 
+.message{
+    margin-top: 3rem;
+}
 .signUp{
     color: #5E5DF0;
     text-decoration: none;
@@ -24,7 +30,6 @@ form input{
     display: flex;
     justify-content: space-between;
 }
-
 .btn1{
     background-color: #5E5DF0;
     color: whitesmoke;
@@ -34,7 +39,6 @@ form input{
 .btn1:hover{
     background-color: #4c4cae;
 }
-
 .close-btn{
     background-color: #737380;
     color: whitesmoke;
@@ -45,12 +49,9 @@ form input{
     background-color: #f04511;
 }
 
-form{
-    display: inline;
-}
-
-.message{
-    margin-top: 3rem;
+.new-acc{
+    position: absolute;
+    top: 88%;
 }
 
 div div p{
@@ -63,6 +64,7 @@ h2 img{
     top: -0.2rem;
     left: 0.2rem;
 }
+
 div div h2{
     margin-bottom: 3rem;
 }

@@ -81,10 +81,13 @@ const SignInPage = () => {
 
         </form><br />
       
-        <span className='message'>Don't have an account? </span>
-        <Link to={'/create-an-account'}>
-          <button className='signUp'>Sign up</button>
-        </Link>
+        <div className='new-acc'>
+          <span className='message'>Don't have an account? </span>
+          <Link to={'/create-an-account'}>
+            <button className='signUp'>Sign up</button>
+          </Link>
+        </div>
+        
        
       </div>
     </div>
