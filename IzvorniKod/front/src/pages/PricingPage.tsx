@@ -21,7 +21,7 @@ const PricingPage: React.FC = () => {
                     />
                 ))}
             </div>
-            <div className="about bg-gray-700 pt-12">
+            <div className="about bg-gray-700 pt-36">
                 <Footer />
             </div>
         </div>
