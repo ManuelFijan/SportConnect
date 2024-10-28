@@ -4,12 +4,22 @@ import { useLocation } from 'react-router-dom';
 function Footer() {
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
-    
+    const bool2 = location.pathname === '/'
+
+
     /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini
     nemaju funkcionalnost */
+
+    /*ako je putanja na / onda ne prikazuj gumbic sa home */
     return (
         <>
             <div className="footer-container">
+                <div className={(bool2 ? 'no-home-button' : 'home-button')}>
+                    <Link to={bool ? '' : "/"}>
+                        <button>🏠</button>
+                    </Link>
+                </div>
+
                 <Link to={bool ? '' : "/about-us"} className="">
                     <p>About Us</p>
                 </Link>

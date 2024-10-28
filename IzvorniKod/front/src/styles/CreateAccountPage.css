@@ -10,7 +10,7 @@
     border: 2px white;
     position: absolute;
     top: 20%;
-    left: 24%;
+    left: 25%;
     padding: 2rem;
 }
 
@@ -124,8 +124,7 @@ div div h2{
 }
 
 .about-create-page{
-    margin-top: 57rem;
-    height: 10vh;
+    margin-top: 40rem;
     color: #aeadad;
     text-align: center;  
     background-color: #3B3B3B; 
@@ -226,7 +225,8 @@ div div h2{
 @media (max-width: 844px) {
     .create-card{
         width: 77%;
-        left:19%;
+        left: 12%;
+        top: 30%;
     }
 
     .picture{
@@ -244,6 +244,10 @@ div div h2{
 
     .btn-group{
         width: 14rem;
+    }
+
+    .about-create-page{
+        margin-top: 45rem;
     }
 }
 
@@ -281,15 +285,14 @@ div div h2{
 }
 
 @media (max-width: 693px) {
-    .logopic{
-        width: 5.5rem;
-        padding-left: 0.5rem;
-    }
-
     .left-container{
         width: 19rem;
     }
     
+    .create-card{
+        top: 30%;
+    }
+
     .right-container{
         width: 19rem;
     }
@@ -300,5 +303,9 @@ div div h2{
 
     .link{
         margin-left: 1.2rem;
+    }
+
+    .about-create-page{
+        margin-top: 62rem;
     }
 }

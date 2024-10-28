@@ -60,6 +60,14 @@
 }
 
 @media (max-width: 680px) {
+    .small-div-inside{
+        margin-top: 30px;
+    }
+
+    .small-div-inside p{
+        font-size: 16px;
+    }
+
     .terms-of-service-header img{
         width: 150px;
     }
@@ -67,7 +75,7 @@
     .terms-of-service-header p{
         font-size: 32px;
         margin-top: 130px;
-        margin-left: 50px;
+        margin-left: 45px;
         height: 1rem;
     }
 }

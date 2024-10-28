@@ -45,7 +45,6 @@ form input{
     background-color: #f04511;
 }
 
-
 form{
     display: inline;
 }
@@ -68,7 +67,6 @@ div div h2{
     margin-bottom: 3rem;
 }
 
-
 @media (max-width: 1082px) {
     .login2{
         width: 40%;
@@ -86,6 +84,6 @@ div div h2{
 @media (max-width: 595px) {
     .login2{
         width: 60%;
-        left:20%;
+        left: 20%;
     }
 }

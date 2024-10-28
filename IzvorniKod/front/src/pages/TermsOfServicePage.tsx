@@ -117,7 +117,7 @@ function TermsOfServicePage() {
             </div>
         </div>  
 
-        <div className="about bg-gray-700 pt-5">
+        <div className="about bg-gray-700 pt-3">
             <Footer/>
         </div>
     </>
