@@ -116,13 +116,6 @@ function CreateAccountPage(){
         }
         
 
-        if(num.length > 6){
-            setBool5(true)
-        } else {
-            setBool5(false)
-            setNumError('Incorrect number format')
-        }
-
         let tmp3 = username.split('')
         if(/^[a-zA-Z]$/.test(tmp3[0]) && username.length > 3){
             let br = 0;
@@ -137,7 +130,25 @@ function CreateAccountPage(){
             setBool4(false)
             setUsernameError('Incorrect username format')
         }
-        
+
+
+        let tmp4 = num.split(' ')
+        let tmp5 = tmp4[0].split('')
+        if(tmp5[0] === '+' && isFinite(Number(tmp4[1])) && tmp4[1].length > 6 && !tmp4[1].includes('.')){
+            console.log(tmp4[1])
+            tmp5[0] = '0'
+            let br = 0
+            tmp5.map(t => isFinite(Number(t)) ? '' : br++)
+            if(br === 0 && tmp5[1] && tmp4[1]){
+                setBool5(true)
+            } else {
+                setBool5(false)
+                setNumError('+(country_code)  phone_number')
+            }
+        } else {
+            setBool5(false)
+            setNumError('+(country_code)  phone_number')
+        }
     }
 
     // funckija za odselektiranje gumba ako drugi selektiramo
@@ -163,7 +174,7 @@ function CreateAccountPage(){
     
 
     return (
-        <div className="create-acc-container min-h-screen min-w-screen">
+        <div className="create-acc-container bg-gray-700 min-h-screen min-w-screen">
             <div className='logopic'>
                 <img src="/logo.png"/>
             </div>
@@ -179,11 +190,11 @@ function CreateAccountPage(){
                         <div className='left-container'>
                             <div className="btn-group" role="group" aria-label="Toggle button group" id='toggleForm1'>
                                 <label className="btn btn-outline-dark" onClick={() => toggleActive(1)}>
-                                    <input type="radio" className="btn-check" name="role" value="Client"/> Client
+                                    <input type="radio" className="btn-check" name="role" value="Client" required/> Client
                                 </label>
 
                                 <label className="btn btn-outline-dark" onClick={() => toggleActive(1)}>
-                                    <input type="radio" className="btn-check" name="role" value="Partner"/> Partner
+                                    <input type="radio" className="btn-check" name="role" value="Partner" required/> Partner
                                 </label>
                             </div>
                         
@@ -196,7 +207,7 @@ function CreateAccountPage(){
                         </div>
 
                         <div className='right-container mr-2 '>
-                            <input type="text" onChange={numOnChange} placeholder="Contact (mobile/telephone number)" className="form-control mt-3" maxLength={15} required/>
+                            <input type="text" onChange={numOnChange} placeholder="Contact (mobile/telephone number)" className="form-control mt-3" maxLength={19} required/>
                             {bool5 ? '' : <div style={{ color: 'red' }}>{errorMessage5}</div>}
                             <input type="text" onChange={emailOnChange} placeholder="E-mail" className="form-control mt-3" maxLength={50} required/>
                             {bool1 ? '' : <div style={{ color: 'red' }}>{errorMessage}</div>}
@@ -205,19 +216,19 @@ function CreateAccountPage(){
 
                             <div className="btn-group mt-[0.8rem]" role="group" aria-label="Toggle button group" id='toggleForm2'>
                                 <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="role" value="Free"/> Free 
+                                    <input type="radio" className="btn-check" name="membership" value="Free" required/> Free 
                                 </label>
 
                                 <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="role" value="Bronze"/> Bronze 
+                                    <input type="radio" className="btn-check" name="membership" value="Bronze" required/> Bronze 
                                 </label>
 
                                 <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="role" value="Silver"/> Silver 
+                                    <input type="radio" className="btn-check" name="membership" value="Silver" required/> Silver 
                                 </label>
 
                                 <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="role" value="Gold"/> Gold   
+                                    <input type="radio" className="btn-check" name="membership" value="Gold" required/> Gold   
                                 </label>
                             </div>
                         </div>

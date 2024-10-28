@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 function Footer() {
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
-    const bool2 = location.pathname === '/'
+    const bool2 = (location.pathname === '/') || (location.pathname === '/sign-in')
 
 
     /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini
