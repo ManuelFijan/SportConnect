@@ -25,7 +25,7 @@ const pricingCards = [
     {
 
         title: 'Bronze',
-        price: 29,
+        price: 15,
         isFeatureIncluded: [
             true,
             true,
@@ -38,7 +38,7 @@ const pricingCards = [
     },
     {
         title: 'Silver',
-        price: 39,
+        price: 25,
         isFeatureIncluded: [
             true,
             true,
@@ -51,7 +51,7 @@ const pricingCards = [
     },
     {
         title: 'Gold',
-        price: 49,
+        price: 35,
         isFeatureIncluded: [
             true,
             true,
