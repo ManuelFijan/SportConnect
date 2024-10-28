@@ -76,7 +76,7 @@ Hvala vam što razmatrate mogućnost doprinosa projektu SportConnect! Ova datote
 ### Standardi koda (Code Standards)
 
 - Pridržavajte se dosljednih konvencija imenovanja i strukture unutar baze koda.
-- Testirajte svoje promjene prije predaje, koristeći jedinčne testove gdje je primjenjivo.
+- Testirajte svoje promjene prije predaje, koristeći jedinične testove gdje je primjenjivo.
 - Pregledi koda osiguravaju kvalitetu, stoga budite spremni na povratne informacije.
 
 ### Poruke pri predaji (Commit Messages)
