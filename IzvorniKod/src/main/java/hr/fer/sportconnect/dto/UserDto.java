@@ -1,5 +1,6 @@
 package hr.fer.sportconnect.dto;
 
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 
 /**
@@ -13,6 +14,8 @@ public class UserDto {
     private String lastName;
     private String userName;
     private UserType userType;
+    private SubscriptionPlan subscriptionPlan;
+    private String mobileNumber;
 
     public Long getUserId() {
         return userId;
@@ -60,5 +63,21 @@ public class UserDto {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public SubscriptionPlan getSubscriptionPlan() {
+        return subscriptionPlan;
+    }
+
+    public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
+        this.subscriptionPlan = subscriptionPlan;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

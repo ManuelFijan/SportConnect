@@ -1,5 +1,6 @@
 package hr.fer.sportconnect.model;
 
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 import jakarta.persistence.*;
 
@@ -29,12 +30,17 @@ public class User {
     private LocalDateTime dateJoined = LocalDateTime.now();
     @Column(nullable = false)
     private boolean isBanned = false;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SubscriptionPlan subscriptionPlan;
+    @Column(unique = true, nullable = false)
+    private String mobileNumber;
 
     public User() {
 
     }
 
-    public User(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned) {
+    public User(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber) {
         this.userId = userId;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -44,6 +50,8 @@ public class User {
         this.userType = userType;
         this.dateJoined = dateJoined;
         this.isBanned = isBanned;
+        this.subscriptionPlan = subscriptionPlan;
+        this.mobileNumber = mobileNumber;
     }
 
     public Long getUserId() {
@@ -116,5 +124,21 @@ public class User {
 
     public void setBanned(boolean banned) {
         isBanned = banned;
+    }
+
+    public SubscriptionPlan getSubscriptionPlan() {
+        return subscriptionPlan;
+    }
+
+    public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
+        this.subscriptionPlan = subscriptionPlan;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

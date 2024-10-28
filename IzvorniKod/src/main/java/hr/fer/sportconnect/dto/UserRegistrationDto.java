@@ -1,5 +1,6 @@
 package hr.fer.sportconnect.dto;
 
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +31,12 @@ public class UserRegistrationDto {
 
     @NotNull(message = "User type is required")
     private UserType userType;
+
+    @NotNull(message = "Subscription plan is required")
+    private SubscriptionPlan subscriptionPlan;
+
+    @NotNull(message = "Mobile number is required")
+    private String mobileNumber;
 
     public String getEmail() {
         return email;
@@ -77,5 +84,21 @@ public class UserRegistrationDto {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public SubscriptionPlan getSubscriptionPlan() {
+        return subscriptionPlan;
+    }
+
+    public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
+        this.subscriptionPlan = subscriptionPlan;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

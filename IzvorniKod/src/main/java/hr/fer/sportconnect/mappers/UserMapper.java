@@ -22,6 +22,8 @@ public interface UserMapper {
     @Mapping(target = "dateJoined", ignore = true)
     @Mapping(target = "banned", ignore = true)
     @Mapping(target = "userId", ignore = true)
+    @Mapping(source = "mobileNumber", target = "mobileNumber")
+    @Mapping(source = "subscriptionPlan", target = "subscriptionPlan")
     User toEntity(UserRegistrationDto userRegistrationDto);
     UserDto toDto(User user);
 }

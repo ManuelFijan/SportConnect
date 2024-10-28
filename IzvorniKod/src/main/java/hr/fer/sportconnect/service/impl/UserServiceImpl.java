@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Logika vezana uz registraciju korisnika
@@ -37,6 +38,10 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Username is already in use");
         }
 
+        if(userRepository.existsByMobileNumber(registrationDto.getMobileNumber())) {
+            throw new IllegalArgumentException("Mobile phone is already in use");
+        }
+
         User user = userMapper.toEntity(registrationDto);
 
         user.setPasswordHash(passwordEncoder.encode(registrationDto.getPassword()));
@@ -48,5 +53,10 @@ public class UserServiceImpl implements UserService {
         System.out.println("Encoded password: " + user.getPasswordHash());
 
         return userMapper.toDto(savedUser);
+    }
+
+    @Override
+    public Optional<UserDto> findByEmailOrUserName(String email, String userName) {
+        return userRepository.findByEmailOrUserName(email, userName).map(userMapper::toDto);
     }
 }

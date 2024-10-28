@@ -7,17 +7,17 @@ import jakarta.validation.constraints.NotNull;
  */
 
 public class LoginRequestDto {
-    @NotNull(message = "Email is required")
-    private String email;
+    @NotNull(message = "Email or username is required")
+    private String identifier;
     @NotNull(message = "Password is required")
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public String getPassword() {
