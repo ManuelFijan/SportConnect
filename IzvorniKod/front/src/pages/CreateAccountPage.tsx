@@ -5,32 +5,32 @@ import Footer from '../components/Footer';
 
 
 function CreateAccountPage(){
-    //kontrola formata ime
+    //kontrola formata imena
     const [name, setName] = useState('')
     const [errorMessage3, setNameError] = useState('')
     const [bool3, setBool3] = useState(true)
 
-    //kontrola formata prezime
+    //kontrola formata prezimena
     const [surname, setSurname] = useState('')
     const [errorMessage6, setSurnameError] = useState('')
     const [bool6, setBool6] = useState(true)
 
-    //kontrola formata korisnicko ime
+    //kontrola formata korisnickog imena
     const [username, setUsername] = useState('')
     const [errorMessage4, setUsernameError] = useState('')
     const [bool4, setBool4] = useState(true)
 
-    //kontrola formata broj
+    //kontrola formata broja
     const [num, setNum] = useState('')
     const [errorMessage5, setNumError] = useState('')
     const [bool5, setBool5] = useState(true)
      
-    //kontrola formata lozinka
+    //kontrola formata lozinke
     const [password, setPassword] = useState('')
     const [errorMessage2, setPasswordError] = useState('')
     const [bool2, setBool2] = useState(true)
 
-    //kontrola formata mail
+    //kontrola formata e-maila
     const [email, setValue] = useState('')
     const [errorMessage, setEmailError] = useState('')
     const [bool1, setBool1] = useState(true)
@@ -75,7 +75,7 @@ function CreateAccountPage(){
             setBool1(false)
         }
 
-
+        //lozinka mora biti dulja od 6 znakova te moze biti bilo koja kombinacija slova/brojeva/specijalnih znakova
         if(password.length < 6){
             setPasswordError('Password must be longer then 6 characters')
             setBool2(false)
@@ -83,11 +83,12 @@ function CreateAccountPage(){
             setBool2(true)
         }
 
-
+        //ime i prezime moraju pocinjat velikom slovom i sastojat se samo od slova te biti duljine barem 2
         let tmp1 = name.split('')
         if(/^[A-Z]$/.test(tmp1[0]) && name.length > 1){
             let br = 0;
             tmp1.map(t => (/^[a-zA-Z]$/.test(t) ? '' : br++))
+            //ako je br 0 to znaci da ga nismo povecavali tj. svaki t se nalazio u zadanom regex-u
             if(br === 0)
                 setBool3(true)
             else{
@@ -115,7 +116,7 @@ function CreateAccountPage(){
             setSurnameError('Incorrect surname format')
         }
         
-
+        //korisnicko ime mora pocinjat slovom te dalje moze biti bilo koja kombinacija slova/brojeva/./_ te duljine barem 4
         let tmp3 = username.split('')
         if(/^[a-zA-Z]$/.test(tmp3[0]) && username.length > 3){
             let br = 0;
@@ -131,11 +132,11 @@ function CreateAccountPage(){
             setUsernameError('Incorrect username format')
         }
 
-
+        // mobilni broj mora se sastojati od pozivnog broja drzave u formatu +(pa pozivni broj), npr. +385, +1, +43
+        // zatim slijedi razmak pa ostatak mobilnog broja, npr. 0913452936 te taj dio mora biti dulji od 6 znamenki
         let tmp4 = num.split(' ')
         let tmp5 = tmp4[0].split('')
         if(tmp5[0] === '+' && isFinite(Number(tmp4[1])) && tmp4[1].length > 6 && !tmp4[1].includes('.')){
-            console.log(tmp4[1])
             tmp5[0] = '0'
             let br = 0
             tmp5.map(t => isFinite(Number(t)) ? '' : br++)
@@ -242,7 +243,9 @@ function CreateAccountPage(){
                                                        
                     
                     <div className='buttons ml-2'>
-                        <button type="submit" className="btn1 mr-3">Continue</button>
+                        <button type="submit" className="btn1 mr-3">
+                            Continue
+                        </button>
                         <Link to={'/'}>
                             <button className="close-btn mr-2">
                                 Close

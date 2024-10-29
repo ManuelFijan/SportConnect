@@ -31,6 +31,7 @@
     display: flex;
     gap: 5rem;     
     padding-top: 25px;    
+    font-size: 15px;
 }
 
 .footer-container a {
@@ -122,9 +123,14 @@
     .footer-container {
         gap: 3rem; 
     }
+
+    .footer-container {
+        font-size: 15px; 
+    }
 }
 
 @media (max-width: 833px) {
+    
     .button-1, .sign-button-1{
         font-size: 14px;
         padding: 0.5rem 5rem;
@@ -142,11 +148,19 @@
     .logo{
         margin-top: 7rem;
     }
+
+    .footer-container {
+        font-size: 15px; 
+    }
 }
 
 @media (max-width: 693px) {
     .footer-container {
         gap: 1.5rem; 
+    }
+
+    .footer-container {
+        font-size: 15px; 
     }
 }
 
@@ -168,10 +182,14 @@
     .logo{
         margin-top: 7rem;
     }
+
+    .footer-container {
+        font-size: 14px; 
+    }
 }
 
 @media (max-width: 560px) {
     .footer-container {
-        font-size: 13.5px; 
+        font-size: 12px; 
     }
 }

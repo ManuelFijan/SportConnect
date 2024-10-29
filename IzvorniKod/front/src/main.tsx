@@ -9,7 +9,7 @@ import AboutUsPage from './pages/AboutUsPage.tsx'
 import TermsOfServicePage from './pages/TermsOfServicePage.tsx'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx'
 import PricingPage from './pages/PricingPage.tsx'
-import ContactPage from './pages/ContactPage.tsx'
+import CookieUsePage from './pages/CookieUsePage.tsx'
 
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/contact',
-    element: <ContactPage/>,
+    element: <CookieUsePage/>,
     errorElement: <NotFoundPage/>
   }
 ])
