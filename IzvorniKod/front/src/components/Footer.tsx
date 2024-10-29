@@ -36,7 +36,7 @@ function Footer() {
                     <p>Pricing</p>
                 </Link>
                 
-                <Link to={bool ? '' : "/contact"} className="">
+                <Link to={bool ? '' : "/cookie-use"} className="">
                     <p>Cookie Use</p>
                 </Link>
             </div>

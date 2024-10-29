@@ -154,10 +154,11 @@ function PrivacyPolicyPage() {
                     </section>
 
                     <section id="contact-us" className="mb-8">
-                        <h2 className="text-2xl font-semibold mb-4">10. Contact Us</h2>
-                        <p className="mb-12">
-                            If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:sportconnect2024@gmail.com" className="text-blue-400">sportconnect2024@gmail.com</a>
+                        <h2 className="text-2xl font-semibold mb-4">10. Contact Information</h2>
+                        <p>
+                        If you have any questions about this policies, please contact us at <a href="mailto:sportconnect2024@gmail.com" className="text-blue-400">sportconnect2024@gmail.com</a>.
                         </p>
+                        <br />
                         <p>
                             By using <strong>SportConnect</strong>, you acknowledge that you have read, understood, and agree to the terms of this Privacy Policy.
                         </p>

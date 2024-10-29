@@ -61,9 +61,36 @@ function CreateAccountPage(){
         setNum(e.target.value)
     }
 
+    //funkcija za trazenje pritisnutih gumba form-a
+    function findChecked(name : any):string {
+        let radios
+        if(name === 'role'){
+            // Selektiraj sve inpute(radio button ovdje) s imenom "role" unutar el. s id-om toggleForm1
+            radios = document.querySelectorAll<HTMLInputElement>('#toggleForm1 input[name="role"]');
+        } else {
+            // Selektiraj sve inpute(radio button ovdje) s imenom "membership" unutar el. s id-om toggleForm2
+            radios = document.querySelectorAll<HTMLInputElement>('#toggleForm2 input[name="membership"]');
+        }
+        
+        let selectedValue = '';
+
+        // Prolazimo kroz sve radio button-e i ako radio ima atribut checked true znaci da je oznacen
+        radios.forEach((radio) => {
+            if (radio.checked) {
+                selectedValue = radio.value; // Uzmi vrednost označenog radio button-a
+            }
+        });
+
+        return selectedValue;
+    }
+
+
     const handleSubmit = (e : any) => {
         /*ova funkcija sprecava refresh stranice nakon submit-anja form-a / klika na link / itd. */
         e.preventDefault()
+
+        const btn_role = findChecked('role').toUpperCase()
+        const btn_membership = findChecked('membership').toUpperCase()
 
         //regex za provjeru formata mail-a
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

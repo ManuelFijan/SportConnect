@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage/>
   },
   {
-    path: '/contact',
+    path: '/cookie-use',
     element: <CookieUsePage/>,
     errorElement: <NotFoundPage/>
   }
