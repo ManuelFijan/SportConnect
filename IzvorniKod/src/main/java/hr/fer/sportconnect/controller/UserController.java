@@ -75,13 +75,31 @@ public class UserController {
 
             return ResponseEntity.ok(new LoginResponseDto(token, userDto));
         } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Username/email or password is invalid");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserRegistrationDto registrationDto) {
-        UserDto userDto = userService.registerUser(registrationDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDto registrationDto) {
+        try {
+            UserDto userDto = userService.registerUser(registrationDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+        } catch (IllegalArgumentException ex) {
+            String message = ex.getMessage();
+            Map<String, String> error = new HashMap<>();
+
+            if (message.contains("Email")) {
+                error.put("error", "Email is already in use");
+            } else if (message.contains("Username")) {
+                error.put("error", "Username is already in use");
+            } else if (message.contains("Mobile phone")) {
+                error.put("error", "Mobile phone number is already in use");
+            } else {
+                error.put("error", "Registration failed");
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        }
     }
 }
