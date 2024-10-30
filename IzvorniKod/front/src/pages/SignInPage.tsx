@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import '../styles/SingInPage.css';
 import { useState } from 'react';
 
+const api = "http://localhost:8080";  // base api-ja na backendu
+
 const SignInPage = () => {
   const [input, setValue] = useState('')
   const [errorMessage, setEmailError] = useState('')
@@ -21,15 +23,18 @@ const SignInPage = () => {
     setPassword(e.target.value)
   }
 
-  const handleSubmit = (e : any) => {
+  const handleSubmit = async (e : any) => {
     /*ova funkcija sprecava refresh stranice nakon submit-anja form-a / klika na link / itd. */
     e.preventDefault()
+
+    let var1 = false, var2 = false
 
     //regex za provjeru formata mail-a
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     //.test() provjerava nalazi li se zadani uzorak i predanom stringu
     if (emailRegex.test(input)) {
       setBool1(true)
+      var1 = true
     } else {
       let counter = 0
       let tmp = input.split('') // split string na znakove radi provjere jesu li svi slovo/broj
@@ -40,6 +45,7 @@ const SignInPage = () => {
       // ^[a-zA-Z0-9._]$ je regex za slovo/broj/./_
       if(!counter && /^[a-zA-Z]$/.test(tmp[0])){
         setBool1(true)
+        var1 = true
       } else {
         setEmailError('Incorrect e-mail/username format')
         setBool1(false)
@@ -51,6 +57,33 @@ const SignInPage = () => {
       setBool2(false)
     } else{
       setBool2(true)
+      var2 = true
+    }
+
+    if (var1 && var2) {
+      try {
+        const response = await fetch(`${api}/users/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            identifier: input,
+            password: password,
+          }),
+        });
+      
+        const data = await response.json();
+      
+        if (response.ok) {
+          console.log('Login successful:', data);
+        } else {
+          setEmailError('Login failed. Please check your credentials.');
+        }
+      } catch (error) {
+        console.error('Error logging in:', error);
+        setEmailError('An error occurred. Please try again later.');
+      }
     }
   }
   
@@ -87,8 +120,6 @@ const SignInPage = () => {
             <button className='signUp'>Sign up</button>
           </Link>
         </div>
-        
-       
       </div>
     </div>
   );

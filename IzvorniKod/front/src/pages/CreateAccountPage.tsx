@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 
+const api = "http://localhost:8080";  // base api-ja na backendu
 
 function CreateAccountPage(){
     //kontrola formata imena
@@ -84,19 +85,21 @@ function CreateAccountPage(){
         return selectedValue;
     }
 
-
-    const handleSubmit = (e : any) => {
+    const handleSubmit = async (e : any) => {
         /*ova funkcija sprecava refresh stranice nakon submit-anja form-a / klika na link / itd. */
         e.preventDefault()
 
         const btn_role = findChecked('role').toUpperCase()
         const btn_membership = findChecked('membership').toUpperCase()
+        
+        let var1 = false, var2 = false, var3 = false, var4 =false, var5 = false, var6 = false
 
         //regex za provjeru formata mail-a
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         //.test() provjerava nalazi li se zadani uzorak i predanom stringu
         if (emailRegex.test(email)) {
             setBool1(true)
+            var1 = true
         } else {
             setEmailError('Incorrect e-mail format')
             setBool1(false)
@@ -108,6 +111,7 @@ function CreateAccountPage(){
             setBool2(false)
         } else{
             setBool2(true)
+            var2 = true
         }
 
         //ime i prezime moraju pocinjat velikom slovom i sastojat se samo od slova te biti duljine barem 2
@@ -116,8 +120,10 @@ function CreateAccountPage(){
             let br = 0;
             tmp1.map(t => (/^[a-zA-Z]$/.test(t) ? '' : br++))
             //ako je br 0 to znaci da ga nismo povecavali tj. svaki t se nalazio u zadanom regex-u
-            if(br === 0)
+            if(br === 0){
                 setBool3(true)
+                var3 = true
+            }
             else{
                 setBool3(false)
                 setNameError('Incorrect name format')
@@ -127,13 +133,14 @@ function CreateAccountPage(){
             setNameError('Incorrect name format')
         }
 
-
         let tmp2 = surname.split('')
         if(/^[A-Z]$/.test(tmp2[0]) && surname.length > 1){
             let br = 0;
             tmp2.map(t => (/^[a-zA-Z]$/.test(t) ? '' : br++))
-            if(br === 0)
+            if(br === 0){
                 setBool6(true)
+                var6 = true
+            }
             else{
                 setBool6(false)
                 setSurnameError('Incorrect surname format')
@@ -148,8 +155,10 @@ function CreateAccountPage(){
         if(/^[a-zA-Z]$/.test(tmp3[0]) && username.length > 3){
             let br = 0;
             tmp3.map(t => (/^[a-zA-Z0-9._]$/.test(t) ? '' : br++))
-            if(br === 0)
+            if(br === 0){
                 setBool4(true)
+                var4 = true
+            }
             else{
                 setBool4(false)
                 setUsernameError('Incorrect username format')
@@ -169,6 +178,7 @@ function CreateAccountPage(){
             tmp5.map(t => isFinite(Number(t)) ? '' : br++)
             if(br === 0 && tmp5[1] && tmp4[1]){
                 setBool5(true)
+                var5 = true
             } else {
                 setBool5(false)
                 setNumError('+(country_code)  phone_number')
@@ -176,6 +186,39 @@ function CreateAccountPage(){
         } else {
             setBool5(false)
             setNumError('+(country_code)  phone_number')
+        }
+
+        if (var1 && var2 && var3 && var4 && var5 && var6) {
+            try {
+              const response = await fetch(`${api}/users/register`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    firstName: name,
+                    lastName: surname,
+                    userName: username,
+                    userType: btn_role,
+                    subscriptionPlan: btn_membership,
+                    mobileNumber: num
+                  }),
+              });
+        
+              const data = await response.json();
+        
+              if (response.ok) {
+                console.log('Register successful:', data);
+              } else {
+                setEmailError('Register failed. Please check your credentials.');
+              }
+
+            } catch (error) {
+              console.error('Error while register:', error);
+              setEmailError('An error occurred. Please try again later.');
+            }
         }
     }
 
@@ -189,17 +232,15 @@ function CreateAccountPage(){
         }
         
         labels.forEach(label => {
-          label.onclick = () => {
+            label.onclick = () => {
             // Uklanja 'active' klasu sa svih labela
             labels.forEach(l => l.classList.remove('active'));
             
             // Dodaje 'active' klasu na kliknuti label
             label.classList.add('active');
-          };
+            };
         });
-      }
-
-    
+    }
 
     return (
         <div className="create-acc-container bg-gray-700 min-h-screen min-w-screen">
