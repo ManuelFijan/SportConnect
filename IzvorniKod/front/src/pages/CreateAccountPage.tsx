@@ -1,6 +1,6 @@
 import '../styles/CreateAccountPage.css'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; //potrebno za redirect (navigiranje) na drugu stranicu
 import Footer from '../components/Footer';
 
 const api = "http://localhost:8080";  // base api-ja na backendu
@@ -36,6 +36,8 @@ function CreateAccountPage(){
     const [errorMessage, setEmailError] = useState('')
     const [bool1, setBool1] = useState(true)
 
+    const navigate = useNavigate();
+    
     /*e je cijeli objekt i metapodaci tog inputa u formu 
     a e.target.value je tocno ono uneseno u input*/
     const emailOnChange = (e : any) => {
@@ -211,6 +213,7 @@ function CreateAccountPage(){
         
               if (response.ok) {
                 console.log('Register successful:', data);
+                navigate('/user-info', { state: {user: data, fromCreateAccount: true} });
               } else {
                 setEmailError('Register failed. Please check your credentials.');
               }

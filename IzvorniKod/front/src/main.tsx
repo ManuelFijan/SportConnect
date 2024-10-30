@@ -10,6 +10,7 @@ import TermsOfServicePage from './pages/TermsOfServicePage.tsx'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx'
 import PricingPage from './pages/PricingPage.tsx'
 import CookieUsePage from './pages/CookieUsePage.tsx'
+import UserInfoPage from './pages/UserInfoPage.tsx'
 
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
   {
     path: '/cookie-use',
     element: <CookieUsePage/>,
+    errorElement: <NotFoundPage/>
+  },
+  {
+    path: '/user-info',
+    element: <UserInfoPage />,
     errorElement: <NotFoundPage/>
   }
 ])

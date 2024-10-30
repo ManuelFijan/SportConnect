@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/SingInPage.css';
 import { useState } from 'react';
 
@@ -12,6 +12,8 @@ const SignInPage = () => {
   const [password, setPassword] = useState('')
   const [errorMessage2, setEmailError2] = useState('')
   const [bool2, setBool2] = useState(true)
+
+  const navigate = useNavigate();
 
   /*e je cijeli objekt i metapodaci tog inputa u formu 
   a e.target.value je tocno ono uneseno u input*/
@@ -77,6 +79,7 @@ const SignInPage = () => {
       
         if (response.ok) {
           console.log('Login successful:', data);
+          navigate('/user-info', { state: { user: data.user, fromSignIn: true}});
         } else {
           setEmailError('Login failed. Please check your credentials.');
         }
