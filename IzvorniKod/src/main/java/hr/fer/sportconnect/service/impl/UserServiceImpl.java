@@ -2,6 +2,7 @@ package hr.fer.sportconnect.service.impl;
 
 import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.dto.UserRegistrationDto;
+import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.mappers.UserMapper;
 import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.UserRepository;
@@ -10,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -29,17 +32,22 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDto registerUser(UserRegistrationDto registrationDto) {
+        Map<String, String> errors = new HashMap<>();
 
         if (userRepository.existsByEmail(registrationDto.getEmail())) {
-            throw new IllegalArgumentException("Email already in use");
+            errors.put("emailError", "Email is already in use");
         }
 
         if (userRepository.existsByUserName(registrationDto.getUserName())) {
-            throw new IllegalArgumentException("Username is already in use");
+            errors.put("userNameError", "Username is already in use");
         }
 
         if(userRepository.existsByMobileNumber(registrationDto.getMobileNumber())) {
-            throw new IllegalArgumentException("Mobile phone is already in use");
+            errors.put("phoneNumberError", "Phone number is already in use");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new RegistrationException(errors);
         }
 
         User user = userMapper.toEntity(registrationDto);

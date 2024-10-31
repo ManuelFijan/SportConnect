@@ -4,6 +4,7 @@ import hr.fer.sportconnect.dto.LoginRequestDto;
 import hr.fer.sportconnect.dto.LoginResponseDto;
 import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.dto.UserRegistrationDto;
+import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.mappers.UserMapper;
 import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.UserRepository;
@@ -86,20 +87,8 @@ public class UserController {
         try {
             UserDto userDto = userService.registerUser(registrationDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
-        } catch (IllegalArgumentException ex) {
-            String message = ex.getMessage();
-            Map<String, String> error = new HashMap<>();
-
-            if (message.contains("Email")) {
-                error.put("error", "Email is already in use");
-            } else if (message.contains("Username")) {
-                error.put("error", "Username is already in use");
-            } else if (message.contains("Mobile phone")) {
-                error.put("error", "Mobile phone number is already in use");
-            } else {
-                error.put("error", "Registration failed");
-            }
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        } catch (RegistrationException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
 }
