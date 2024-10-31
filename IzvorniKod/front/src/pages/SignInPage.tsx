@@ -13,7 +13,9 @@ const SignInPage = () => {
   const [errorMessage2, setEmailError2] = useState('')
   const [bool2, setBool2] = useState(true)
 
-  const navigate = useNavigate();
+  const [serverErrorMessage, setServerErrorMessage] = useState('')
+
+  const navigate = useNavigate()
 
   /*e je cijeli objekt i metapodaci tog inputa u formu 
   a e.target.value je tocno ono uneseno u input*/
@@ -50,12 +52,14 @@ const SignInPage = () => {
         var1 = true
       } else {
         setEmailError('Incorrect e-mail/username format')
+        setServerErrorMessage('')  // ako je password manji od 6 znakova, makni error servera jer se tad sigurno ne ide u sign in
         setBool1(false)
       }
     }
 
     if(password.length < 6){
       setEmailError2('Password must be longer then 6 characters')
+      setServerErrorMessage('')  // ako je password manji od 6 znakova, makni error servera jer se tad sigurno ne ide u sign in
       setBool2(false)
     } else{
       setBool2(true)
@@ -81,11 +85,15 @@ const SignInPage = () => {
           console.log('Login successful:', data);
           navigate('/user-info', { state: { user: data.user, fromSignIn: true}});
         } else {
-          setEmailError('Login failed. Please check your credentials.');
+          console.log(data);
+
+          if(data.error){
+            setServerErrorMessage(data.error);  // ako dode do greske kod login-a, ispisi error
+          }
         }
+
       } catch (error) {
         console.error('Error logging in:', error);
-        setEmailError('An error occurred. Please try again later.');
       }
     }
   }
@@ -105,6 +113,8 @@ const SignInPage = () => {
           {bool1 ? '' : <div style={{ color: 'red' }}>{errorMessage}</div>}
           <input type="password" onChange={passwordOnChange} placeholder="Password" className="form-control mt-3" maxLength={20} required/>
           {bool2 ? '' : <div style={{ color: 'red' }}>{errorMessage2}</div>}
+
+          {serverErrorMessage && <div style={{ color: 'red' }}>{serverErrorMessage}</div>}
 
           <div className='buttons'>
             <button type="submit" className="btn1 mr-2">Sign in</button>

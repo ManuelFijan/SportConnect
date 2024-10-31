@@ -8,7 +8,7 @@ function UserInfoPage() {
     const { user, fromSignIn, fromCreateAccount } = location.state || {};
     const [isMenuOpen, setMenuOpen] = useState(false);
 
-    console.log(user)
+    console.log(user) // razlog zasto se ispis desi 2 puta je <StrictMode> u main.tsx, to je zbog sigurnosti da sve valja u kodu
 
     return (
         <div className="user-info-page text-white bg-gray-700 min-h-screen min-w-screen">

@@ -215,12 +215,25 @@ function CreateAccountPage(){
                 console.log('Register successful:', data);
                 navigate('/user-info', { state: {user: data, fromCreateAccount: true} });
               } else {
-                setEmailError('Register failed. Please check your credentials.');
+                console.log(data);
+
+                if (data.emailError) {
+                    setEmailError(data.emailError);  // postavljamo emailError za prikaz sign in page-a
+                    setBool1(false);
+                }
+                if (data.userNameError) {
+                    setUsernameError(data.userNameError);  //postavljamo userNameError za prikaz sign in page-a
+                    setBool4(false);
+                } 
+
+                if(data.phoneNumberError){
+                    setNumError(data.phoneNumberError);  //postavljamo phoneNumberError za prikaz sign in page-a
+                    setBool5(false);
+                }
               }
 
             } catch (error) {
               console.error('Error while register:', error);
-              setEmailError('An error occurred. Please try again later.');
             }
         }
     }
