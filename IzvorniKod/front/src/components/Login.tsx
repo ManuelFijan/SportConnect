@@ -22,7 +22,7 @@ function Login() {
             <Link to={bool ? '' : ""/* tu ide link za author. za github*/} className="mt-[-1.3rem]">
                 <button className={bool ? "sign-button-1" : "button-1"} role="button">
                     <div className='flex justify-center space-x-3'>
-                        <img src="./github-dark-logo.png" alt="" className='w-6'/>
+                        <img src="./github-logo.png" alt="" className='w-6'/>
                         <div>
                             Sign up with GitHub
                         </div>
