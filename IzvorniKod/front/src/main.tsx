@@ -11,6 +11,8 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx'
 import PricingPage from './pages/PricingPage.tsx'
 import CookieUsePage from './pages/CookieUsePage.tsx'
 import UserInfoPage from './pages/UserInfoPage.tsx'
+import GooglePage from './pages/GooglePage.tsx'
+
 
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -59,6 +61,11 @@ const router = createBrowserRouter([
   {
     path: '/user-info',
     element: <UserInfoPage />,
+    errorElement: <NotFoundPage/>
+  },
+  {
+    path: '/google-info',       // dodano da odvede nakon sign in sa google-om
+    element: <GooglePage />,
     errorElement: <NotFoundPage/>
   }
 ])

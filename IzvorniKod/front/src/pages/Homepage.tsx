@@ -27,6 +27,10 @@ function Homepage(){
                     <h1 className="quote">One Day or Day One.</h1>
                     <h3 className="quote">Join now!</h3>
                     <Login/>
+
+                    <a href="http://localhost:8080/oauth2/authorization/google" className='mt-8'> 
+                        <button>Login with Google</button>
+                    </a>
                 </div>
             </div>
 
