@@ -4,12 +4,30 @@ function Login() {
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
 
-    /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini
+    /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini 
     nemaju funkcionalnost */
     return (
         <>
-            <Link to={bool ? '' : "/sign-in"} className="">
-                <button className={bool ? "sign-button-1" : "button-1"} role="button">Sign in</button>
+            <Link to={bool ? '' : "http://localhost:8080/oauth2/authorization/google"} className="">
+                <button className={bool ? "sign-button-1" : "button-1"} role="button">
+                    <div className='flex justify-center space-x-3'>
+                        <img src="./google-logo.png" alt="" className='w-6'/>
+                        <div>
+                            Sign up with Google
+                        </div>
+                    </div>          
+                </button>
+            </Link>
+
+            <Link to={bool ? '' : ""/* tu ide link za author. za github*/} className="mt-[-1.3rem]">
+                <button className={bool ? "sign-button-1" : "button-1"} role="button">
+                    <div className='flex justify-center space-x-3'>
+                        <img src="./github-dark-logo.png" alt="" className='w-6'/>
+                        <div>
+                            Sign up with GitHub
+                        </div>
+                    </div> 
+                </button>
             </Link>
 
             <div className="flex ml-1.5 mt-1">
@@ -27,6 +45,12 @@ function Login() {
             <Link to={bool ? '' : "/create-an-account"} className="">
                 <button className={bool ? "sign-button-2" : "button-2"} role="button">Create an account</button>
             </Link>
+
+            <div className='already-text'>Already have an account?</div>
+            <Link to={bool ? '' : "/sign-in"} className="">
+                <button className={bool ? "sign-button-3" : "button-3"} role="button">Sign in</button>
+            </Link>
+            <br />
         </>
     )
 }

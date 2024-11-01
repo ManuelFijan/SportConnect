@@ -23,14 +23,10 @@ function Homepage(){
                     <Logo/>
                 </div>
                 {/*DESNO - LOGIN*/}
-                <div className="login border-2 border-gray-700 w-50 flex flex-col items-center justify-center ">
+                <div className="login border-2 border-gray-700 w-50 flex flex-col items-center justify-center">
                     <h1 className="quote">One Day or Day One.</h1>
                     <h3 className="quote">Join now!</h3>
                     <Login/>
-
-                    <a href="http://localhost:8080/oauth2/authorization/google" className='mt-8'> 
-                        <button>Login with Google</button>
-                    </a>
                 </div>
             </div>
 

@@ -58,10 +58,9 @@
     font-weight: 700;
     line-height: 24px;
     opacity: 1;
-    padding: 0.6rem 7.5rem;
+    padding: 0.6rem 4rem;
     width: fit-content;
 }
-
 .button-1:hover{
     transform: scale(1.1);
     box-shadow: #c3c3f2 0 10px 20px -10px;
@@ -82,12 +81,41 @@
     font-weight: 700;
     line-height: 24px;
     opacity: 1;
-    padding: 0.6rem 5rem;
+    padding: 0.6rem 5.5rem;
     width: fit-content;
 }
 .button-2:hover{
     transform: scale(1.1);
     box-shadow: #5E5DF0 0 10px 20px -10px;
+}
+
+.button-3, .sign-button-3{
+    background: rgb(55, 65, 81);
+    border: 1px solid whitesmoke;
+    color: whitesmoke;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 999px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    padding: 0.6rem 8rem;
+    width: fit-content;
+}
+
+.button-3:hover{
+    transform: scale(1.1);
+    box-shadow: #c3c3f2 0 10px 20px -10px;
+}
+
+.already-text{
+    margin-top: 2rem;
+    margin-right: 7.5rem;
+    color: whitesmoke;
 }
 
 .blur-container1 {
@@ -132,13 +160,24 @@
 @media (max-width: 833px) {
     
     .button-1, .sign-button-1{
-        font-size: 14px;
-        padding: 0.5rem 5rem;
+        font-size: 12px;
+        padding: 0.5rem 2rem;
     }
 
     .button-2, .sign-button-2{
         font-size: 14px;
         padding: 0.5rem 2.5rem;
+    }
+
+    .button-3, .sign-button-3{
+        font-size: 12px;
+        padding: 0.5rem 5rem;
+    }
+
+    .already-text{
+        font-size: 12px;
+        margin-top: 2rem;
+        margin-right: 3.5rem;
     }
 
     .line{
@@ -166,13 +205,23 @@
 
 @media (max-width: 600px) {
     .button-1,.sign-button-1{
-        font-size: 14px;
-        padding: 0.5rem 3rem;
+        font-size: 11px;
+        padding: 0.5rem 1rem;
     }
 
     .button-2, .sign-button-2{
         font-size: 14px;
         padding: 0.5rem 1rem;
+    }
+
+    .button-3, .sign-button-3{
+        font-size: 10px;
+        padding: 0.5rem 3.5rem;
+    }
+
+    .already-text{
+        font-size: 10px;
+        margin-right: 2rem;
     }
 
     .line{
@@ -189,6 +238,10 @@
 }
 
 @media (max-width: 560px) {
+    .button-1, .sign-button-1{
+        font-size: 10px;
+        padding: 0.5rem 1rem;
+    }
     .footer-container {
         font-size: 12px; 
     }
