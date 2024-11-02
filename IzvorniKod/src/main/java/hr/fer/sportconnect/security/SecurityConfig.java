@@ -76,7 +76,7 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:3000/google-info") // change because that is where it goes later
+                        .defaultSuccessUrl("http://localhost:3000/set-up-your-account") // change because that is where it goes later
                         .failureUrl("/login?error=true")
                 );
 
