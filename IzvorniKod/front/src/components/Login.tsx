@@ -19,7 +19,7 @@ function Login() {
                 </button>
             </Link>
 
-            <Link to={bool ? '' : ""/* tu ide link za author. za github*/} className="mt-[-1.3rem]">
+            <Link to={bool ? '' : "http://localhost:8080/oauth2/authorization/github"} className="mt-[-1.3rem]">
                 <button className={bool ? "sign-button-1" : "button-1"} role="button">
                     <div className='flex justify-center space-x-3'>
                         <img src="./github-logo.png" alt="" className='w-6'/>

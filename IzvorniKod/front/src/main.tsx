@@ -11,7 +11,7 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx'
 import PricingPage from './pages/PricingPage.tsx'
 import CookieUsePage from './pages/CookieUsePage.tsx'
 import UserInfoPage from './pages/UserInfoPage.tsx'
-import GooglePage from './pages/GooglePage.tsx'
+import SetupYourAccountPage from './pages/SetupYourAccountPage.tsx'
 
 
 import './styles/index.css'
@@ -64,8 +64,8 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage/>
   },
   {
-    path: '/google-info',       // dodano da odvede nakon sign in sa google-om
-    element: <GooglePage />,
+    path: '/set-up-your-account',       // dodano da odvede nakon sign in sa google-om i github-om
+    element: <SetupYourAccountPage />,
     errorElement: <NotFoundPage/>
   }
 ])

@@ -12,7 +12,7 @@ interface UserData {
 
 const api = "http://localhost:8080";  // base api-ja na backendu
 
-function GooglePage(){
+function SetupYourAccountPage(){
     const [userData, setUserData] = useState<UserData | null>(null);
 
     useEffect(() => {
@@ -289,4 +289,4 @@ function GooglePage(){
     )  
 }
   
-export default GooglePage;
+export default SetupYourAccountPage;
