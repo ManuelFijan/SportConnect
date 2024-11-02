@@ -6,7 +6,6 @@ import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.dto.UserRegistrationDto;
 import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.mappers.UserMapper;
-import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.security.JwtTokenProvider;
 import hr.fer.sportconnect.service.impl.UserServiceImpl;
@@ -29,7 +28,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // change because: Allow requests from React app
 public class UserController {
 
     private final UserServiceImpl userService;
@@ -53,9 +52,19 @@ public class UserController {
         String provider = authenticationToken.getAuthorizedClientRegistrationId();
 
         Map<String, Object> response = new HashMap<>();
-        response.put("name", principal.getAttribute("name"));
-        response.put("email", principal.getAttribute("email"));
-        response.put("provider", provider); // Shows "google" or "github"
+
+        if ("google".equals(provider)) {
+            response.put("firstName", principal.getAttribute("given_name"));
+            response.put("lastName", principal.getAttribute("family_name") != null ? principal.getAttribute("family_name") : " ");
+            response.put("email", principal.getAttribute("email"));
+            response.put("profilePicture", principal.getAttribute("picture"));
+        } else if ("github".equals(provider)) {
+            response.put("username", principal.getAttribute("login"));
+            response.put("email", principal.getAttribute("email"));
+            response.put("avatarUrl", principal.getAttribute("avatar_url"));
+        }
+
+        response.put("provider", provider); // "google" or "github"
 
         return response;
     }

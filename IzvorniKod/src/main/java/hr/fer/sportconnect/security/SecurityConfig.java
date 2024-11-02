@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -75,7 +76,7 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/users/signedin")
+                        .defaultSuccessUrl("http://localhost:3000/google-info") // change because that is where it goes later
                         .failureUrl("/login?error=true")
                 );
 
