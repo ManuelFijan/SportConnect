@@ -2,10 +2,11 @@ import '../styles/UserInfoPage.css';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
+import defaultProfilePicture from '/user.png';
 
 function UserInfoPage() {
     const location = useLocation();
-    const { user, fromSignIn, fromCreateAccount } = location.state || {};
+    const { user, fromSignIn, fromCreateAccount} = location.state || {};
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     console.log(user) // razlog zasto se ispis desi 2 puta je <StrictMode> u main.tsx, to je zbog sigurnosti da sve valja u kodu
@@ -17,6 +18,14 @@ function UserInfoPage() {
                     <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
 
                     <div className="ml-36 mt-20">
+                        <div className="profile-picture">
+                            <img 
+                                src={user.profilePicture || defaultProfilePicture}  //ako ima user.ProfilePicture njega koristi, ako ne stavi defaultni
+                                alt={`${user.userName}'s profile`} 
+                                className="w-24 h-24 rounded-full border-2 border-white mb-4"
+                            />
+                        </div>
+
                         {fromSignIn && (
                             <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[480px]' : 'mt-0'}`}>
                                 Welcome, {user.userName}! [{user.userType}, {user.subscriptionPlan}]

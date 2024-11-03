@@ -7,6 +7,7 @@ interface UserData {
     firstName: string;
     lastName: string;
     email: string;
+    profilePicture: string;
     provider: string;
 }
 
@@ -132,7 +133,7 @@ function SetupYourAccountPage(){
 
         if (var2 && var4 && var5) {
             try {
-              const response = await fetch(`${api}/users/register`, {
+                const response = await fetch(`${api}/users/register`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -145,7 +146,8 @@ function SetupYourAccountPage(){
                     userName: username,
                     userType: btn_role,
                     subscriptionPlan: btn_membership,
-                    mobileNumber: num
+                    mobileNumber: num,
+                    profilePicture: userData?.profilePicture
                   }),
               });
         
