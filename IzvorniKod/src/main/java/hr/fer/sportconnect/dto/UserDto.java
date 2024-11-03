@@ -16,6 +16,7 @@ public class UserDto {
     private UserType userType;
     private SubscriptionPlan subscriptionPlan;
     private String mobileNumber;
+    private String profilePicture;
 
     public Long getUserId() {
         return userId;
@@ -79,5 +80,13 @@ public class UserDto {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

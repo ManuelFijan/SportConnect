@@ -17,8 +17,8 @@ public class Partner extends User {
         this.isApproved = isApproved;
     }
 
-    public Partner(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber, Rank rank, boolean isApproved) {
-        super(userId, email, passwordHash, firstName, lastName, userName, userType, dateJoined, isBanned, subscriptionPlan, mobileNumber);
+    public Partner(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber, Rank rank, boolean isApproved, String profilePicture) {
+        super(userId, email, passwordHash, firstName, lastName, userName, userType, dateJoined, isBanned, subscriptionPlan, mobileNumber, profilePicture);
         this.rank = rank;
         this.isApproved = isApproved;
     }

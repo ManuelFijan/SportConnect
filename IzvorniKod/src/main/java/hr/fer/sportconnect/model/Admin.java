@@ -9,7 +9,7 @@ public class Admin extends User {
     public Admin() {
     }
 
-    public Admin(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber) {
-        super(userId, email, passwordHash, firstName, lastName, userName, userType, dateJoined, isBanned, subscriptionPlan, mobileNumber);
+    public Admin(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber, String profilePicture) {
+        super(userId, email, passwordHash, firstName, lastName, userName, userType, dateJoined, isBanned, subscriptionPlan, mobileNumber, profilePicture);
     }
 }

@@ -38,6 +38,8 @@ public class UserRegistrationDto {
     @NotNull(message = "Mobile number is required")
     private String mobileNumber;
 
+    private String profilePicture;
+
     public String getEmail() {
         return email;
     }
@@ -101,4 +103,8 @@ public class UserRegistrationDto {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
+    public String getProfilePicture() { return profilePicture; }
+
+    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
 }

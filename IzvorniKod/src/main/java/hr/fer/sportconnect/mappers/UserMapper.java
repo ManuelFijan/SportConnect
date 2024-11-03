@@ -24,6 +24,8 @@ public interface UserMapper {
     @Mapping(target = "userId", ignore = true)
     @Mapping(source = "mobileNumber", target = "mobileNumber")
     @Mapping(source = "subscriptionPlan", target = "subscriptionPlan")
+    @Mapping(source = "profilePicture", target = "profilePicture")
+
     User toEntity(UserRegistrationDto userRegistrationDto);
     UserDto toDto(User user);
 }

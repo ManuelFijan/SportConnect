@@ -13,34 +13,49 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
     @Column(unique = true, nullable = false)
     private String email;
+
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
+
     @Column(nullable = false)
     private String firstName;
+
     @Column(nullable = false)
     private String lastName;
+
     @Column(unique = true, nullable = false)
     private String userName;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserType userType;
+
     @Column(nullable = false)
     private LocalDateTime dateJoined = LocalDateTime.now();
+
     @Column(nullable = false)
     private boolean isBanned = false;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SubscriptionPlan subscriptionPlan;
+
     @Column(unique = true, nullable = false)
     private String mobileNumber;
 
-    public User() {
+    // New field for profile picture
+    @Column(name = "profile_picture") // Optionally specify the column name
+    private String profilePicture;
 
+    // Default constructor
+    public User() {
     }
 
-    public User(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber) {
+    // Updated constructor to include profilePicture
+    public User(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber, String profilePicture) {
         this.userId = userId;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -52,8 +67,10 @@ public class User {
         this.isBanned = isBanned;
         this.subscriptionPlan = subscriptionPlan;
         this.mobileNumber = mobileNumber;
+        this.profilePicture = profilePicture; // Set the new field
     }
 
+    // Getters and Setters
     public Long getUserId() {
         return userId;
     }
@@ -140,5 +157,14 @@ public class User {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+    // Getter and setter for profile picture
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

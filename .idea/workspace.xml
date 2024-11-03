@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Dovšen github i google sign up">
+    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Ispravak application.properties">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/dto/UserRegistrationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/dto/UserRegistrationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/mappers/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/model/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/model/Partner.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/model/Partner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +34,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ZuanovicLuka&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ManuelFijan/SportConnect.git&quot;,
+    &quot;accountId&quot;: &quot;21e3f922-efd1-4a1e-a167-07ceec8f141f&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -71,7 +88,7 @@
         <env name="SPRING_DATASOURCE_USERNAME" value="postgres.pccmxztqfmfucdbgcydr" />
         <env name="SPRING_JWT_SECRET" value="9gAL6sHcleFIhLQYtvjs020yxMtdUlORqErFWXcx4s8=" />
         <env name="SPRING_OAUTH_GIT_ID" value="Ov23lik1oz9U3J2AkkqR" />
-        <env name="SPRING_OAUTH_GIT_SECRET" value="629a811f83f989e8a4ca54c65f0779141c831571" />
+        <env name="SPRING_OAUTH_GIT_SECRET" value="a160c8e98d5439a17016d2a8f29d240624890443" />
         <env name="SPRING_OAUTH_GOOGLE_ID" value="1057622274801-g2dsst2pd1ikfu40uuarbn3jp6l55v8s.apps.googleusercontent.com" />
         <env name="SPRING_OAUTH_GOOGLE_SECRET" value="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" />
       </envs>
@@ -124,7 +141,9 @@
       <workItem from="1730384155764" duration="1451000" />
       <workItem from="1730386465834" duration="7042000" />
       <workItem from="1730470351451" duration="9029000" />
-      <workItem from="1730561884732" duration="7775000" />
+      <workItem from="1730561884732" duration="7960000" />
+      <workItem from="1730572539282" duration="803000" />
+      <workItem from="1730630643529" duration="9013000" />
     </task>
     <task id="LOCAL-00001" summary="proba">
       <created>1729509741513</created>
@@ -154,7 +173,14 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1730569073604</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="Ispravak application.properties">
+      <option name="closed" value="true" />
+      <created>1730569810321</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1730569810321</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +200,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="proba" />
     <MESSAGE value="Dovšen github i google sign up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dovšen github i google sign up" />
+    <MESSAGE value="Ispravak application.properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ispravak application.properties" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
