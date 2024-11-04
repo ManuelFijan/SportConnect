@@ -94,6 +94,9 @@ function CreateAccountPage(){
         const btn_role = findChecked('role').toUpperCase()
         const btn_membership = findChecked('membership').toUpperCase()
         
+        // kontrola jesu li svi formati inputa dobri
+        // ne mozes koristit bool var. ranije navedene jer su one useState() te se
+        // vrijednost promijeni tek sljedeci render, a ne odma kad u trenutku kad ih postavim njihovom fukcijom na drugu vrijed.
         let var1 = false, var2 = false, var3 = false, var4 =false, var5 = false, var6 = false
 
         //regex za provjeru formata mail-a
@@ -213,7 +216,7 @@ function CreateAccountPage(){
         
               if (response.ok) {
                 console.log('Register successful:', data);
-                navigate('/user-info', { state: {user: data, fromCreateAccount: true} });
+                navigate('/main-page', { state: {user: data, fromCreateAccount: true} });
               } else {
                 console.log(data);
 

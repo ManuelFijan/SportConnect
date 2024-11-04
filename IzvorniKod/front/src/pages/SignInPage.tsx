@@ -83,7 +83,7 @@ const SignInPage = () => {
       
         if (response.ok) {
           console.log('Login successful:', data);
-          navigate('/user-info', { state: { user: data.user, fromSignIn: true}});
+          navigate('/main-page', { state: { user: data.user, fromSignIn: true}});
         } else {
           console.log(data);
 

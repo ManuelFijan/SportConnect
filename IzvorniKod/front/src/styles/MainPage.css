@@ -1,0 +1,73 @@
+.top-right{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 3%;
+  left: 92%;
+  width: 6%;
+  height: 7%;
+}
+.top-right div img{
+  border-radius: 10rem;
+  width: 90%;
+}
+.top-right div .profile{
+  width: 80rem;
+}
+
+.dropdown-menu{
+  background-color: rgb(135, 149, 170) !important;
+}
+.dropdown-menu:hover{
+  background-color: rgb(135, 149, 170) !important;
+}
+.dropdown-menu li{
+  background-color: rgb(135, 149, 170) !important;
+  padding-top: 0.001rem;
+  padding-bottom: 0.001rem;
+}
+li:hover{
+  background-color: rgb(135, 149, 170) !important;
+}
+
+@media (min-width: 768px) {
+  .button-36 {
+    padding: 0 2.6rem;
+  }
+}
+
+@media(max-width:767px){
+  .top-right{
+    display: none;
+  }
+}
+
+@media(max-height:568px){
+  .top-right{
+    top: 5%;
+  }
+}
+
+@media(max-height:433px){
+  .top-right{
+    top: 8%;
+  }
+}
+
+@media(max-height:333px){
+  .top-right{
+    top: 13%;
+  }
+}
+
+@media(max-height:233px){
+  .top-right{
+    top: 20%;
+  }
+}
+
+@media(max-height:163px){
+  .top-right{
+    top: 30%;
+  }
+}

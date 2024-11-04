@@ -155,7 +155,7 @@ function SetupYourAccountPage(){
         
               if (response.ok) {
                 console.log('Register successful:', data);
-                navigate('/user-info', { state: {user: data, fromCreateAccount: true} });
+                navigate('/main-page', { state: {user: data, fromCreateAccount: true} });
               } else {
                 console.log(data);
 
