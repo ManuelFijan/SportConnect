@@ -58,13 +58,22 @@ public class UserController {
             response.put("lastName", principal.getAttribute("family_name") != null ? principal.getAttribute("family_name") : " ");
             response.put("email", principal.getAttribute("email"));
             response.put("profilePicture", principal.getAttribute("picture"));
-        } else if ("github".equals(provider)) {
-            response.put("username", principal.getAttribute("login"));
+        } else if ("facebook".equals(provider)) {
             response.put("email", principal.getAttribute("email"));
-            response.put("avatarUrl", principal.getAttribute("avatar_url"));
+
+            String fullName = principal.getAttribute("name");
+
+            if (fullName != null) {
+                String[] nameParts = fullName.split(" ", 2);
+                String firstName = nameParts[0];
+                String lastName = nameParts.length > 1 ? nameParts[1] : " ";
+
+                response.put("firstName", firstName);
+                response.put("lastName", lastName);
+            }
         }
 
-        response.put("provider", provider); // "google" or "github"
+        response.put("provider", provider); // "google" or "facebook"
 
         return response;
     }
