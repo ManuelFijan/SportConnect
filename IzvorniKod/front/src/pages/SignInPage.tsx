@@ -80,6 +80,8 @@ const SignInPage = () => {
         });
       
         const data = await response.json();
+
+        console.log("BBB", data)
       
         if (response.ok) {
           console.log('Login successful:', data);

@@ -12,6 +12,8 @@ function MainPage() {
     const { user, fromSignIn, fromCreateAccount} = location.state || {};
     const [isMenuOpen, setMenuOpen] = useState(false);
 
+    console.log("AAAA",user.profilePicture)
+
     return (
         <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
             {user ? (
@@ -22,13 +24,13 @@ function MainPage() {
                     <div className="ml-36 mt-20">
 
                         {fromSignIn && (
-                            <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : 'mt-500px'}`}>
+                            <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : ''}`}>
                                 Welcome, {user.userName}! [{user.userType}, {user.subscriptionPlan}]
                             </h2>
                         )}
                         
                         {fromCreateAccount && (
-                            <div className={`${isMenuOpen ? 'mt-[500px] mr-[40px]' : 'mt-[500px]'}`}>
+                            <div className={`${isMenuOpen ? 'mt-[500px] mr-[40px]' : ''}`}>
                                 <h2 className="text-xl font-bold">
                                     Welcome, {user.userName}! [{user.userType}, {user.subscriptionPlan}]
                                 </h2>
