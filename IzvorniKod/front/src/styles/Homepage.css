@@ -147,6 +147,27 @@
     transform: translateY(-4px);
 }
 
+.button-4, .sign-button-4{
+    background: white;
+    color: black;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-radius: 999px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    padding: 0.6rem 2.8rem;
+    width: fit-content;
+}
+.button-4:hover{
+    transform: scale(1.1);
+    box-shadow: #c3c3f2 0 10px 20px -10px;
+}
+
 @media (max-width: 844px) {
     .footer-container {
         gap: 3rem; 
@@ -172,6 +193,11 @@
     .button-3, .sign-button-3{
         font-size: 12px;
         padding: 0.5rem 5rem;
+    }
+
+    .button-4, .sign-button-4{
+        font-size: 12px;
+        padding: 0.5rem 1rem;
     }
 
     .already-text{
@@ -206,7 +232,7 @@
 @media (max-width: 600px) {
     .button-1,.sign-button-1{
         font-size: 11px;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 1.5rem;
     }
 
     .button-2, .sign-button-2{
@@ -217,6 +243,11 @@
     .button-3, .sign-button-3{
         font-size: 10px;
         padding: 0.5rem 3.5rem;
+    }
+
+    .button-4, .sign-button-4{
+        font-size: 11px;
+        padding: 0.5rem 0.5rem;
     }
 
     .already-text{
@@ -239,8 +270,13 @@
 
 @media (max-width: 560px) {
     .button-1, .sign-button-1{
-        font-size: 10px;
-        padding: 0.5rem 1rem;
+        font-size: 9px;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .button-4, .sign-button-4{
+        font-size: 9px;
+        padding: 0.5rem 0.5rem;
     }
     .footer-container {
         font-size: 12px; 

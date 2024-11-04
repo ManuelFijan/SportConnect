@@ -19,12 +19,12 @@ function Login() {
                 </button>
             </Link>
 
-            <Link to={bool ? '' : "http://localhost:8080/oauth2/authorization/github"} className="mt-[-1.3rem]">
-                <button className={bool ? "sign-button-1" : "button-1"} role="button">
-                    <div className='flex justify-center space-x-3'>
-                        <img src="./github-logo.png" alt="" className='w-6'/>
-                        <div>
-                            Sign up with GitHub
+            <Link to={bool ? '' : "http://localhost:8080/oauth2/authorization/facebook"} className="mt-[-1.3rem]">
+                <button className={bool ? "sign-button-4 " : "button-4"} role="button">
+                    <div className='flex justify-center space-x-3 ml-4'>
+                        <img src="./facebook-logo.webp" alt="" className='w-7'/>
+                        <div className='mt-[2px]'>
+                            Sign up with Facebook
                         </div>
                     </div> 
                 </button>
