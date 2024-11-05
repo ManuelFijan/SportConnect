@@ -76,8 +76,8 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:3000/set-up-your-account") // change because that is where it goes later
-                        .failureUrl("/login?error=true")
+                        .defaultSuccessUrl("http://localhost:3000/set-up-your-account") // change because that is where it goes on success
+                        .failureUrl("http://localhost:3000/") // change because that is where it goes on error
                 );
 
         return http.build();

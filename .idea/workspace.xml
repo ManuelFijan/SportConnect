@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Popravljen facebook env. var.">
-      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/security/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +144,8 @@
       <workItem from="1730738168901" duration="174000" />
       <workItem from="1730749136802" duration="16000" />
       <workItem from="1730754232191" duration="7009000" />
-      <workItem from="1730805307696" duration="2654000" />
+      <workItem from="1730805307696" duration="3175000" />
+      <workItem from="1730809150140" duration="369000" />
     </task>
     <task id="LOCAL-00001" summary="proba">
       <created>1729509741513</created>
@@ -201,7 +203,14 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1730808183627</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="Popravljen facebook env. var.">
+      <option name="closed" value="true" />
+      <created>1730808202655</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1730808202655</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
