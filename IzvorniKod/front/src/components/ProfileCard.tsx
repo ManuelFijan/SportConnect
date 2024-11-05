@@ -4,14 +4,14 @@ import defaultProfilePicture from '/user.png';
 
 function ProfileCard(){
     const location = useLocation()
-    const {user} = location.state
+    const {user} = location.state || {}
 
     return (
         <div className='profile-container'>
             <img src="./profile-background.jpg" alt="background" className='img1'/>
             <img src={user.profilePicture || defaultProfilePicture} alt={`${user.userName}'s profile`} className='img2'/>
             <p>{user.firstName} {user.lastName}</p>
-            <Link to="/my-account">
+            <Link to="/my-account" state={{user}}>
                 <button className='button'>
                     My profile
                 </button>

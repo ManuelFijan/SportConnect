@@ -1,5 +1,5 @@
 import '../styles/MainPage.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
 import defaultProfilePicture from '/user.png';
@@ -55,7 +55,7 @@ function MainPage() {
                                 style={{ cursor: 'pointer' }}
                             />
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a className="dropdown-item" href="/my-account">Profile</a></li>
+                                <li><Link className="dropdown-item" to="/my-account" state={{user}}>Profile</Link></li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><a className="dropdown-item" href="/">Sign out</a></li>
                             </ul>

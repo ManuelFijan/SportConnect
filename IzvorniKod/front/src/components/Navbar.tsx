@@ -74,17 +74,17 @@ function Navbar({ isOpen, setIsOpen }: NavbarProps){
             </div>
 
             <div className='search1'>
-                    <form className="d-flex" role="search">
-                        <input
-                            className="bg-gray-700 rounded-md text-white"
-                            type="search"
-                            onChange={handleChange}
-                            placeholder={placeholder}
-                            aria-label="Search"
-                            onKeyDown={onEnter}
-                        />
-                    </form>
-                </div>
+                <form className="d-flex" role="search">
+                    <input
+                        className="bg-gray-700 rounded-md text-white"
+                        type="search"
+                        onChange={handleChange}
+                        placeholder={placeholder}
+                        aria-label="Search"
+                        onKeyDown={onEnter}
+                    />
+                </form>
+            </div>
 
             {/*RIGHT*/}
             <div className="mobile-menu w-[30%]">

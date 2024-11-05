@@ -34,6 +34,7 @@
     background-color: #4f28b9;
 }
 
+
 @media(max-width: 657px){
     .sign-out-button{
         left: -15rem;
