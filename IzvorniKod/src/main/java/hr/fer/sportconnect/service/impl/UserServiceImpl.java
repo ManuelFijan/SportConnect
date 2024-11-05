@@ -2,11 +2,14 @@ package hr.fer.sportconnect.service.impl;
 
 import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.dto.UserRegistrationDto;
+import hr.fer.sportconnect.dto.UserUpdateDto;
 import hr.fer.sportconnect.exceptions.RegistrationException;
+import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
 import hr.fer.sportconnect.mappers.UserMapper;
 import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.service.UserService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,4 +70,48 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> findByEmailOrUserName(String email, String userName) {
         return userRepository.findByEmailOrUserName(email, userName).map(userMapper::toDto);
     }
+
+    public UserDto updateUser(String email, UserUpdateDto updateDto) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        Map<String, String> errors = new HashMap<>();
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        if (userRepository.existsByUserName(updateDto.getUserName())) {
+            errors.put("userNameError", "Username is already in use");
+        }
+
+        if(userRepository.existsByMobileNumber(updateDto.getMobileNumber())) {
+            errors.put("phoneNumberError", "Phone number is already in use");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new UpdateUserInfoException(errors);
+        }
+
+        User user = optionalUser.get();
+
+        if (updateDto.getFirstName() != null) {
+            user.setFirstName(updateDto.getFirstName());
+        }
+        if (updateDto.getLastName() != null) {
+            user.setLastName(updateDto.getLastName());
+        }
+        if (updateDto.getUserName() != null) {
+            user.setUserName(updateDto.getUserName());
+        }
+        if (updateDto.getMobileNumber() != null) {
+            user.setMobileNumber(updateDto.getMobileNumber());
+        }
+        if (updateDto.getSubscriptionPlan() != null) {
+            user.setSubscriptionPlan(updateDto.getSubscriptionPlan());
+        }
+
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
 }

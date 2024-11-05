@@ -1,15 +1,14 @@
 package hr.fer.sportconnect.controller;
 
-import hr.fer.sportconnect.dto.LoginRequestDto;
-import hr.fer.sportconnect.dto.LoginResponseDto;
-import hr.fer.sportconnect.dto.UserDto;
-import hr.fer.sportconnect.dto.UserRegistrationDto;
+import hr.fer.sportconnect.dto.*;
 import hr.fer.sportconnect.exceptions.RegistrationException;
+import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
 import hr.fer.sportconnect.mappers.UserMapper;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.security.JwtTokenProvider;
 import hr.fer.sportconnect.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -109,4 +108,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestParam("email") String email, @RequestBody @Valid UserUpdateDto updateDto) {
+        try {
+            UserDto updatedUser = userService.updateUser(email, updateDto);
+            return ResponseEntity.ok(updatedUser);
+        } catch (UpdateUserInfoException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
+        }
+    }
+
 }
