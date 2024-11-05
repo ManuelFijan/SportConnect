@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Završen facebook oauth">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Popravljen facebook env. var.">
       <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,7 +143,7 @@
       <workItem from="1730738168901" duration="174000" />
       <workItem from="1730749136802" duration="16000" />
       <workItem from="1730754232191" duration="7009000" />
-      <workItem from="1730805307696" duration="2215000" />
+      <workItem from="1730805307696" duration="2654000" />
     </task>
     <task id="LOCAL-00001" summary="proba">
       <created>1729509741513</created>
@@ -195,7 +194,14 @@
       <option name="presentableId" value="LOCAL−00007" />
       <updated>1730761015088</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL−00008" summary="Popravljen facebook env. var.">
+      <option name="closed" value="true" />
+      <created>1730808183627</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1730808183627</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,7 +224,8 @@
     <MESSAGE value="Ispravak application.properties" />
     <MESSAGE value="Dodano spremanje profilePicture u bazu" />
     <MESSAGE value="Završen facebook oauth" />
-    <option name="LAST_COMMIT_MESSAGE" value="Završen facebook oauth" />
+    <MESSAGE value="Popravljen facebook env. var." />
+    <option name="LAST_COMMIT_MESSAGE" value="Popravljen facebook env. var." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
