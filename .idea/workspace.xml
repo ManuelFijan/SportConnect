@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Dodano spremanje profilePicture u bazu">
+    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Završen facebook oauth">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IzvorniKod/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/java/hr/fer/sportconnect/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/IzvorniKod/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,6 +83,8 @@
         <env name="SPRING_JWT_SECRET" value="9gAL6sHcleFIhLQYtvjs020yxMtdUlORqErFWXcx4s8=" />
         <env name="SPRING_OAUTH_GOOGLE_ID" value="1057622274801-g2dsst2pd1ikfu40uuarbn3jp6l55v8s.apps.googleusercontent.com" />
         <env name="SPRING_OAUTH_GOOGLE_SECRET" value="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" />
+        <env name="SPRING_OAUTH_FACEBOOK_ID" value="1949929135433749" />
+        <env name="SPRING_OAUTH_FACEBOOK_SECRET" value="5af8c1baad5effa279003fd15422cef4" />
       </envs>
       <module name="demo" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="hr.fer.sportconnect.App" />
@@ -143,7 +143,8 @@
       <workItem from="1730734770425" duration="1249000" />
       <workItem from="1730738168901" duration="174000" />
       <workItem from="1730749136802" duration="16000" />
-      <workItem from="1730754232191" duration="6103000" />
+      <workItem from="1730754232191" duration="7009000" />
+      <workItem from="1730805307696" duration="2215000" />
     </task>
     <task id="LOCAL-00001" summary="proba">
       <created>1729509741513</created>
@@ -187,7 +188,14 @@
       <option name="presentableId" value="LOCAL−00006" />
       <updated>1730641014866</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL−00007" summary="Završen facebook oauth">
+      <option name="closed" value="true" />
+      <created>1730761015088</created>
+      <option name="number" value="LOCAL−00007" />
+      <option name="presentableId" value="LOCAL−00007" />
+      <updated>1730761015088</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +217,8 @@
     <MESSAGE value="Dovšen github i google sign up" />
     <MESSAGE value="Ispravak application.properties" />
     <MESSAGE value="Dodano spremanje profilePicture u bazu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodano spremanje profilePicture u bazu" />
+    <MESSAGE value="Završen facebook oauth" />
+    <option name="LAST_COMMIT_MESSAGE" value="Završen facebook oauth" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
