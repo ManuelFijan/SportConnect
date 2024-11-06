@@ -3,7 +3,6 @@ package hr.fer.sportconnect.model;
 import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity

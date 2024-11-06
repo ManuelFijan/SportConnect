@@ -118,5 +118,4 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
-
 }

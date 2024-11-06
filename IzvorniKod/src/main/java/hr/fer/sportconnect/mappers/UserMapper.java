@@ -13,7 +13,6 @@ import org.mapstruct.factory.Mappers;
  * Mapping daje dodatnu kontrolu nad time kako će se podaci mapirati. U ovom slučaju se pojedini atributi ignoriraju.
  */
 
-
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 

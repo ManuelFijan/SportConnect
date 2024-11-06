@@ -14,12 +14,9 @@ import hr.fer.sportconnect.repository.ClientRepository;
 import hr.fer.sportconnect.repository.PartnerRepository;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.service.UserService;
-import jakarta.servlet.http.Part;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
