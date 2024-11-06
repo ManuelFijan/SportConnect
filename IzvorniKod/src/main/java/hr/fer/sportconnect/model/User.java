@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(unique = true, nullable = false)
@@ -52,22 +53,24 @@ public class User {
 
     // Default constructor
     public User() {
+        this.dateJoined = LocalDateTime.now();
+        this.isBanned = false;
     }
 
     // Updated constructor to include profilePicture
-    public User(Long userId, String email, String passwordHash, String firstName, String lastName, String userName, UserType userType, LocalDateTime dateJoined, boolean isBanned, SubscriptionPlan subscriptionPlan, String mobileNumber, String profilePicture) {
-        this.userId = userId;
+    public User(String email, String passwordHash, String firstName, String lastName, String userName,
+                   UserType userType, SubscriptionPlan subscriptionPlan, String mobileNumber, String profilePicture) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.userType = userType;
-        this.dateJoined = dateJoined;
-        this.isBanned = isBanned;
         this.subscriptionPlan = subscriptionPlan;
         this.mobileNumber = mobileNumber;
-        this.profilePicture = profilePicture; // Set the new field
+        this.profilePicture = profilePicture;
+        this.dateJoined = LocalDateTime.now();
+        this.isBanned = false;
     }
 
     // Getters and Setters

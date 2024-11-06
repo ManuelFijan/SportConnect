@@ -3,12 +3,18 @@ package hr.fer.sportconnect.service.impl;
 import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.dto.UserRegistrationDto;
 import hr.fer.sportconnect.dto.UserUpdateDto;
+import hr.fer.sportconnect.enums.UserType;
 import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
 import hr.fer.sportconnect.mappers.UserMapper;
+import hr.fer.sportconnect.model.Client;
+import hr.fer.sportconnect.model.Partner;
 import hr.fer.sportconnect.model.User;
+import hr.fer.sportconnect.repository.ClientRepository;
+import hr.fer.sportconnect.repository.PartnerRepository;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.service.UserService;
+import jakarta.servlet.http.Part;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,11 +31,15 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
+    private final PartnerRepository partnerRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, ClientRepository clientRepository, PartnerRepository partnerRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.clientRepository = clientRepository;
+        this.partnerRepository = partnerRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -53,15 +63,41 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException(errors);
         }
 
-        User user = userMapper.toEntity(registrationDto);
+        String encodedPassword = passwordEncoder.encode(registrationDto.getPassword());
 
-        user.setPasswordHash(passwordEncoder.encode(registrationDto.getPassword()));
-        user.setDateJoined(LocalDateTime.now());
-        user.setBanned(false);
+        User savedUser = null;
 
-        User savedUser = userRepository.save(user);
-        System.out.println("Raw password: " + registrationDto.getPassword());
-        System.out.println("Encoded password: " + user.getPasswordHash());
+        // Determine user type and create appropriate subclass instance
+        if (registrationDto.getUserType() == UserType.CLIENT) {
+            Client client = new Client(
+                    registrationDto.getEmail(),
+                    encodedPassword,
+                    registrationDto.getFirstName(),
+                    registrationDto.getLastName(),
+                    registrationDto.getUserName(),
+                    registrationDto.getSubscriptionPlan(),
+                    registrationDto.getMobileNumber(),
+                    registrationDto.getProfilePicture()
+            );
+            savedUser = clientRepository.save(client);
+        } else if (registrationDto.getUserType() == UserType.PARTNER) {
+            Partner partner = new Partner(
+                    registrationDto.getEmail(),
+                    encodedPassword,
+                    registrationDto.getFirstName(),
+                    registrationDto.getLastName(),
+                    registrationDto.getUserName(),
+                    registrationDto.getSubscriptionPlan(),
+                    registrationDto.getMobileNumber(),
+                    registrationDto.getProfilePicture()
+            );
+            savedUser = partnerRepository.save(partner);
+        } else {
+            throw new RegistrationException(Map.of("userTypeError", "Invalid user type"));
+        }
+
+        //System.out.println("Raw password: " + registrationDto.getPassword());
+        //System.out.println("Encoded password: " + savedUser.getPasswordHash());
 
         return userMapper.toDto(savedUser);
     }
