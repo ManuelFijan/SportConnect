@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import '../styles/Navbar.css'
 import MobileMenu from "./MobileMenu";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 interface NavbarProps {
@@ -12,6 +12,10 @@ interface NavbarProps {
 function Navbar({ isOpen, setIsOpen }: NavbarProps){
     const [searchTerm, setSearchTerm] = useState('')
     const [placeholder, setPlaceholder] = useState('search...                     🔎')
+
+    const {user} = useLocation().state || {}
+    let path = location.pathname
+    path = path.substring(1, path.length)
 
     const onEnter = (event : any) => {
         if(event.key == 'Enter'){
@@ -38,22 +42,22 @@ function Navbar({ isOpen, setIsOpen }: NavbarProps){
             <div className="navbar-links hidden md:flex w-[70%] text-lg mt-20 justify-between">
                 {/*LINKS*/}
                 <div className="flex ml-[80px] gap-7">
-                    <Link to="/" className="flex items-center gap-1">
+                    <Link to="/main-page" className="flex items-center gap-1" state={{user, fromMainPage:true}}>
                         <img src="/home1.png" alt="Homepage"className="w-5 h-5"/>
                         <span className="font-semibold">Homepage</span>
                     </Link>
 
-                    <Link to="/about-us" className="flex items-center gap-1">
+                    <Link to={"/about-us?"+path} className="flex items-center gap-1" state={{user, fromMainPage:true}}>
                         <img src="/friends1.png" alt="Friends" className="w-5 h-5"/>
                         <span className="font-semibold">About</span>
                     </Link>
 
-                    <Link to="/terms-of-service" className="flex items-center gap-1">
+                    <Link to={"/terms-of-service?"+path} className="flex items-center gap-1" state={{user, fromMainPage:true}}>
                         <img src="/stories1.png" alt="Stories" className="w-5 h-5"/>
                         <span className="font-semibold">Services</span>
                     </Link>
 
-                    <Link to="/pricing" className="flex items-center gap-1">
+                    <Link to={"/pricing?"+path} className="flex items-center gap-1" state={{user, fromMainPage:true}}>
                         <img src="/stories1.png" alt="Stories" className="w-5 h-5"/>
                         <span className="font-semibold">Pricing</span>
                     </Link>   

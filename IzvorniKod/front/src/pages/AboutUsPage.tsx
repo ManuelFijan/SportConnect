@@ -1,8 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link , useLocation} from 'react-router-dom';
 import '../styles/AboutUsPage.css';
 import Footer from '../components/Footer';
 
 function AboutUsPage() {
+    const location = useLocation()
+    // vraca dio url-a gdje su parametri, tj. nakon znaka ?
+    let s = location.search
+    const bool = s.includes("main")
+    const bool2 = s.includes("acc")
+
+    const {user} = useLocation().state || {}
+
     return (
         <div className="about-us-main-div bg-gray-700 min-h-screen min-w-screen pb-6">
             
@@ -13,9 +21,14 @@ function AboutUsPage() {
                 </div>
                 <div className="connect-text">
                     <p>Connect to your strongest self today!</p>
-                    <Link to="/" className="">
-                        <button className="start-now-button" role="button">Start now</button>
-                    </Link>
+
+                    {(bool || bool2) ? (
+                        <div className="start-now-button-new">About SportConnect</div>
+                    ) : (
+                        <Link to="/" className="">
+                            <button className="start-now-button" role="button">Start now</button>
+                        </Link>
+                    )}
                 </div>
 
                 <div className="healty-lifestyle-text">
@@ -91,9 +104,17 @@ function AboutUsPage() {
                 <p className="mt-6 font-bold">SportConnect - Nourish & Thrive. Your community for healthy living.</p>
             </div>
 
-            <div className="about bg-gray-700 pt-24">
-                <Footer/>
-            </div>
+            {(bool || bool2) ? (
+                <div className="about bg-gray-700 pt-24 flex justify-end pr-10">
+                    <Link to={bool ? "/main-page" : "/my-account"} state={{user, fromMainPage:true}}>
+                        <button className='btn btn-secondary'>Back</button>
+                    </Link>
+                </div>
+            ) : (
+                <div className="about bg-gray-700 pt-24">
+                    <Footer/>
+                </div>
+            )}
         </div>
     )
 }

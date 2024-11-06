@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function MainPage() {
     const location = useLocation();
-    const { user, fromSignIn, fromCreateAccount} = location.state || {};
+    const { user, fromSignIn, fromCreateAccount, fromMainPage} = location.state || {};
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     console.log("AAAA",user.profilePicture)
@@ -23,7 +23,7 @@ function MainPage() {
 
                     <div className="ml-36 mt-20">
 
-                        {fromSignIn && (
+                        {(fromSignIn || fromMainPage) && (
                             <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : ''}`}>
                                 Welcome, {user.userName}! [{user.userType}, {user.subscriptionPlan}]
                             </h2>

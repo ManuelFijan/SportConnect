@@ -1,8 +1,15 @@
 import '../styles/TermsOfServicePage.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Footer from "../components/Footer.tsx";
 
 function TermsOfServicePage() {
+    const location = useLocation()
+    let s = location.search
+    const bool = s.includes("main")
+    const bool2 = s.includes("acc")
+
+    const {user} = useLocation().state || {}
+
     return (
     <>
         <div className="terms-of-service-header text-white bg-gray-700 flex">
@@ -117,9 +124,17 @@ function TermsOfServicePage() {
             </div>
         </div>  
 
-        <div className="about bg-gray-700 pt-3">
-            <Footer/>
-        </div>
+        {(bool || bool2) ? (
+                <div className="about bg-gray-700 pt-3 flex justify-end pr-10">
+                    <Link to={bool ? "/main-page" : "/my-account"} state={{user, fromMainPage:true}}>
+                        <button className='btn btn-secondary'>Back</button>
+                    </Link>
+                </div>
+            ) : (
+                <div className="about bg-gray-700 pt-3">
+                    <Footer/>
+                </div>
+            )}
     </>
     );
 }
