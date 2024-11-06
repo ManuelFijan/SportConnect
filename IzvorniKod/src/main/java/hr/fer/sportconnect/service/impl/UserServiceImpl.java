@@ -112,11 +112,21 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("User with email " + email + " not found");
         }
 
-        if (userRepository.existsByUserName(updateDto.getUserName())) {
+        User user = optionalUser.get();
+
+        if (userRepository.existsByFirstName(updateDto.getFirstName()) && !(user.getFirstName().equals(updateDto.getFirstName()))) {
+            errors.put("firstNameError", "First name is already in use");
+        }
+
+        if (userRepository.existsByLastName(updateDto.getLastName()) && !(user.getLastName().equals(updateDto.getLastName()))) {
+            errors.put("lastNameError", "Last name is already in use");
+        }
+
+        if (userRepository.existsByUserName(updateDto.getUserName()) && !(user.getUserName().equals(updateDto.getUserName()))) {
             errors.put("userNameError", "Username is already in use");
         }
 
-        if(userRepository.existsByMobileNumber(updateDto.getMobileNumber())) {
+        if(userRepository.existsByMobileNumber(updateDto.getMobileNumber()) && !(user.getMobileNumber().equals(updateDto.getMobileNumber()))) {
             errors.put("phoneNumberError", "Phone number is already in use");
         }
 
@@ -124,9 +134,15 @@ public class UserServiceImpl implements UserService {
             throw new UpdateUserInfoException(errors);
         }
 
-        User user = optionalUser.get();
+        //User user = optionalUser.get();
 
-        if (updateDto.getFirstName() != null) {
+        user.setFirstName(updateDto.getFirstName());
+        user.setLastName(updateDto.getLastName());
+        user.setUserName(updateDto.getUserName());
+        user.setMobileNumber(updateDto.getMobileNumber());
+        user.setSubscriptionPlan(updateDto.getSubscriptionPlan());
+
+        /*if (updateDto.getFirstName() != null) {
             user.setFirstName(updateDto.getFirstName());
         }
         if (updateDto.getLastName() != null) {
@@ -140,7 +156,7 @@ public class UserServiceImpl implements UserService {
         }
         if (updateDto.getSubscriptionPlan() != null) {
             user.setSubscriptionPlan(updateDto.getSubscriptionPlan());
-        }
+        }*/
 
         userRepository.save(user);
 
@@ -154,7 +170,6 @@ public class UserServiceImpl implements UserService {
             User user = userOpt.get();
             return userMapper.toDto(user);
         } else {
-            // You can throw a custom exception or return null based on your preference
             throw new RuntimeException("User not found with email: " + email);
         }
     }
