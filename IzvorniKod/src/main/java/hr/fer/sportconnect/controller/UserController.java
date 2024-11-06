@@ -118,4 +118,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
+
+    @GetMapping("/get-information/{email}")
+    public ResponseEntity<?> getUserInformation(@PathVariable String email) {
+        try {
+            UserDto userDto = userService.getUserByEmail(email);
+            return ResponseEntity.ok(userDto);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        }
+    }
 }

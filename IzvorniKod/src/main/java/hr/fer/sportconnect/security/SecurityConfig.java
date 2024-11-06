@@ -63,10 +63,10 @@ public class SecurityConfig {
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/users/register", "/users/login", "/users/update")
+                        .ignoringRequestMatchers("/users/register", "/users/login", "/users/update", "/users/get-information/**")
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/login/oauth2/code/**", "/error", "/users/register", "/users/login", "/users/update").permitAll()
+                        .requestMatchers("/", "/login", "/login/oauth2/code/**", "/error", "/users/register", "/users/login", "/users/update", "/users/get-information/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -9,4 +9,5 @@ public interface UserService {
     UserDto registerUser(UserRegistrationDto registrationDto);
     Optional<UserDto> findByEmailOrUserName(String email, String userName);
     UserDto updateUser(String email, UserUpdateDto updateDto);
+    UserDto getUserByEmail(String email);
 }
