@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -118,4 +119,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
+
+    @GetMapping("/get-information/{email}")
+    public ResponseEntity<?> getUserInformation(@PathVariable String email) {
+        try {
+            UserDto userDto = userService.getUserByEmail(email);
+            return ResponseEntity.ok(userDto);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        }
+    }
+
 }
