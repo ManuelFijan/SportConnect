@@ -46,11 +46,11 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/users/**")
+                .securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/users/register", "users/auth/login", "/users/get-information/**", "/users/update", "/users/login").permitAll()
+                        .requestMatchers("/api/users/register", "/api/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -63,10 +63,10 @@ public class SecurityConfig {
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/users/register", "/users/login")
+                        .ignoringRequestMatchers("/users/register", "/users/login", "/users/update")
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/login/oauth2/code/**", "/error", "/users/register", "/users/login", "/users/get-information/**", "/users/update").permitAll()
+                        .requestMatchers("/", "/login", "/login/oauth2/code/**", "/error", "/users/register", "/users/login", "/users/update").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -147,16 +147,4 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(user);
     }
 
-    @Override
-    public UserDto getUserByEmail(String email) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            return userMapper.toDto(user);
-        } else {
-            // You can throw a custom exception or return null based on your preference
-            throw new RuntimeException("User not found with email: " + email);
-        }
-    }
-
 }
