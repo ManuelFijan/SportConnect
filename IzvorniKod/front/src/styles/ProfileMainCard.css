@@ -9,29 +9,32 @@
     padding: 0.8rem;
     margin-top: 1rem;
 }
+
 .img1-main{
     border-radius: 0.4rem;
     width: 30rem;
 }
+
 .img2-main{
     position: relative;
     top: -1.2rem;
     border-radius: 10rem;
     width: 35%;
 }
+
 .profile-container-main p{
     font-size: large;
     color: white;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
+
 .button-edit{
     background-color: #5643CC;
     border-radius: 0.4rem;
     padding: 0.3rem 1rem;
     color: white;
     font-size: 1rem;
-    margin-top: -2rem;
     margin-bottom: -0.3rem;
 }
 
@@ -46,9 +49,9 @@
     border: 0.5px solid #ccc;
     border-radius: 1rem;
 }
-.edit-form{
-    display: inline;
 
+.edit-form{
+    margin-top: 15px;
 }
 
 .profile-container-main {
@@ -62,7 +65,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(43, 8, 74, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +85,7 @@
 .edit-form h2 {
     text-align: center;
     color: lightgray;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.2rem;
 }
 
 .edit-form div {
@@ -130,14 +132,15 @@
 }
 
 .button-save {
-    background-color: #4CAF50;
-
+    background-color: #058909;
     color: #fff;
+    font-weight: bold;
 }
 
 .button-close {
-    background-color: #f44336;
+    background-color: #b71004;
     color: #fff;
+    font-weight: bold;
 }
 
 @media (max-width:1178px) {

@@ -97,7 +97,7 @@ function CreateAccountPage(){
         // kontrola jesu li svi formati inputa dobri
         // ne mozes koristit bool var. ranije navedene jer su one useState() te se
         // vrijednost promijeni tek sljedeci render, a ne odma kad u trenutku kad ih postavim njihovom fukcijom na drugu vrijed.
-        let var1 = false, var2 = false, var3 = false, var4 =false, var5 = false, var6 = false
+        let var1 = false, var2 = false, var3 = false, var4 = false, var5 = false, var6 = false
 
         //regex za provjeru formata mail-a
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
