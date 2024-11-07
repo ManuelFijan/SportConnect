@@ -1,16 +1,9 @@
-import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import {useState} from "react";
 import ProfileMainCard from "../components/ProfileMainCard.tsx";
 
 function MyAccountPage(){
-    const location = useLocation()
-    const {user} = location.state || {}
     const [isMenuOpen, setMenuOpen] = useState(false);
-
-
-    console.log("Tvoji podaci:")
-    console.log(user)
 
     return (
         <div className="bg-gray-700 min-w-screen min-h-screen">

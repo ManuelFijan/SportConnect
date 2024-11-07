@@ -1,7 +1,7 @@
 import '../styles/MainPage.css';
 import { useLocation, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import defaultProfilePicture from '/user.png';
 import ProfileCard from '../components/ProfileCard';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -12,7 +12,19 @@ function MainPage() {
     const { user, fromSignIn, fromCreateAccount, fromMainPage} = location.state || {};
     const [isMenuOpen, setMenuOpen] = useState(false);
 
-    console.log("AAAA",user.profilePicture)
+    const [updatedUser, setUpdatedUser] = useState(user);
+
+    useEffect(() => {
+            fetch(`http://localhost:8080/users/get-information/${user.email}`)
+                .then(response => response.json())
+                .then(data => {
+                    setUpdatedUser(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+        }
+    , []);
 
     return (
         <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
@@ -25,14 +37,14 @@ function MainPage() {
 
                         {(fromSignIn || fromMainPage) && (
                             <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : ''}`}>
-                                Welcome, {user.userName}! [{user.userType}, {user.subscriptionPlan}]
+                                Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
                             </h2>
                         )}
                         
                         {fromCreateAccount && (
                             <div className={`${isMenuOpen ? 'mt-[500px] mr-[40px]' : ''}`}>
                                 <h2 className="text-xl font-bold">
-                                    Welcome, {user.userName}! [{user.userType}, {user.subscriptionPlan}]
+                                    Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
                                 </h2>
 
                                 <p className="font-bold">Your account has been created successfully.</p>
@@ -47,7 +59,7 @@ function MainPage() {
                         
                         <div className="dropdown">
                             <img
-                                src={user.profilePicture || defaultProfilePicture}
+                                src={updatedUser.profilePicture || defaultProfilePicture}
                                 className="profile"
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
