@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
