@@ -16,6 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Konfiguracijska klasa za sigurnost aplikacije.
+ * Podešava sigurnosne postavke kao što su autorizacija, autentifikacija putem JWT tokena te kojim URL-ovima se može pristupiti.
+ */
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity

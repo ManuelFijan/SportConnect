@@ -4,6 +4,10 @@ import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 import jakarta.persistence.*;
 
+/**
+ * Entitet koji predstavlja partnera u sustavu.
+ */
+
 @Entity
 @Table(name = "partner")
 @PrimaryKeyJoinColumn(name = "user_id") // This ensures that user_id is both PK and FK

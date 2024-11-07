@@ -3,7 +3,8 @@ package hr.fer.sportconnect.dto;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * Podaci koji se koriste tijekom logina, odnosno koje korisnik šalje poslužitelju.
+ * DTO klasa koja predstavlja podatke potrebne za prijavu korisnika.
+ * identifier je korisničko ime ili email.
  */
 
 public class LoginRequestDto {

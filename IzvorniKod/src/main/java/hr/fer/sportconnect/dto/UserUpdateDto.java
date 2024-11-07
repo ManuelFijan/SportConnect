@@ -2,6 +2,10 @@ package hr.fer.sportconnect.dto;
 
 import hr.fer.sportconnect.enums.SubscriptionPlan;
 
+/**
+ * DTO klasa koja sadrži podatke potrebne za ažuriranje postojećeg korisnika.
+ */
+
 public class UserUpdateDto {
     private String firstName;
     private String lastName;

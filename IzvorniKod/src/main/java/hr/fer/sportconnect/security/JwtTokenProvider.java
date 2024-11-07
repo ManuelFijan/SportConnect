@@ -9,7 +9,7 @@ import java.util.*;
 import javax.crypto.SecretKey;
 
 /**
- * Generira i validira tokene za autentifikaciju
+ * Generira i validira tokene za autentifikaciju.
  */
 
 @Component

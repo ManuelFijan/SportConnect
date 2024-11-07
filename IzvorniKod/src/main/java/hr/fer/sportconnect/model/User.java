@@ -5,6 +5,11 @@ import hr.fer.sportconnect.enums.UserType;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Entitet koji predstavlja korisnika u sustavu.
+ * Osnovna klasa koju nasljeđuju specifične vrste korisnika (Admin, Client, Partner).
+ */
+
 @Entity
 @Table(name = "\"user\"")
 @Inheritance(strategy = InheritanceType.JOINED)

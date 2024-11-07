@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * Logika vezana za autentifikaciju
+ * Implementacija servisa za dohvat korisničkih detalja koja se koristi za autentifikaciju korisnika.
  */
 
 @Service

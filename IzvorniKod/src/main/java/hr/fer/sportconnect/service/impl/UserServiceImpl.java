@@ -1,9 +1,8 @@
 package hr.fer.sportconnect.service.impl;
 
-import hr.fer.sportconnect.dto.UserDto;
-import hr.fer.sportconnect.dto.UserRegistrationDto;
-import hr.fer.sportconnect.dto.UserUpdateDto;
+import hr.fer.sportconnect.dto.*;
 import hr.fer.sportconnect.enums.UserType;
+import hr.fer.sportconnect.exceptions.LoginException;
 import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
 import hr.fer.sportconnect.mappers.UserMapper;
@@ -13,7 +12,12 @@ import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.ClientRepository;
 import hr.fer.sportconnect.repository.PartnerRepository;
 import hr.fer.sportconnect.repository.UserRepository;
+import hr.fer.sportconnect.security.JwtTokenProvider;
 import hr.fer.sportconnect.service.UserService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +26,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Logika vezana uz registraciju korisnika
+ * Implementacija koja definira osnovne metode za upravljanje korisnicima.
+ * Ovdje se nalazi sva poslovna logika vezana za prijavu, registraciju, ažuriranje i dohvat korisničkih informacija.
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,7 +37,6 @@ public class UserServiceImpl implements UserService {
     private final PartnerRepository partnerRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-
     public UserServiceImpl(UserRepository userRepository, ClientRepository clientRepository, PartnerRepository partnerRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;

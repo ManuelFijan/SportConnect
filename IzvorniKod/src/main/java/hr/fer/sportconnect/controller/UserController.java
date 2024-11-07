@@ -25,6 +25,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Upravlja pozivima endpointova s frontenda.
+ */
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // change because: Allow requests from React app
