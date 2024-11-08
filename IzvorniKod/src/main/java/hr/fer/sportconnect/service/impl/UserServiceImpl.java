@@ -21,6 +21,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
@@ -151,22 +153,6 @@ public class UserServiceImpl implements UserService {
         user.setMobileNumber(updateDto.getMobileNumber());
         user.setSubscriptionPlan(updateDto.getSubscriptionPlan());
 
-        /*if (updateDto.getFirstName() != null) {
-            user.setFirstName(updateDto.getFirstName());
-        }
-        if (updateDto.getLastName() != null) {
-            user.setLastName(updateDto.getLastName());
-        }
-        if (updateDto.getUserName() != null) {
-            user.setUserName(updateDto.getUserName());
-        }
-        if (updateDto.getMobileNumber() != null) {
-            user.setMobileNumber(updateDto.getMobileNumber());
-        }
-        if (updateDto.getSubscriptionPlan() != null) {
-            user.setSubscriptionPlan(updateDto.getSubscriptionPlan());
-        }*/
-
         userRepository.save(user);
 
         return userMapper.toDto(user);
@@ -201,6 +187,38 @@ public class UserServiceImpl implements UserService {
             error.put("error", "Username/email or password is invalid");
             throw new LoginException(error);
         }
+    }
+
+    @Override
+    public Map<String, Object> getSignedInUser(OAuth2AuthenticationToken authenticationToken, OAuth2User principal) {
+        // Get provider (registration ID) such as "google" or "github"
+        String provider = authenticationToken.getAuthorizedClientRegistrationId();
+
+        Map<String, Object> response = new HashMap<>();
+
+        if ("google".equals(provider)) {
+            response.put("firstName", principal.getAttribute("given_name"));
+            response.put("lastName", principal.getAttribute("family_name") != null ? principal.getAttribute("family_name") : " ");
+            response.put("email", principal.getAttribute("email"));
+            response.put("profilePicture", principal.getAttribute("picture"));
+        } else if ("facebook".equals(provider)) {
+            response.put("email", principal.getAttribute("email"));
+
+            String fullName = principal.getAttribute("name");
+
+            if (fullName != null) {
+                String[] nameParts = fullName.split(" ", 2);
+                String firstName = nameParts[0];
+                String lastName = nameParts.length > 1 ? nameParts[1] : " ";
+
+                response.put("firstName", firstName);
+                response.put("lastName", lastName);
+            }
+        }
+
+        response.put("provider", provider); // "google" or "facebook"
+
+        return response;
     }
 
 

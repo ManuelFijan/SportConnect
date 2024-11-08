@@ -12,8 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,34 +31,7 @@ public class UserController {
     @GetMapping("/signedin")
     public Map<String, Object> user(OAuth2AuthenticationToken authenticationToken,
                                     @AuthenticationPrincipal OAuth2User principal) {
-        // Get provider (registration ID) such as "google" or "github"
-        String provider = authenticationToken.getAuthorizedClientRegistrationId();
-
-        Map<String, Object> response = new HashMap<>();
-
-        if ("google".equals(provider)) {
-            response.put("firstName", principal.getAttribute("given_name"));
-            response.put("lastName", principal.getAttribute("family_name") != null ? principal.getAttribute("family_name") : " ");
-            response.put("email", principal.getAttribute("email"));
-            response.put("profilePicture", principal.getAttribute("picture"));
-        } else if ("facebook".equals(provider)) {
-            response.put("email", principal.getAttribute("email"));
-
-            String fullName = principal.getAttribute("name");
-
-            if (fullName != null) {
-                String[] nameParts = fullName.split(" ", 2);
-                String firstName = nameParts[0];
-                String lastName = nameParts.length > 1 ? nameParts[1] : " ";
-
-                response.put("firstName", firstName);
-                response.put("lastName", lastName);
-            }
-        }
-
-        response.put("provider", provider); // "google" or "facebook"
-
-        return response;
+        return userService.getSignedInUser(authenticationToken, principal);
     }
 
     @PostMapping("/login")
