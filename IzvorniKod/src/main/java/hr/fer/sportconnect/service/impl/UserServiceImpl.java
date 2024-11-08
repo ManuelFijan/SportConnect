@@ -17,6 +17,7 @@ import hr.fer.sportconnect.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,12 +38,16 @@ public class UserServiceImpl implements UserService {
     private final PartnerRepository partnerRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    public UserServiceImpl(UserRepository userRepository, ClientRepository clientRepository, PartnerRepository partnerRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider tokenProvider;
+    public UserServiceImpl(UserRepository userRepository, ClientRepository clientRepository, PartnerRepository partnerRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
         this.partnerRepository = partnerRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
     }
 
     public UserDto registerUser(UserRegistrationDto registrationDto) {
@@ -177,5 +182,26 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("User not found with email: " + email);
         }
     }
+
+    public LoginResponseDto login(LoginRequestDto loginRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getIdentifier(), loginRequest.getPassword())
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = tokenProvider.generateToken(authentication);
+
+            UserDto userDto = findByEmailOrUserName(loginRequest.getIdentifier(), loginRequest.getIdentifier())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+            return new LoginResponseDto(token, userDto);
+        } catch (AuthenticationException ex) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Username/email or password is invalid");
+            throw new LoginException(error);
+        }
+    }
+
 
 }
