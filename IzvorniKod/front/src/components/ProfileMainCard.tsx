@@ -57,9 +57,9 @@ function ProfileMainCard() {
         let var1 = false, var2 = false, var3 = false, var4 = false
 
         let tmp1 = formData.firstName.split('')
-        if(/^[A-Z]$/.test(tmp1[0]) && tmp1.length > 1){
+        if(/^[A-ZČĆŠĐŽ]+$/.test(tmp1[0]) && tmp1.length > 1){
             let br = 0;
-            tmp1.map((t: string) => (/^[a-zA-Z]$/.test(t) ? '' : br++))
+            tmp1.map((t: string) => (/^[a-zA-ZČĆŠĐŽčćšđž]+$/.test(t) ? '' : br++))
             //ako je br 0 to znaci da ga nismo povecavali tj. svaki t se nalazio u zadanom regex-u
             if(br === 0){
                 setBool3(true)
@@ -75,9 +75,9 @@ function ProfileMainCard() {
         }
 
         let tmp2 = formData.lastName.split('')
-        if(/^[A-Z]$/.test(tmp2[0]) && tmp2.length > 1){
+        if(/^[A-ZČĆŠĐŽ]+$/.test(tmp2[0]) && tmp2.length > 1){
             let br = 0;
-            tmp2.map((t: string) => (/^[a-zA-Z]$/.test(t) ? '' : br++))
+            tmp2.map((t: string) => (/^[a-zA-ZČĆŠĐŽčćšđž]+$/.test(t) ? '' : br++))
             if(br === 0){
                 setBool4(true)
                 var4 = true

@@ -121,9 +121,9 @@ function CreateAccountPage(){
 
         //ime i prezime moraju pocinjat velikom slovom i sastojat se samo od slova te biti duljine barem 2
         let tmp1 = name.split('')
-        if(/^[A-Z]$/.test(tmp1[0]) && name.length > 1){
+        if(/^[A-ZČĆŠĐŽ]+$/.test(tmp1[0]) && name.length > 1){
             let br = 0;
-            tmp1.map(t => (/^[a-zA-Z]$/.test(t) ? '' : br++))
+            tmp1.map(t => (/^[a-zA-ZČĆŠĐŽčćšđž]+$/.test(t) ? '' : br++))
             //ako je br 0 to znaci da ga nismo povecavali tj. svaki t se nalazio u zadanom regex-u
             if(br === 0){
                 setBool3(true)
@@ -139,9 +139,9 @@ function CreateAccountPage(){
         }
 
         let tmp2 = surname.split('')
-        if(/^[A-Z]$/.test(tmp2[0]) && surname.length > 1){
+        if(/^[A-ZŠČĆĐŽ]+$/.test(tmp2[0]) && surname.length > 1){
             let br = 0;
-            tmp2.map(t => (/^[a-zA-Z]$/.test(t) ? '' : br++))
+            tmp2.map(t => (/^[a-zA-ZČĆŠĐŽčćšđž]+$/.test(t) ? '' : br++))
             if(br === 0){
                 setBool6(true)
                 var6 = true
