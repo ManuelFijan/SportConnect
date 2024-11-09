@@ -20,7 +20,7 @@ function ProfileCard(){
                 });
         }
     , []);
-    
+
     return (
         <div className='profile-container'>
             <img src="./profile-background.jpg" alt="background" className='img1'/>
