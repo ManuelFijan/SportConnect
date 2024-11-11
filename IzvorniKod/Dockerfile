@@ -1,17 +1,10 @@
 FROM maven:3.8.1-openjdk-17 AS build
-
 WORKDIR /app
-
 COPY . .
-
-COPY src ./src
-
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
-
 WORKDIR /app
-
 COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
 
 # Set environment variables
@@ -25,5 +18,4 @@ ENV SPRING_OAUTH_FACEBOOK_ID="1949929135433749"
 ENV SPRING_OAUTH_FACEBOOK_SECRET="5af8c1baad5effa279003fd15422cef4"
 
 EXPOSE 8080
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
