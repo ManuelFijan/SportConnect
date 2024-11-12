@@ -23,12 +23,16 @@ const SignInPage = () => {
     setValue(e.target.value)
   }
 
+  // kada se promjeni polje password, onda se varijabla koja prati njegovu vrijednost postavi ovdje
   const passwordOnChange = (e : any) => {
     setPassword(e.target.value)
   }
 
+  /*kada stisnemo submit na gumbu forme, ulazimo u ovu funkciju cija je funkcionalnost provjeriti podatke unesene
+    u formu i ako je sve ok radi se fetch na backend
+  */
   const handleSubmit = async (e : any) => {
-    /*ova funkcija sprecava refresh stranice nakon submit-anja form-a / klika na link / itd. */
+    /*ova funkcija sprjecava refresh stranice nakon submit-anja form-a / klika na link / itd. */
     e.preventDefault()
 
     let var1 = false, var2 = false
@@ -66,6 +70,7 @@ const SignInPage = () => {
       var2 = true
     }
 
+    //tek ako je sve dobrog formata radimo fetch podataka na backend
     if (var1 && var2) {
       try {
         const response = await fetch(`${api}/users/login`, {
@@ -81,6 +86,7 @@ const SignInPage = () => {
       
         const data = await response.json();
       
+        //ako je odgovor sa statusom ok, uspjesno smo logirani i idemo na /main-page
         if (response.ok) {
           console.log('Login successful:', data);
           navigate('/main-page', { state: { user: data.user, fromSignIn: true}});
@@ -88,7 +94,7 @@ const SignInPage = () => {
           console.log(data);
 
           if(data.error){
-            setServerErrorMessage(data.error);  // ako dode do greske kod login-a, ispisi error
+            setServerErrorMessage(data.error);  // ako dode do greske kod login-a, postavimo error koji se kasnije ispise
           }
         }
 

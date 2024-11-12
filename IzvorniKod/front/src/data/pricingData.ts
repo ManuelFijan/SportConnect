@@ -1,5 +1,6 @@
-const features = [
+// ovaj file sluzi za prikaz kartica na pricing page-u, tu su samo podatci koji se prikazuju
 
+const features = [
     'Education',
     'Connect with athletes',
     'View bronze content',

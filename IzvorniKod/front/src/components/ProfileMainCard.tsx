@@ -23,6 +23,9 @@ function ProfileMainCard() {
     const [errorMessage2, setNumError] = useState('')
     const [bool2, setBool2] = useState(true)
 
+    /* preko email-a user-a dohvaćamo najaktualnije podatke tog user-a (jer se email ne može promijeniti, to je kao id)
+       i nakon toga dobivene podatke stavljamo u varijablu UpdatedUser kako bi ih mogli prikazati na page-u
+    */
     useEffect(() => {
             fetch(`http://localhost:8080/users/get-information/${user.email}`)
                 .then(response => response.json())
@@ -35,6 +38,7 @@ function ProfileMainCard() {
         }
     , []);
 
+    // ako se promjene podatci unutar forme ova funkcija prode po svim unosima i samo update-a podatke u varijabli formData
     const handleInputChange = (e : any) => {
         const { name, value } = e.target;
         setFormData((prevState: any) => ({ ...prevState, [name]: value }));
@@ -51,11 +55,13 @@ function ProfileMainCard() {
         setBool4(true);
     };
 
+    // kada stisnemo gumb submit na formi onda ulazimo u ovu funkciju koja sluzi u ovom slucaju da update-amo podatke user-a
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         let var1 = false, var2 = false, var3 = false, var4 = false
 
+        // provjeravamo format imena
         let tmp1 = formData.firstName.split('')
         if(/^[A-ZČĆŠĐŽ]+$/.test(tmp1[0]) && tmp1.length > 1){
             let br = 0;
@@ -74,6 +80,7 @@ function ProfileMainCard() {
             setFirstNameError('Incorrect name format')
         }
 
+        // provjeravamo format prezimena
         let tmp2 = formData.lastName.split('')
         if(/^[A-ZČĆŠĐŽ]+$/.test(tmp2[0]) && tmp2.length > 1){
             let br = 0;
@@ -91,6 +98,7 @@ function ProfileMainCard() {
             setLastNameError('Incorrect surname format')
         }
 
+        // provjera formata username-a
         let tmp3 = formData.userName.split('')
         if(/^[a-zA-Z]$/.test(tmp3[0]) && tmp3.length > 3){
             let br = 0;
@@ -108,6 +116,7 @@ function ProfileMainCard() {
             setUsernameError('Incorrect username format')
         }
 
+        // provjera formata broja mobitela
         let tmp4 = formData.mobileNumber.split(' ')
         let tmp5 = tmp4[0].split('')
         if(tmp5[0] === '+' && isFinite(Number(tmp4[1])) && tmp4[1].length > 6 && !tmp4[1].includes('.')){
@@ -126,6 +135,9 @@ function ProfileMainCard() {
             setNumError('+(country_code)  phone_number')
         }
     
+        /* ako je su svi podatci dobrog formata radimo fetch na backend preko mail-a user-a (to je kao id)
+           prema primljenom mail-u backend update-a podatke i vrati ih
+        */
         if(var1 && var2 && var3 && var4){
             try {
                 const response = await fetch(`http://localhost:8080/users/update?email=${(user.email)}`, {
@@ -144,12 +156,15 @@ function ProfileMainCard() {
         
                 const data = await response.json();
     
+                /* ako je odgovor od backend-a vracen sa statusom ok, postavimo podatke u updatedUser i varijablu koja prati
+                   da li trenutno editamo page ili ne na suprotnu vrijednost od one koja je bila
+                */
                 if (response.ok) {
                     setUpdatedUser(data)
                     setIsEditing(!isEditing) // ako je proslo vise se ne edit-a i sigurno nema error-a
                 } else {
     
-                    // inace ostajemo u edit prozoru i postavljamo koji već error treba 
+                    // inace ostajemo u edit prozoru i postavljamo koji vec error treba 
     
                     if (data.userNameError) {
                         setUsernameError(data.userNameError);  //postavljamo userNameError za prikaz 

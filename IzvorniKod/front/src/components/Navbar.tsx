@@ -17,6 +17,7 @@ function Navbar({ isOpen, setIsOpen }: NavbarProps){
     let path = location.pathname
     path = path.substring(1, path.length)
 
+    // nakon pritiska enter-a cuva vrijednost search polja koje je u navbar-u
     const onEnter = (event : any) => {
         if(event.key == 'Enter'){
             setSearchTerm(event.target.value)
@@ -24,6 +25,7 @@ function Navbar({ isOpen, setIsOpen }: NavbarProps){
         }
     }
 
+    // ova funkcija sluzi samo da postaimo vrijednost polja za search ili na ono sta upisemo ili na tekst: search....
     const handleChange = (event : any) => {
         if(event.target.value === '')
             setPlaceholder('search...                     🔎')

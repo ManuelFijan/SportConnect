@@ -5,6 +5,7 @@ import Feature from './PricingCard/Feature';
 import Price from './PricingCard/Price';
 import {Link} from "react-router-dom";
 
+// vraca boju za bronze, silver, itd.
 const getBorderColor = (color: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'): string => {
     switch (color) {
         case 'bronze':
@@ -22,7 +23,6 @@ const getBorderColor = (color: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'):
     }
 };
 
-
 interface PricingCardProps {
     title: string;
     price: number;
@@ -32,6 +32,7 @@ interface PricingCardProps {
     buttonText: string;
 }
 
+// vraca pricing card koji je sastavljen od ostalih komponenata za pricing card
 const PricingCard: React.FC<PricingCardProps> = ({
                                                      title,
                                                      price,

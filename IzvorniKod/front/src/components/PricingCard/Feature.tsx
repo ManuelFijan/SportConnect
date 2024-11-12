@@ -5,6 +5,9 @@ interface FeatureProps {
     feature: string;
 }
 
+/* funkcija koja postavlja koji feature je ukljucen u pojedinu pretplatu (free/bronze/silver/gold) na pricing page-u
+   i onda vrati tu listu sa features
+*/
 const Feature: React.FC<FeatureProps> = ({ included, feature }) => {
     return (
         <li>

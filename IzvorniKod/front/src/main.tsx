@@ -18,6 +18,9 @@ import MyAccountPage from './pages/MyAccountPage.tsx'
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
+/*ovdje imamo ruter, koji samo switch-a izmedu ruta i prikazuje ono sto se nalazi u element polju
+  ako se bilo gdje napravi greska, prikaze se errorElement (NotFoundPage)
+*/
 const router = createBrowserRouter([
   {
     path: '/',

@@ -14,7 +14,9 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
   let path = location.pathname
   path = path.substring(1, path.length)
 
-
+  /* prilikom rendera stranice postavlja bool varijablu je li sirina prozora veca od 767 px i prema tome ako je
+     zatvara mobile menu, ako je na screen-u manje sirine od 767 px mobile menu ostao otvoren
+  */
   useEffect(() => {
     const handleResize = () => {
       const screenWide = window.innerWidth > 767;

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/CreateAccountPage.css';
 import Footer from '../components/Footer'; 
 
+// oblik varijable koji nam je potreban prilikom fetch-a na backend kako bi mogli dobiti podatke
 interface UserData {
     firstName: string;
     lastName: string;
@@ -16,6 +17,9 @@ const api = "http://localhost:8080";  // base api-ja na backendu
 function SetupYourAccountPage(){
     const [userData, setUserData] = useState<UserData | null>(null);
 
+    /*svaki put kada se refresh-a stranica fetch-amo backend kako bi dobili najaktualnije podatke
+      dobivene preko google ili facebook sign in
+    */
     useEffect(() => {
         fetch('http://localhost:8080/users/signedin', { credentials: 'include' })
             .then(response => {
@@ -48,6 +52,7 @@ function SetupYourAccountPage(){
 
     const navigate = useNavigate();
     
+    //ove 3 funkcije sluze samo da promjenimo vrijednosti varijable kada se unese nesto u polje forme
     const passwordOnChange = (e : any) => {
         setPassword(e.target.value)
     }
@@ -60,6 +65,9 @@ function SetupYourAccountPage(){
         setNum(e.target.value)
     }
 
+    /* ova funkcija sluzi da za gumbe gdje biramo jesmo li klijent ili partner, ili pak free/bronze/silver/gold
+       vrati njihovu vrijednost (odnosno tekstualno ono što smo odabrali)
+    */
     function findChecked(name : any):string {
         let radios
         if(name === 'role'){
@@ -79,6 +87,9 @@ function SetupYourAccountPage(){
         return selectedValue;
     }
 
+    /*kada stisnemo submit na gumbu forme, ulazimo u ovu funkciju cija je funkcionalnost provjeriti podatke unesene
+      u formu i ako je sve ok radi se fetch na backend
+    */
     const handleSubmit = async (e : any) => {
 
         e.preventDefault()
@@ -88,6 +99,7 @@ function SetupYourAccountPage(){
         
         let var2 = false, var4 =false, var5 = false
 
+        //provjera da je password dulji od 6 znakova
         if(password.length < 6){
             setPasswordError('Password must be longer then 6 characters')
             setBool2(false)
@@ -96,6 +108,7 @@ function SetupYourAccountPage(){
             var2 = true
         }
         
+        // provjera username-a
         let tmp3 = username.split('')
         if(/^[a-zA-Z]$/.test(tmp3[0]) && username.length > 3){
             let br = 0;
@@ -113,6 +126,7 @@ function SetupYourAccountPage(){
             setUsernameError('Incorrect username format')
         }
 
+        // provjera broja mobitela
         let tmp4 = num.split(' ')
         let tmp5 = tmp4[0].split('')
         if(tmp5[0] === '+' && isFinite(Number(tmp4[1])) && tmp4[1].length > 6 && !tmp4[1].includes('.')){
@@ -131,6 +145,7 @@ function SetupYourAccountPage(){
             setNumError('+(country_code)  phone_number')
         }
 
+        //ako su svi podatci uneseni u formu dobrog oblika radi se fetch na backend kako bi registrirali korisnika
         if (var2 && var4 && var5) {
             try {
                 const response = await fetch(`${api}/users/register`, {
@@ -153,12 +168,14 @@ function SetupYourAccountPage(){
         
               const data = await response.json();
         
+              //ako je sve proslo ok, uspjesno smo registrirani i idemo na /main-page
               if (response.ok) {
                 console.log('Register successful:', data);
                 navigate('/main-page', { state: {user: data, fromCreateAccount: true} });
               } else {
                 console.log(data);
 
+                // ako nije sve proslo ok postavljamo error-e koje je backend vratio kako bi ih mogli ispisati
                 if (data.userNameError) {
                     setUsernameError(data.userNameError);  //postavljamo userNameError za prikaz sign in page-a
                     setBool4(false);
@@ -176,6 +193,7 @@ function SetupYourAccountPage(){
         }
     }
 
+    // funckija za odselektiranje gumba ako drugi selektiramo
     function toggleActive(control : any){
         let labels;
         if(control === 1){
@@ -187,8 +205,10 @@ function SetupYourAccountPage(){
         labels.forEach(label => {
             label.onclick = () => {
             
+            // Uklanja 'active' klasu sa svih labela
             labels.forEach(l => l.classList.remove('active'));
             
+            // Dodaje 'active' klasu na kliknuti label
             label.classList.add('active');
             };
         });

@@ -11,9 +11,6 @@ const PricingPage: React.FC = () => {
     const bool = s.includes("main")
     const bool2 = s.includes("acc")
 
-    console.log(s)
-
-
     const {user} = useLocation().state || {}
 
     return (

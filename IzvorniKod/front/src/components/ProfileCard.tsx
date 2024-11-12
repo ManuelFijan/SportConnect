@@ -9,6 +9,9 @@ function ProfileCard(){
 
     const [updatedUser, setUpdatedUser] = useState(user);
 
+    /* preko email-a user-a dohvaćamo najaktualnije podatke tog user-a (jer se email ne može promijeniti, to je kao id)
+       i nakon toga dobivene podatke stavljamo u varijablu UpdatedUser kako bi ih mogli prikazati na page-u
+    */
     useEffect(() => {
             fetch(`http://localhost:8080/users/get-information/${user.email}`)
                 .then(response => response.json())

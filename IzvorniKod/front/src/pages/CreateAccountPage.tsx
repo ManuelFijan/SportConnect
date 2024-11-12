@@ -39,7 +39,10 @@ function CreateAccountPage(){
     const navigate = useNavigate();
     
     /*e je cijeli objekt i metapodaci tog inputa u formu 
-    a e.target.value je tocno ono uneseno u input*/
+    a e.target.value je tocno ono uneseno u input,
+    sve onChange funkcije sluze samo da kada u formi nesto unesemo
+    da se promjeni vrijednost te varijable
+    */
     const emailOnChange = (e : any) => {
         setValue(e.target.value)
     }
@@ -87,6 +90,9 @@ function CreateAccountPage(){
         return selectedValue;
     }
 
+    /*kada stisnemo submit na gumbu forme, ulazimo u ovu funkciju cija je funkcionalnost provjeriti podatke unesene
+      u formu i ako je sve ok radi se fetch na backend
+    */
     const handleSubmit = async (e : any) => {
         /*ova funkcija sprecava refresh stranice nakon submit-anja form-a / klika na link / itd. */
         e.preventDefault()
@@ -193,6 +199,7 @@ function CreateAccountPage(){
             setNumError('+(country_code)  phone_number')
         }
 
+        //ako su svi podatci uneseni u formu dobrog oblika radi se fetch na backend kako bi registrirali korisnika
         if (var1 && var2 && var3 && var4 && var5 && var6) {
             try {
               const response = await fetch(`${api}/users/register`, {
@@ -214,12 +221,14 @@ function CreateAccountPage(){
         
               const data = await response.json();
         
+              //ako je sve proslo ok, uspjesno smo registrirani i idemo na /main-page
               if (response.ok) {
                 console.log('Register successful:', data);
                 navigate('/main-page', { state: {user: data, fromCreateAccount: true} });
               } else {
                 console.log(data);
 
+                // ako nije sve proslo ok postavljamo error-e koje je backend vratio kako bi ih mogli ispisati
                 if (data.emailError) {
                     setEmailError(data.emailError);  // postavljamo emailError za prikaz sign in page-a
                     setBool1(false);
