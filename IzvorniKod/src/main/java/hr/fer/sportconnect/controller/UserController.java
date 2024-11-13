@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // change because: Allow requests from React app
+@CrossOrigin(origins = "https://sportconnect-8b7o.onrender.com", allowCredentials = "true") // change because: Allow requests from React app
 public class UserController {
 
     private final UserServiceImpl userService;
