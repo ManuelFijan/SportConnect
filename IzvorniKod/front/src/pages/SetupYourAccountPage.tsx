@@ -20,8 +20,14 @@ function SetupYourAccountPage(){
     /*svaki put kada se refresh-a stranica fetch-amo backend kako bi dobili najaktualnije podatke
       dobivene preko google ili facebook sign in
     */
-    useEffect(() => {
-        fetch(`${api}/users/signedin`, { credentials: 'include' })
+      useEffect(() => {
+        fetch(`${api}/users/signedin`, { 
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+            })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
