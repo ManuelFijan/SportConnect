@@ -125,13 +125,13 @@ public class UserServiceImpl implements UserService {
 
         User user = optionalUser.get();
 
-        if (userRepository.existsByFirstName(updateDto.getFirstName()) && !(user.getFirstName().equals(updateDto.getFirstName()))) {
+        /*if (userRepository.existsByFirstName(updateDto.getFirstName()) && !(user.getFirstName().equals(updateDto.getFirstName()))) {
             errors.put("firstNameError", "First name is already in use");
         }
 
         if (userRepository.existsByLastName(updateDto.getLastName()) && !(user.getLastName().equals(updateDto.getLastName()))) {
             errors.put("lastNameError", "Last name is already in use");
-        }
+        }*/
 
         if (userRepository.existsByUserName(updateDto.getUserName()) && !(user.getUserName().equals(updateDto.getUserName()))) {
             errors.put("userNameError", "Username is already in use");
