@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import defaultProfilePicture from '/user.png';
 import { useEffect, useState } from 'react';
 
+const api = "http://localhost:8080";  // base api-ja na backendu
+
 function ProfileCard(){
     const location = useLocation()
     const {user} = location.state || {}
@@ -13,7 +15,7 @@ function ProfileCard(){
        i nakon toga dobivene podatke stavljamo u varijablu UpdatedUser kako bi ih mogli prikazati na page-u
     */
     useEffect(() => {
-            fetch(`http://localhost:8080/users/get-information/${user.email}`)
+            fetch(`${api}/users/get-information/${user.email}`)
                 .then(response => response.json())
                 .then(data => {
                     setUpdatedUser(data);

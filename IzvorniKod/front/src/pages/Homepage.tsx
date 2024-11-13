@@ -10,7 +10,7 @@ function Homepage(){
     // saznaj je li url /sign-in
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
-
+ 
     /*kada je url /sign-in onda dodamo prefix u imenu klase glavnog diva
     te u .css dat. pogodimo taj div i bluramo ga cijelog, a posto je bool = true onda
     se izrenderira nova komponenta koju fiksiramo na sredinu stranice*/

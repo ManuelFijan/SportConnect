@@ -21,7 +21,7 @@ function SetupYourAccountPage(){
       dobivene preko google ili facebook sign in
     */
     useEffect(() => {
-        fetch('http://localhost:8080/users/signedin', { credentials: 'include' })
+        fetch(`${api}/users/signedin`, { credentials: 'include' })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
