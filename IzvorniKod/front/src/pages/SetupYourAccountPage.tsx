@@ -21,18 +21,15 @@ function SetupYourAccountPage(){
       dobivene preko google ili facebook sign in
     */
       useEffect(() => {
-        fetch(`${api}/users/signedin`, {credentials: 'include'})
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+        fetch(`${api}/users/signedin`)
+            .then(response =>  response.json())
             .then(data => {
                 console.log("User Info:", data);
                 setUserData(data);
             })
-            .catch(error => console.error("Error fetching user info:", error));
+            .catch(error => {
+                console.error("Error fetching user info:", error)
+            });
     }, []);
 
     //kontrola formata lozinke
