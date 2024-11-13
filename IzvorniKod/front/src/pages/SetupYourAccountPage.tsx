@@ -12,7 +12,7 @@ interface UserData {
     provider: string;
 }
 
-const api = "http://localhost:8080";  // base api-ja na backendu
+const api = "https://sportconnect-1-i21i.onrender.com";  // base api-ja na backendu
 
 function SetupYourAccountPage(){
     const [userData, setUserData] = useState<UserData | null>(null);
