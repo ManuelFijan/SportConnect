@@ -4,7 +4,7 @@ function Login() {
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
 
-    const api = "https://sportconnect-iq3d.onrender.com";  // base api-ja na backendu
+    const api = "https://sportconnect-backend.onrender.com";  // base api-ja na backendu
 
     /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini 
     nemaju funkcionalnost */
