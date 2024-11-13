@@ -6,7 +6,7 @@ import defaultProfilePicture from '/user.png';
 import ProfileCard from '../components/ProfileCard';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-const api = "https://sportconnect-1-i21i.onrender.com";  // base api-ja na backendu
+const api = "https://sportconnect-53p1.onrender.com";  // base api-ja na backendu
 
 function MainPage() {
     const location = useLocation();
