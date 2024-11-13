@@ -37,22 +37,13 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B2744430F7FD42B499F25EF72D7BC629 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8E4D5B3AAEBC4861868FF08F5B9B0D5C }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_584E3A5874384E9491C232682D6BF8C0 }}
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -60,4 +51,4 @@ jobs:
           app-name: 'SportConnect'
           slot-name: 'Production'
           package: '*.war'
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E3678C8E5994D4186230D8AAD00A9FA }}
