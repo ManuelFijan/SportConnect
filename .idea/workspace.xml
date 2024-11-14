@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="Popravljen facebook env. var." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ZuanovicLuka&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ManuelFijan/SportConnect.git&quot;,
+    &quot;accountId&quot;: &quot;21e3f922-efd1-4a1e-a167-07ceec8f141f&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2nkGVyr4lXRe9MbPMSUL1q5xo9P" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.App.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "backend",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/zualuk/OneDrive - fer.hr/Desktop/Aplikacija_SC_back/SportConnect/IzvorniKod",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "spring.configuration.checksum": "fe01ce2a7fbac8fafaed7c982a04e229",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.App">
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="SPRING_DATASOURCE_PASSWORD" value="2sp_$UU.T9Req5a" />
+        <env name="SPRING_DATASOURCE_URL" value="jdbc:postgresql://aws-0-eu-central-1.pooler.supabase.com:5432/postgres?sslmode=require" />
+        <env name="SPRING_DATASOURCE_USERNAME" value="postgres.pccmxztqfmfucdbgcydr" />
+        <env name="SPRING_JWT_SECRET" value="9gAL6sHcleFIhLQYtvjs020yxMtdUlORqErFWXcx4s8=" />
+        <env name="SPRING_OAUTH_GOOGLE_ID" value="1057622274801-g2dsst2pd1ikfu40uuarbn3jp6l55v8s.apps.googleusercontent.com" />
+        <env name="SPRING_OAUTH_GOOGLE_SECRET" value="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" />
+        <env name="SPRING_OAUTH_FACEBOOK_ID" value="1949929135433749" />
+        <env name="SPRING_OAUTH_FACEBOOK_SECRET" value="5af8c1baad5effa279003fd15422cef4" />
+      </envs>
+      <module name="demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="hr.fer.sportconnect.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.App" />
+      <item itemvalue="Spring Boot.DemoApplication" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2def15c-b457-4840-98b0-8fea6ddb9588" name="Changes" comment="" />
+      <created>1729509687797</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729509687797</updated>
+      <workItem from="1729509689020" duration="2681000" />
+      <workItem from="1729513063472" duration="11000" />
+      <workItem from="1729513694853" duration="681000" />
+      <workItem from="1729604807544" duration="3000" />
+      <workItem from="1729606440870" duration="14000" />
+      <workItem from="1729626173931" duration="134000" />
+      <workItem from="1729626755370" duration="287000" />
+      <workItem from="1729627058748" duration="167000" />
+      <workItem from="1729627241809" duration="6000" />
+      <workItem from="1729627268990" duration="17000" />
+      <workItem from="1730367191483" duration="822000" />
+      <workItem from="1730368922413" duration="823000" />
+      <workItem from="1730384155764" duration="1451000" />
+      <workItem from="1730386465834" duration="7042000" />
+      <workItem from="1730470351451" duration="9029000" />
+      <workItem from="1730561884732" duration="7960000" />
+      <workItem from="1730572539282" duration="803000" />
+      <workItem from="1730630643529" duration="9679000" />
+      <workItem from="1730643806170" duration="4587000" />
+      <workItem from="1730722548811" duration="7800000" />
+      <workItem from="1730734770425" duration="1249000" />
+      <workItem from="1730738168901" duration="174000" />
+      <workItem from="1730749136802" duration="16000" />
+      <workItem from="1730754232191" duration="7009000" />
+      <workItem from="1730805307696" duration="3175000" />
+      <workItem from="1730809150140" duration="369000" />
+      <workItem from="1731147958165" duration="68000" />
+    </task>
+    <task id="LOCAL-00001" summary="proba">
+      <created>1729509741513</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729509741513</updated>
+    </task>
+    <task id="LOCAL-00002" summary="proba">
+      <created>1729510235505</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729510235505</updated>
+    </task>
+    <task id="LOCAL-00003" summary="proba">
+      <created>1729511109351</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729511109351</updated>
+    </task>
+    <task id="LOCAL−00004" summary="Dovšen github i google sign up">
+      <option name="closed" value="true" />
+      <created>1730569073604</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1730569073604</updated>
+    </task>
+    <task id="LOCAL−00005" summary="Ispravak application.properties">
+      <option name="closed" value="true" />
+      <created>1730569810321</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1730569810321</updated>
+    </task>
+    <task id="LOCAL−00006" summary="Dodano spremanje profilePicture u bazu">
+      <option name="closed" value="true" />
+      <created>1730641014866</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1730641014866</updated>
+    </task>
+    <task id="LOCAL−00007" summary="Završen facebook oauth">
+      <option name="closed" value="true" />
+      <created>1730761015088</created>
+      <option name="number" value="LOCAL−00007" />
+      <option name="presentableId" value="LOCAL−00007" />
+      <updated>1730761015088</updated>
+    </task>
+    <task id="LOCAL−00008" summary="Popravljen facebook env. var.">
+      <option name="closed" value="true" />
+      <created>1730808183627</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1730808183627</updated>
+    </task>
+    <task id="LOCAL−00009" summary="Popravljen facebook env. var.">
+      <option name="closed" value="true" />
+      <created>1730808202655</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1730808202655</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="proba" />
+    <MESSAGE value="Dovšen github i google sign up" />
+    <MESSAGE value="Ispravak application.properties" />
+    <MESSAGE value="Dodano spremanje profilePicture u bazu" />
+    <MESSAGE value="Završen facebook oauth" />
+    <MESSAGE value="Popravljen facebook env. var." />
+    <option name="LAST_COMMIT_MESSAGE" value="Popravljen facebook env. var." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
