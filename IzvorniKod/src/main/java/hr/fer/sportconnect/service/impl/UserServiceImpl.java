@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> getSignedInUser(OAuth2AuthenticationToken authenticationToken, OAuth2User principal) {
-        // Get provider (registration ID) such as "google" or "github"
+        // Get provider (registration ID) such as "google" or "GitHub"
         String provider = authenticationToken.getAuthorizedClientRegistrationId();
 
         Map<String, Object> response = new HashMap<>();
@@ -201,22 +201,22 @@ public class UserServiceImpl implements UserService {
             response.put("lastName", principal.getAttribute("family_name") != null ? principal.getAttribute("family_name") : " ");
             response.put("email", principal.getAttribute("email"));
             response.put("profilePicture", principal.getAttribute("picture"));
-        } else if ("facebook".equals(provider)) {
-            response.put("email", principal.getAttribute("email"));
-
+        }  else if ("github".equals(provider)) {
             String fullName = principal.getAttribute("name");
-
-            if (fullName != null) {
-                String[] nameParts = fullName.split(" ", 2);
-                String firstName = nameParts[0];
-                String lastName = nameParts.length > 1 ? nameParts[1] : " ";
+            if (fullName != null && !fullName.isEmpty()) {
+                String[] nameParts = fullName.split(" ", 2); // Split into at most 2 parts
+                String firstName = nameParts[0]; // First part is the first name
+                String lastName = nameParts.length > 1 ? nameParts[1] : ""; // Second part (if available) is the last name
 
                 response.put("firstName", firstName);
                 response.put("lastName", lastName);
             }
+            response.put("email", principal.getAttribute("email"));
+            response.put("userName", principal.getAttribute("login"));
+            response.put("profilePicture", principal.getAttribute("avatar_url"));
         }
 
-        response.put("provider", provider); // "google" or "facebook"
+        response.put("provider", provider); // "google" or "GitHub"
 
         return response;
     }
