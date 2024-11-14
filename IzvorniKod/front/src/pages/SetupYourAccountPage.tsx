@@ -21,7 +21,7 @@ function SetupYourAccountPage(){
       dobivene preko google ili facebook sign in
     */
       useEffect(() => {
-        fetch(`${api}/users/signedin`)
+        fetch(`${api}/users/signedin`, {credentials: "include"})
             .then(response =>  response.json())
             .then(data => {
                 console.log("User Info:", data);
