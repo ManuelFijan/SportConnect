@@ -156,3 +156,8 @@
     color: gray;
     background-color: gray;
 }
+
+.features-pricing-list li:hover {
+    background-color: transparent !important;
+    box-shadow: none !important; 
+}

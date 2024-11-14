@@ -48,7 +48,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         >
             <Title title={title}/>
             <Price price={price}/>
-            <ul>
+            <ul className="features-pricing-list">
                 {features.map((feature, index) => (
                     <Feature key={feature} included={isFeatureIncluded[index]} feature={feature}/>
                 ))}

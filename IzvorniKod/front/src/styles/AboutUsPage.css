@@ -77,6 +77,11 @@
     text-align: justify;
 }
 
+.list-about-us li:hover {
+    background-color: transparent !important;
+    box-shadow: none !important; 
+}
+
 @media (max-width: 1480px) {
     .connect-text{
         left: 5rem;

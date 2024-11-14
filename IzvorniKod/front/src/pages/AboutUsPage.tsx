@@ -66,7 +66,7 @@ function AboutUsPage() {
                 <p className="mb-2">
                     SportConnect offers a flexible and engaging way for two types of users to interact:
                 </p>
-                <ul className="list-disc list-inside mb-4">
+                <ul className="list-about-us list-disc list-inside mb-4">
                     <li>
                         <strong>Clients:</strong> Gain access to a variety of content, including blogs, tips, and plans
                         that help develop and maintain healthy habits. Clients choose their level of content access,
@@ -81,7 +81,7 @@ function AboutUsPage() {
                     </li>
                 </ul>
                 <h2 className="text-2xl font-bold mb-3">What to Expect on SportConnect</h2>
-                <ul className="list-disc list-inside mb-4">
+                <ul className="list-about-us list-disc list-inside mb-4">
                     <li><strong>Interactive Blogs and Advice:</strong> Follow content shared by our partners, including articles, training and nutrition plans, and wellness tips.</li>
                     <li><strong>Flexible Subscription System:</strong> Access different levels of content (bronze, silver, gold) based on your needs and goals.</li>
                     <li><strong>Seamless Communication:</strong> Messages and notifications are easily accessible via the app or email. Whether you’re a partner or a client, communication is always at your fingertips.</li>

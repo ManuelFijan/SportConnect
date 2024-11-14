@@ -32,6 +32,11 @@
     font-size: 18px;
 }
 
+.list-privacy-policy li:hover {
+    background-color: transparent !important;
+    box-shadow: none !important; 
+}
+
 @media (max-width: 1000px) {
     .privacy-policy-header p {
         margin-left: 90px;

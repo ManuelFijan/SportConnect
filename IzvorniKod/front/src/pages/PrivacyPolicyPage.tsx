@@ -67,7 +67,7 @@ function PrivacyPolicyPage() {
                         <p className="mb-4">
                             We may use the collected information for various purposes, including:
                         </p>
-                        <ul className="list-disc ml-6 mb-20">
+                        <ul className="list-privacy-policy list-disc ml-6 mb-20">
                             <li className="mb-3">To provide, operate, and maintain our Service.</li>
                             <li className="mb-3">To improve, personalize, and expand our Service.</li>
                             <li className="mb-3">To process transactions and manage subscriptions.</li>
@@ -82,7 +82,7 @@ function PrivacyPolicyPage() {
                         <p className="mb-4">
                             We may share your information in the following situations:
                         </p>
-                        <ul className="list-disc ml-6 mb-20">
+                        <ul className="list-privacy-policy list-disc ml-6 mb-20">
                             <li className="mb-3">
                                 <strong>With Partners:</strong> If you interact with partners (e.g., subscribing to their content), your profile information 
                                 and engagement data may be shared with them.
@@ -113,7 +113,7 @@ function PrivacyPolicyPage() {
                         <p className="mb-4">
                             You have the following data protection rights:
                         </p>
-                        <ul className="list-disc ml-6 mb-12">
+                        <ul className="list-privacy-policy list-disc ml-6 mb-12">
                             <li className="mb-4">The right to access, update, or delete your personal information.</li>
                             <li className="mb-4">The right to object to or restrict our processing of your data.</li>
                             <li className="mb-4">The right to withdraw consent if we are processing your information based on consent.</li>
