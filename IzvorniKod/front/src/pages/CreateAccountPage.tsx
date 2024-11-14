@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; //potrebno za redirect (navigiranje) na drugu stranicu
 import Footer from '../components/Footer';
 
-const api = "https://sportconnect-backend.onrender.com";  // base api-ja na backendu
+const api = "https://sportconnect-r1ir.onrender.com";  // base api-ja na backendu
 
 function CreateAccountPage(){
     //kontrola formata imena
