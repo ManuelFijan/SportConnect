@@ -8,9 +8,11 @@ function Login() {
 
     /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini 
     nemaju funkcionalnost */
+
+    /* kada slozimo oauth na deployu umjesto true kod <Link> vrati bool */
     return (
         <>
-            <Link to={bool ? '' : `${api}/oauth2/authorization/google`} className="">
+            <Link to={true ? '' : `${api}/oauth2/authorization/google`} className="">
                 <button className={bool ? "sign-button-1" : "button-1"} role="button">
                     <div className='flex justify-center space-x-3'>
                         <img src="./google-logo.png" alt="" className='w-6'/>
@@ -21,7 +23,7 @@ function Login() {
                 </button>
             </Link>
 
-            <Link to={bool ? '' : `${api}/oauth2/authorization/facebook`} className="mt-[-1.3rem]">
+            <Link to={true ? '' : `${api}/oauth2/authorization/facebook`} className="mt-[-1.3rem]">
                 <button className={bool ? "sign-button-4 " : "button-4"} role="button">
                     <div className='flex justify-center space-x-3 ml-4'>
                         <img src="./facebook-logo.webp" alt="" className='w-7'/>
