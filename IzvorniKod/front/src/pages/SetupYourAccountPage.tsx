@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 interface UserData {
     firstName: string;
     lastName: string;
+    userName: string;
     email: string;
     profilePicture: string;
     provider: string;
@@ -106,8 +107,13 @@ function SetupYourAccountPage(){
         }
         
         // provjera username-a
-        let tmp3 = username.split('')
-        if(/^[a-zA-Z]$/.test(tmp3[0]) && username.length > 3){
+        if(userData == null){
+
+        }
+
+        let tmp3 = (username || userData?.userName || "").split('');
+
+        if(/^[a-zA-Z]$/.test(tmp3[0]) && tmp3.length > 3){
             let br = 0;
             tmp3.map(t => (/^[a-zA-Z0-9._]$/.test(t) ? '' : br++))
             if(br === 0){
@@ -239,7 +245,7 @@ function SetupYourAccountPage(){
                         
                             <input type="text" value={userData ? userData.firstName : ''} className="form-control mt-3" readOnly/>
                             <input type="text" value={userData ? userData.lastName : ''} className="form-control mt-3" readOnly/>
-                            <input type="text" onChange={usernameOnChange} placeholder="Username" className="form-control mt-3" maxLength={20} required/>
+                            <input type="text" value={userData ? userData.userName : ''} onChange={usernameOnChange} placeholder="Username" className="form-control mt-3" maxLength={20} required/>
                             {bool4 ? '' : <div style={{ color: 'red' }}>{errorMessage4}</div>}
                         </div>
 
