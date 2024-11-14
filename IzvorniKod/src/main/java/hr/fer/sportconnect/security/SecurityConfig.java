@@ -78,7 +78,7 @@ public class SecurityConfig {
                         .ignoringRequestMatchers("/users/register", "/users/login", "/users/update", "/users/get-information/**", "/users/signedin")
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/login/oauth2/code/**", "/error", "/users/register", "/users/login", "/users/update", "/users/get-information/**").permitAll()
+                        .requestMatchers("/", "/login", "/login/oauth2/code/**", "/error", "/users/register", "/users/login", "/users/update", "/users/get-information/**", "/users/test").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
