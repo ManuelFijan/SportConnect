@@ -38,6 +38,10 @@ function SetupYourAccountPage(){
     const [errorMessage2, setPasswordError] = useState('')
     const [bool2, setBool2] = useState(true)
 
+    //kontrola formata email-a
+    const [errorMessage3, setEmailError] = useState('')
+    const [bool3, setBool3] = useState(true)
+
     //kontrola formata korisnickog imena
     const [username, setUsername] = useState('')
     const [errorMessage4, setUsernameError] = useState('')
@@ -188,6 +192,11 @@ function SetupYourAccountPage(){
                     setNumError(data.phoneNumberError);  //postavljamo phoneNumberError za prikaz sign in page-a
                     setBool5(false);
                 }
+
+                if(data.emailError){
+                    setEmailError(data.emailError);  //postavljamo phoneNumberError za prikaz sign in page-a
+                    setBool3(false);
+                }
               }
 
             } catch (error) {
@@ -253,6 +262,7 @@ function SetupYourAccountPage(){
                             <input type="text" onChange={numOnChange} placeholder="Contact (mobile/telephone number)" className="form-control mt-3" maxLength={19} required/>
                             {bool5 ? '' : <div style={{ color: 'red' }}>{errorMessage5}</div>}
                             <input type="text" value={userData ? userData.email : ''} className="form-control mt-3" readOnly/>
+                            {bool3 ? '' : <div style={{ color: 'red' }}>{errorMessage3}</div>}
                             <input type="password" onChange={passwordOnChange} placeholder="Password" className="form-control mt-3" maxLength={20} required/>
                             {bool2 ? '' : <div style={{ color: 'red' }}>{errorMessage2}</div>}
 
