@@ -161,7 +161,7 @@ function SetupYourAccountPage(){
                     password: password,
                     firstName: userData?.firstName,
                     lastName: userData?.lastName,
-                    userName: username,
+                    userName: (username || userData?.userName || ""),
                     userType: btn_role,
                     subscriptionPlan: btn_membership,
                     mobileNumber: num,
