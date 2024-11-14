@@ -12,7 +12,7 @@ function Login() {
     /* kada slozimo oauth na deployu umjesto true kod <Link> vrati bool */
     return (
         <>
-            <Link to={true ? '' : `${api}/oauth2/authorization/google`} className="">
+            <Link to={bool ? '' : `${api}/oauth2/authorization/google`} className="">
                 <button className={bool ? "sign-button-1" : "button-1"} role="button">
                     <div className='flex justify-center space-x-3'>
                         <img src="./google-logo.png" alt="" className='w-6'/>
