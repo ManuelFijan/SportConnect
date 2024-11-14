@@ -13,6 +13,8 @@ jobs:
       # Step 1: Check out the code
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: backend  # Check out the backend branch
 
       # Step 2: Set up Google Cloud SDK
       - name: Set up Google Cloud SDK
@@ -25,7 +27,7 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect ./IzvorniKod
 
       # Step 4: Push Docker image to Google Container Registry
       - name: Push Docker image
