@@ -12,7 +12,7 @@ interface UserData {
     provider: string;
 }
 
-const api = "https://sportconnect-r1ir.onrender.com";  // base api-ja na backendu
+const api = "https://sportconnect-531910440961.europe-west3.run.app";  // base api-ja na backendu
 
 function SetupYourAccountPage(){
     const [userData, setUserData] = useState<UserData | null>(null);

@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/SingInPage.css';
 import { useState } from 'react';
 
-const api = "https://sportconnect-r1ir.onrender.com";  // base api-ja na backendu
+const api = "https://sportconnect-531910440961.europe-west3.run.app";  // base api-ja na backendu
 
 const SignInPage = () => {
   const [input, setValue] = useState('')
