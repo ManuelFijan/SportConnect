@@ -18,7 +18,7 @@ Aplikacija nudi različite pretplatne planove koji omogućuju pristup blogovima,
 - pristup informacija same aplikacije -> svi aktivni korisnici (klijenti, partneri i admini)
 - stvaranje profila/prijava -> klijenti i partneri
 - spremanje i označavanje objava -> klijenti i partneri
-- komunikacija sa ostalim korisnicima -> klijenti i partneri
+- komunikacija s ostalim korisnicima -> klijenti i partneri
 - spremanje i označavanje drugih objava -> klijenti i partneri
 - odabiranje i otkazivanje ranga za plaćanje -> klijenti i partneri (brončanog i srebrnog ranga)
 - uplate -> klijenti i partneri (brončanog i srebrnog ranga)
