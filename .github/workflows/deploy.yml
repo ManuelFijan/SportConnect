@@ -1,51 +1,51 @@
-name: Deploy to Google Cloud Run
+# name: Deploy to Google Cloud Run
 
-on:
-  push:
-    branches:
-      - backend  # Trigger deployment on pushes to the backend branch
+# on:
+#  push:
+#    branches:
+#      - backend  # Trigger deployment on pushes to the backend branch
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
 
-    steps:
-      # Step 1: Check out the code
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: backend  # Check out the backend branch
+#   steps:
+#      # Step 1: Check out the code
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          ref: backend  # Check out the backend branch
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+#      - name: Authenticate to Google Cloud
+#        uses: google-github-actions/auth@v0
+#        with:
+#          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       # Step 2: Set up Google Cloud SDK
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+#      - name: Set up Google Cloud SDK
+#        uses: google-github-actions/setup-gcloud@v1
+#        with:
+#          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Authenticate Docker
-        run: |
-          gcloud auth configure-docker --quiet
+#      - name: Authenticate Docker
+#        run: |
+#          gcloud auth configure-docker --quiet
 
       # Step 3: Build the Docker image
-      - name: Build Docker image
-        run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect ./IzvorniKod
+#      - name: Build Docker image
+#        run: |
+#          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect ./IzvorniKod
 
       # Step 4: Push Docker image to Google Container Registry
-      - name: Push Docker image
-        run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect
+#      - name: Push Docker image
+#        run: |
+#          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect
 
       # Step 5: Deploy to Google Cloud Run
-      - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy sportconnect \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect \
-            --platform managed \
-            --region europe-west3 \
-            --allow-unauthenticated
+#      - name: Deploy to Cloud Run
+#        run: |
+#          gcloud run deploy sportconnect \
+#            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect \
+#            --platform managed \
+#            --region europe-west3 \
+#            --allow-unauthenticated
