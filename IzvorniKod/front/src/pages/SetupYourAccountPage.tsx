@@ -13,7 +13,7 @@ interface UserData {
     provider: string;
 }
 
-const api = "https://sportconnect-531910440961.europe-west3.run.app";  // base api-ja na backendu
+const api = "http://localhost:8080";  // base api-ja na backendu
 
 function SetupYourAccountPage(){
     const [userData, setUserData] = useState<UserData | null>(null);

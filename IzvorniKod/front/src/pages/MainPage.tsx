@@ -4,9 +4,10 @@ import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
 import defaultProfilePicture from '/user.png';
 import ProfileCard from '../components/ProfileCard';
+import PostsCard from '../components/PostsCard';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-const api = "https://sportconnect-531910440961.europe-west3.run.app";  // base api-ja na backendu
+const api = "http://localhost:8080";  // base api-ja na backendu
 
 function MainPage() {
     const location = useLocation();
@@ -35,26 +36,6 @@ function MainPage() {
             {user ? (
                 <div>
                     <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
-                    <ProfileCard/>
-
-                    <div className="ml-36 mt-20">
-
-                        {(fromSignIn || fromMainPage) && (
-                            <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : ''}`}>
-                                Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
-                            </h2>
-                        )}
-                        
-                        {fromCreateAccount && (
-                            <div className={`${isMenuOpen ? 'mt-[500px] mr-[40px]' : ''}`}>
-                                <h2 className="text-xl font-bold">
-                                    Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
-                                </h2>
-
-                                <p className="font-bold">Your account has been created successfully.</p>
-                            </div>
-                        )}
-                    </div>
 
                     <div className='top-right'>
                         <div>
@@ -75,6 +56,38 @@ function MainPage() {
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><a className="dropdown-item" href="/">Sign out</a></li>
                             </ul>
+                        </div>
+                    </div>
+
+                    <div className='body-main-page'>
+                        <div className='left-div-main-page'>
+                            <ProfileCard/>
+                        </div>
+
+                        <div className='middle-div-main-page'>
+                            <PostsCard/>
+                            <div className="ml-36 mt-20">
+
+                                {(fromSignIn || fromMainPage) && (
+                                    <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : ''}`}>
+                                        Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
+                                    </h2>
+                                )}
+                                
+                                {fromCreateAccount && (
+                                    <div className={`${isMenuOpen ? 'mt-[500px] mr-[40px]' : ''}`}>
+                                        <h2 className="text-xl font-bold">
+                                            Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
+                                        </h2>
+
+                                        <p className="font-bold">Your account has been created successfully.</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className='right-div-main-page'>
+                            <p className='mt-9'>RIGHT DIV</p>
                         </div>
                     </div>
 

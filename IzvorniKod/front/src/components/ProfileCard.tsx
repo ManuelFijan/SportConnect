@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import defaultProfilePicture from '/user.png';
 import { useEffect, useState } from 'react';
 
-const api = "https://sportconnect-531910440961.europe-west3.run.app";  // base api-ja na backendu
+const api = "http://localhost:8080";  // base api-ja na backendu
 
 function ProfileCard(){
     const location = useLocation()
