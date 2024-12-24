@@ -1,10 +1,10 @@
 import '../styles/MainPage.css';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
-import defaultProfilePicture from '/user.png';
 import ProfileCard from '../components/ProfileCard';
-import PostsCard from '../components/PostsCard';
+import Feed from '../components/Feed';
+import AddPost from '../components/AddPost'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const api = "http://localhost:8080";  // base api-ja na backendu
@@ -35,37 +35,16 @@ function MainPage() {
         <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
             {user ? (
                 <div>
-                    <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
-
-                    <div className='top-right'>
-                        <div>
-                            <img src="./message1.png" alt="messageIcon" />
-                        </div>
-                        
-                        <div className="dropdown">
-                            <img
-                                src={updatedUser.profilePicture || defaultProfilePicture}
-                                className="profile"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                alt="User Icon"
-                                style={{ cursor: 'pointer' }}
-                            />
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><Link className="dropdown-item" to="/my-account" state={{user}}>Profile</Link></li>
-                                <li><hr className="dropdown-divider"/></li>
-                                <li><a className="dropdown-item" href="/">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={updatedUser}/>
 
                     <div className='body-main-page'>
                         <div className='left-div-main-page'>
                             <ProfileCard/>
                         </div>
 
-                        <div className='middle-div-main-page'>
-                            <PostsCard/>
+                        <div className='middle-div-main-page flex flex-col justify-center items-center'>
+                            <AddPost/>
+                            <Feed user={updatedUser}/>
                             <div className="ml-36 mt-20">
 
                                 {(fromSignIn || fromMainPage) && (
