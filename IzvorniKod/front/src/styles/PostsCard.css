@@ -59,6 +59,7 @@ textarea:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 1rem;
 }
 
 .post-button:hover {
@@ -140,4 +141,42 @@ textarea:focus {
     font-weight: bold;
 
     color: #333;
+}
+
+.image-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.post-image {
+    max-width: 100%;
+    max-height: 300px;
+    margin: 10px 0;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
 }

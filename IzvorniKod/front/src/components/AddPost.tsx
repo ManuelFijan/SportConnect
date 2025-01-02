@@ -16,21 +16,35 @@ interface Post {
     likes: number;
 }
 
-function AddPost(){
+function AddPost() {
     const location = useLocation();
     const { user } = location.state || {};
     const [updatedUser, setUpdatedUser] = useState(user);
 
     const [postContent, setPostContent] = useState('');
+    const [selectedImage, setSelectedImage] = useState<string>(''); // State for image
     const [posts, setPosts] = useState<Post[]>([]);
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);
     };
 
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (reader.result) {
+                    setSelectedImage(reader.result as string); // Update state with the preview
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handlePost = () => {
-        if (!postContent) {
-            alert('Please add some content!');
+        if (!postContent && !selectedImage) {
+            alert('Please add some content or an image!');
             return;
         }
 
@@ -40,13 +54,14 @@ function AddPost(){
                 username: updatedUser.firstName + " " + updatedUser.lastName || 'Anonymous',
                 profilePicture: updatedUser.profilePicture || defaultProfilePicture,
             },
-            image: '', 
+            image: selectedImage,
             status: postContent,
             likes: 0,
         };
 
-        setPosts([newPost, ...posts]); // dodaj post na vrh
-        setPostContent(''); // isprazni input
+        setPosts([newPost, ...posts]);
+        setPostContent('');
+        setSelectedImage('');
     };
 
     const handleLike = (postId: number) => {
@@ -66,42 +81,61 @@ function AddPost(){
                         className="img2"
                     />
                 </div>
-
             </div>
 
             <div className="textarea-container">
-                    <textarea
-                        placeholder="What's on your mind?"
-                        value={postContent}
-                        onChange={handleTextChange}
-                    />
+                <textarea
+                    placeholder="What's on your mind?"
+                    value={postContent}
+                    onChange={handleTextChange}
+                />
             </div>
+
+            <div className="image-upload">
+                <label htmlFor="file-upload" className="custom-file-upload">
+                    Upload Image
+                </label>
+                <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: 'none' }}
+                />
+            </div>
+
+            {selectedImage && (
+                <div className="image-preview">
+                    <img src={selectedImage} alt="Preview" className="preview-image" />
+                </div>
+            )}
 
             <button className="post-button" onClick={handlePost}>
                 Post it!
             </button>
 
-            <div className="posts-list">
+{/*            <div className="posts-list">
                 {posts.map((post) => (
                     <div key={post.id} className="post-item">
                         <div className="post-header">
                             <img
                                 src={post.user.profilePicture}
-                                alt={post.user.username+"'s profile"}
+                                alt={`${post.user.username}'s profile`}
                                 className="img4"
                             />
                             <span>{post.user.username}</span>
                         </div>
                         <div className="tekst">{post.status}</div>
+                        {post.image && <img src={post.image} alt="Post" className="post-image" />}
                         <div className="post-actions">
                             <button onClick={() => handleLike(post.id)}>Like</button>
                             <span>{post.likes} Likes</span>
                         </div>
                     </div>
                 ))}
-            </div>
+            </div>*/}
         </div>
     );
-};
+}
 
 export default AddPost;
