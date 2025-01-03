@@ -13,7 +13,8 @@ import CookieUsePage from './pages/CookieUsePage.tsx'
 import MainPage from './pages/MainPage.tsx'
 import SetupYourAccountPage from './pages/SetupYourAccountPage.tsx'
 import MyAccountPage from './pages/MyAccountPage.tsx'
-
+import SuccessfulPaymentPage from "./pages/SuccessfulPaymentPage.tsx";
+import FailurePaymentPage from './pages/FailurePaymentPage.tsx'
 
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -74,10 +75,20 @@ const router = createBrowserRouter([
   },
   {
     path: '/my-account',
-    element: <MyAccountPage/>,
-    errorElement: <NotFoundPage/>
-  }
-])
+    element: <MyAccountPage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: '/successful-payment',
+    element: <SuccessfulPaymentPage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: '/failed-payment',
+    element: <FailurePaymentPage />,
+    errorElement: <NotFoundPage />,
+  },
+]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
