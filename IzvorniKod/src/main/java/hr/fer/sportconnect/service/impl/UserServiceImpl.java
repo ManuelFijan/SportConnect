@@ -25,6 +25,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -221,5 +222,19 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public List<User> searchUsersByEmail(String email) {
+        return userRepository.findByEmailContainingIgnoreCase(email);
+    }
 
+    @Override
+    public List<User> searchUsersByUsername(String username) {
+        return userRepository.findByUserNameContainingIgnoreCase(username);
+    }
+
+    @Override
+    public List<User> searchUsers(String query) {
+        List<User> users = userRepository.findByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCase(query, query);
+        return users;
+    }
 }

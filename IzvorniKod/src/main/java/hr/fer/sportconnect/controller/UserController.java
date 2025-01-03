@@ -4,6 +4,7 @@ import hr.fer.sportconnect.dto.*;
 import hr.fer.sportconnect.exceptions.LoginException;
 import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
+import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,5 +80,15 @@ public class UserController {
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         return ResponseEntity.ok("bok");
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUsers(@RequestParam("query") String query) {
+        try {
+            List<User> users = userService.searchUsers(query);
+            return ResponseEntity.ok(users);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error searching users.");
+        }
     }
 }
