@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -58,12 +60,11 @@ public class SecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
-        // Define a combined matcher for /api/**, /chat/**, /pusher/** and /checkout/**
+        // Define a combined matcher for /api/**, /chat/**, and /pusher/**
         OrRequestMatcher matcher = new OrRequestMatcher(
                 new AntPathRequestMatcher("/api/**"),
                 new AntPathRequestMatcher("/chat/**"),
-                new AntPathRequestMatcher("/pusher/**"),
-                new AntPathRequestMatcher("/checkout/**")
+                new AntPathRequestMatcher("/pusher/**")
         );
 
         http
@@ -72,9 +73,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow OPTIONS globally
                         .requestMatchers("/api/users/register", "/api/auth/login").permitAll()
-                        //.requestMatchers("/checkout/hosted").permitAll() // Permit specific POST -- mozda treba odkomentirati da radi
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -97,9 +96,6 @@ public class SecurityConfig {
                         )
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                HttpMethod.OPTIONS, "/**" // Allow all OPTIONS requests
-                        ).permitAll()
                         .requestMatchers(
                                 "/", "/login", "/login/oauth2/code/**", "/error",
                                 "/users/register", "/users/login", "/users/update",
