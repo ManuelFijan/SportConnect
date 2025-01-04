@@ -34,6 +34,21 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, [setIsOpen]); // Dodajemo setIsOpen kao zavisnost
 
+  useEffect(() => {
+    if (isOpen) {
+      // Onemogućavanje scrollanja
+      document.body.style.overflow = "hidden";
+    } else {
+      // Omogućavanje scrollanja
+      document.body.style.overflow = "auto";
+    }
+  
+    // Čišćenje efekta pri unmountu
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+  
   return (
     <div className="main-menu md:hidden ml-[50%]">
       <div
@@ -52,9 +67,9 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
       </div>
 
       {isOpen && !isScreenWide && (
-        <div className="menu fixed top-[80px] left-0 w-full flex flex-col items-center justify-center gap-8 font-medium text-xl">
+        <div className="menu fixed top-[80px] left-0 w-full flex flex-col items-center justify-center gap-8 font-medium text-xl z-10">
           <Link to="/main-page" className="text-white" state={{user, fromMainPage:true}}>
-            Home
+            Homepage
           </Link>
           <Link to={"/about-us?"+path} className="text-white" state={{user}}>
             About

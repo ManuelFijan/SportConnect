@@ -1,91 +1,32 @@
-.top-right{
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 3%;
-  left: 92%;
-  width: 6%;
-  height: 7%;
-}
-.top-right div img{
-  border-radius: 10rem;
-  width: 90%;
-}
-.top-right div .profile{
-  width: 80rem;
-}
-
-.dropdown-menu{
+.dropdown-menu {
   background-color: rgb(135, 149, 170) !important;
 }
-.dropdown-menu:hover{
+.dropdown-menu:hover {
   background-color: rgb(135, 149, 170) !important;
 }
-.dropdown-menu li{
+.dropdown-menu li {
   background-color: rgb(135, 149, 170) !important;
   padding-top: 0.001rem;
   padding-bottom: 0.001rem;
 }
-li:hover{
+li:hover {
   background-color: rgb(135, 149, 170) !important;
 }
 
-.body-main-page{
+.body-main-page {
   display: flex;
 }
 
-.left-div-main-page{
+.left-div-main-page {
   width: 20%;
   border: 2px solid blue;
 }
-.middle-div-main-page{
+.middle-div-main-page {
   width: 60%;
   border: 2px solid red;
 }
 
-.right-div-main-page{
+.right-div-main-page {
   width: 20%;
   border: 2px solid green;
-}
-
-@media (min-width: 768px) {
-  .button-36 {
-    padding: 0 2.6rem;
-  }
-}
-
-@media(max-width:767px){
-  .top-right{
-    display: none;
-  }
-}
-
-@media(max-height:568px){
-  .top-right{
-    top: 5%;
-  }
-}
-
-@media(max-height:433px){
-  .top-right{
-    top: 8%;
-  }
-}
-
-@media(max-height:333px){
-  .top-right{
-    top: 13%;
-  }
-}
-
-@media(max-height:233px){
-  .top-right{
-    top: 20%;
-  }
-}
-
-@media(max-height:163px){
-  .top-right{
-    top: 30%;
-  }
 }
