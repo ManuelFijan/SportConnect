@@ -7,6 +7,7 @@ import hr.fer.sportconnect.model.Post;
 import hr.fer.sportconnect.model.User;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.service.PostService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -149,6 +150,64 @@ public class PostController {
     public ResponseEntity<List<Comment>> getComments(@PathVariable Long postId) {
         List<Comment> comments = postService.getCommentsForPost(postId);
         return ResponseEntity.ok(comments);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getPostsByUserEmail(@RequestParam String userEmail) {
+        try {
+            User user = userRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+
+            List<Post> userPosts = postService.getPostsByUser(user);
+
+            return ResponseEntity.ok(userPosts);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while fetching posts.");
+        }
+    }
+
+    @DeleteMapping("/comment/{commentId}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentId, @RequestParam String userEmail) {
+        try {
+            // Fetch the user
+            User user = userRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+
+            // Delete the comment
+            postService.deleteComment(commentId, user);
+
+            return ResponseEntity.ok("Comment deleted successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while deleting the comment.");
+        }
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId, @RequestParam String userEmail) {
+        try {
+            // Fetch the user
+            User user = userRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+
+            // Delete the post
+            postService.deletePost(postId, user);
+
+            return ResponseEntity.ok("Post deleted successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while deleting the post.");
+        }
     }
 
 }

@@ -13,4 +13,7 @@ public interface PostService {
     Comment addComment(Long postId, User user, String commentText);
     List<Comment> getCommentsForPost(Long postId);
     List<Post> getSavedPostsForUser(User user);
+    List<Post> getPostsByUser(User user);
+    void deletePost(Long postId, User user);
+    void deleteComment(Long commentId, User user);
 }

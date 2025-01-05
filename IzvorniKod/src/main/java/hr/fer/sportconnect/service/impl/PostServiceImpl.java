@@ -1,5 +1,6 @@
 package hr.fer.sportconnect.service.impl;
 
+import hr.fer.sportconnect.db.SupabaseS3Service;
 import hr.fer.sportconnect.model.Comment;
 import hr.fer.sportconnect.model.Post;
 import hr.fer.sportconnect.model.User;
@@ -17,11 +18,13 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final SupabaseS3Service supabaseS3Service;
 
     public PostServiceImpl(PostRepository postRepository,
-                           CommentRepository commentRepository) {
+                           CommentRepository commentRepository, SupabaseS3Service supabaseS3Service) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.supabaseS3Service = supabaseS3Service;
     }
 
     @Override
@@ -127,4 +130,44 @@ public class PostServiceImpl implements PostService {
                 .filter(post -> post.getSavedBy().contains(user))
                 .toList();
     }
+
+    @Override
+    public List<Post> getPostsByUser(User user) {
+        return postRepository.findByPartner(user);
+    }
+
+    @Override
+    public void deletePost(Long postId, User user) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
+
+        if (!post.getPartner().equals(user)) {
+            throw new RuntimeException("You are not authorized to delete this post.");
+        }
+
+        // delete associated comments
+        commentRepository.deleteAll(getCommentsForPost(postId));
+
+        // If the post has an image, delete it from Supabase
+        if (post.getImageUrl() != null) {
+            String bucketName = "slike";
+            String objectKey = post.getImageUrl().substring(post.getImageUrl().lastIndexOf("/") + 1);
+            supabaseS3Service.deleteFile(bucketName, objectKey);
+        }
+
+        postRepository.delete(post);
+    }
+
+    @Override
+    public void deleteComment(Long commentId, User user) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comment not found with id: " + commentId));
+
+        if (!comment.getUser().equals(user)) {
+            throw new RuntimeException("You are not authorized to delete this comment.");
+        }
+
+        commentRepository.delete(comment);
+    }
+
 }
