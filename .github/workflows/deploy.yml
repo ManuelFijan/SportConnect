@@ -48,5 +48,4 @@ jobs:
             --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect \
             --platform managed \
             --region europe-west3 \
-            --allow-unauthenticated\
-            --timeout=300
+            --allow-unauthenticated
