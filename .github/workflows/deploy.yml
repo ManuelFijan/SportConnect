@@ -25,7 +25,7 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: sportconnect-441709
 
       - name: Authenticate Docker
         run: |
@@ -34,18 +34,18 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect ./IzvorniKod
+          docker build -t gcr.io/sportconnect-441709/sportconnect ./IzvorniKod
 
       # Step 4: Push Docker image to Google Container Registry
       - name: Push Docker image
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect
+          docker push gcr.io/sportconnect-441709/sportconnect
 
       # Step 5: Deploy to Google Cloud Run
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy sportconnect \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/sportconnect \
+            --image gcr.io/sportconnect-441709/sportconnect \
             --platform managed \
             --region europe-west3 \
             --allow-unauthenticated\
