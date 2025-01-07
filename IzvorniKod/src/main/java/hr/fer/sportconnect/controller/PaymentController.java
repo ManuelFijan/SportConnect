@@ -10,6 +10,7 @@ import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData;
 import hr.fer.sportconnect.dao.ProductDAO;
 import hr.fer.sportconnect.dto.RequestDTO;
 import hr.fer.sportconnect.service.impl.CustomerServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,7 @@ public class PaymentController {
     public PaymentController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
     }
-
-    String STRIPE_API_KEY = System.getenv().get("SPRING_STRIPE_API_SECRET_KEY");
+    String STRIPE_API_KEY = "sk_test_51QdC7rAQiKrikYdhQa6ncJaaIcqcyY41I2AwZQrUxRr6yKUpVHDqpepQrzv4I4QTAg6B20wixj37zo0cD1B1whvH007kY1uuK2";
 
     @PostMapping("/hosted")
     public ResponseEntity<String> hostedCheckout(@RequestBody RequestDTO requestDTO) throws StripeException{
