@@ -2,6 +2,8 @@ package hr.fer.sportconnect.service;
 
 import hr.fer.sportconnect.dto.*;
 import hr.fer.sportconnect.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -23,4 +25,5 @@ public interface UserService {
     List<User> searchUsersByEmail(String email);
     List<User> searchUsersByUsername(String username);
     public List<User> searchUsers(String query);
+    List<UserDto> getAllUsers();
 }

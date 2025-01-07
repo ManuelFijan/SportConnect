@@ -14,6 +14,8 @@ import hr.fer.sportconnect.repository.PartnerRepository;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.security.JwtTokenProvider;
 import hr.fer.sportconnect.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Implementacija koja definira osnovne metode za upravljanje korisnicima.
@@ -236,5 +239,13 @@ public class UserServiceImpl implements UserService {
     public List<User> searchUsers(String query) {
         List<User> users = userRepository.findByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCase(query, query);
         return users;
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
