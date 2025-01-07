@@ -1,6 +1,6 @@
 import '../styles/TermsOfServicePage.css';
 import { Link, useLocation } from 'react-router-dom';
-import Footer from "../components/Footer.tsx";
+import Footer from "../components/Layout/Footer";
 
 function TermsOfServicePage() {
     const location = useLocation()

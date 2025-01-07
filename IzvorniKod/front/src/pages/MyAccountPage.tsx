@@ -1,8 +1,8 @@
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "../components/Layout/Navbar.tsx";
 import { useState, useContext } from "react";
 import ProfileMainCard from "../components/ProfileMainCard.tsx";
 import { AuthContext } from "../context/AuthContext";
-import Feed from "../components/Feed.tsx";
+import Feed from "../components/Posts/Feed.tsx";
 
 function MyAccountPage() {
   const [isMenuOpen, setMenuOpen] = useState(false);

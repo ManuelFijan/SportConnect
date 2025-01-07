@@ -1,6 +1,6 @@
 import { Link , useLocation} from 'react-router-dom';
 import '../styles/AboutUsPage.css';
-import Footer from '../components/Footer';
+import Footer from '../components/Layout/Footer';
 
 function AboutUsPage() {
     const location = useLocation()

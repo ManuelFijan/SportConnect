@@ -1,4 +1,4 @@
-import "../styles/Navbar.css";
+import "../../styles/Navbar.css";
 import MobileMenu from "./MobileMenu";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { IoIosInformationCircle, IoIosInformationCircleOutline } from "react-ico
 import { HiMiniWrench, HiOutlineWrench } from "react-icons/hi2";
 import { AiFillDollarCircle, AiOutlineDollar } from "react-icons/ai";
 import { IoChatboxEllipses, IoChatboxEllipsesOutline } from "react-icons/io5";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function Navbar({ isOpen, setIsOpen }: any) {
   const navigate = useNavigate();

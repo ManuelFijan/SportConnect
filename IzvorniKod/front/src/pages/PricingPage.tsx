@@ -2,7 +2,7 @@ import { features, pricingCards } from '../data/pricingData';
 import PricingCard from '../components/PricingCard';
 import '../styles/PricingPage.css';
 import React from "react";
-import Footer from "../components/Footer.tsx";
+import Footer from "../components/Layout/Footer.tsx";
 import { useLocation, Link } from 'react-router-dom';
 
 const PricingPage: React.FC = () => {

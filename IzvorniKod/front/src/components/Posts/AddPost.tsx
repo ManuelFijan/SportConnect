@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
-import '../styles/PostsCard.css';
+import '../../styles/PostsCard.css';
 import defaultProfilePicture from '/user.png';
 import imageCompression from 'browser-image-compression';
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function AddPost() {
     const { user } = useContext(AuthContext);
@@ -77,19 +77,13 @@ function AddPost() {
         <div className="add-post-container w-[90%] sm:w-[80%] md:w-[75%] lg:w-[70%] pt-4 md:pt-5 px-3">
             <div className="image-text-container">
                 <div className="image-div">
-                    {user ? (
+                    {user && (
                             <img
                                 src={user.profilePicture || defaultProfilePicture}
                                 alt="Profile"
                                 className="img2"
                             />
-                        ) : (
-                            <img
-                                src={defaultProfilePicture}
-                                alt="Default Profile"
-                                className="img2"
-                            />
-                    )}
+                        )}
                 </div>
             </div>
 

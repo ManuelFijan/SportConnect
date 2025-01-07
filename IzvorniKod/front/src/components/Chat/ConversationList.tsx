@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import UserSearch from "./UserSearch";
-import { Conversation } from "../types/Conversation";
-import { User } from "../types/User";
-import { AuthContext } from "../context/AuthContext";
+import { Conversation } from "../../types/Conversation";
+import { User } from "../../types/User";
+import { AuthContext } from "../../context/AuthContext";
 
 interface ConversationListProps {
 	conversations: Conversation[];

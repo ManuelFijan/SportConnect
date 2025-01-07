@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Layout/Navbar';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import ChatWindow from '../components/ChatWindow';
+import ChatWindow from '../components/Chat/ChatWindow';
 
 function ChatPage() {
     const navigate = useNavigate();

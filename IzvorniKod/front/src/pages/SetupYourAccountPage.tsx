@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/CreateAccountPage.css';
-import Footer from '../components/Footer'; 
+import Footer from '../components/Layout/Footer'; 
 import { AuthContext, User } from "../context/AuthContext"; // Import AuthContext
 
 // oblik varijable koji nam je potreban prilikom fetch-a na backend kako bi mogli dobiti podatke

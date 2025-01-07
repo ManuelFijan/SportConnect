@@ -1,7 +1,7 @@
 import '../styles/CreateAccountPage.css'
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; //potrebno za redirect (navigiranje) na drugu stranicu
-import Footer from '../components/Footer';
+import Footer from '../components/Layout/Footer';
 import { AuthContext, User } from "../context/AuthContext"; // Import AuthContext
 
 function CreateAccountPage(){

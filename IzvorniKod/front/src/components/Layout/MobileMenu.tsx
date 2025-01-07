@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/MobileMenu.css";
+import "../../styles/MobileMenu.css";
 
 interface MobileMenuProps {
   isOpen: boolean;

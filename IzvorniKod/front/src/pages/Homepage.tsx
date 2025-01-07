@@ -1,7 +1,7 @@
 import '../styles/Homepage.css';
-import Logo from "../components/Logo.tsx";
-import Login from "../components/Login.tsx";
-import Footer from "../components/Footer.tsx";
+import Logo from "../components/Layout/Logo.tsx";
+import Login from "../components/Layout/Login.tsx";
+import Footer from "../components/Layout/Footer.tsx";
 import SignInPage from './SignInPage.tsx';
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";

@@ -3,9 +3,9 @@ import ConversationList from "./ConversationList";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import Pusher from "pusher-js";
-import { Conversation } from "../types/Conversation";
-import { Message } from "../types/Message";
-import { AuthContext } from "../context/AuthContext";
+import { Conversation } from "../../types/Conversation";
+import { Message } from "../../types/Message";
+import { AuthContext } from "../../context/AuthContext";
 
 const ChatWindow: React.FC = () => {
 	const [conversations, setConversations] = useState<Conversation[]>([]);

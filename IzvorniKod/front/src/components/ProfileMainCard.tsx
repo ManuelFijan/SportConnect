@@ -138,7 +138,8 @@ function ProfileMainCard() {
            prema primljenom mail-u backend update-a podatke i vrati ih
         */
         if (var1 && var2 && var3 && var4) {
-			try {
+			try { 
+                if(!user) return
 				const response = await fetch(
 					`${import.meta.env.VITE_BACKEND_API}/users/update?email=${encodeURIComponent(user.email)}`,
 					{
