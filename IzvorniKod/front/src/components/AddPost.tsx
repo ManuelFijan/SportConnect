@@ -1,85 +1,95 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import '../styles/PostsCard.css';
 import defaultProfilePicture from '/user.png';
-
-interface User {
-    username: string;
-    profilePicture?: string;
-}
-
-interface Post {
-    id: number;
-    user: User;
-    image: string;
-    status: string;
-    likes: number;
-}
+import imageCompression from 'browser-image-compression';
+import { AuthContext } from "../context/AuthContext";
 
 function AddPost() {
-    const location = useLocation();
-    const { user } = location.state || {};
-    const [updatedUser, setUpdatedUser] = useState(user);
-
+    const { user } = useContext(AuthContext);
     const [postContent, setPostContent] = useState('');
-    const [selectedImage, setSelectedImage] = useState<string>(''); // State for image
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
     const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);
     };
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                if (reader.result) {
-                    setSelectedImage(reader.result as string); // Update state with the preview
-                }
+            const maxSizeInMB = 5; // Maximum file size in MB
+            const options = {
+                maxSizeMB: maxSizeInMB,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
             };
-            reader.readAsDataURL(file);
+
+            try {
+                const compressedFile = await imageCompression(file, options);
+                setSelectedImage(compressedFile);
+            } catch (error) {
+                console.error('Error compressing the image:', error);
+                alert('Failed to compress the image. Please try another image.');
+            }
         }
     };
 
-    const handlePost = () => {
+    const handlePost = async () => {
         if (!postContent && !selectedImage) {
             alert('Please add some content or an image!');
             return;
         }
 
-        const newPost: Post = {
-            id: posts.length + 1,
-            user: {
-                username: updatedUser.firstName + " " + updatedUser.lastName || 'Anonymous',
-                profilePicture: updatedUser.profilePicture || defaultProfilePicture,
-            },
-            image: selectedImage,
-            status: postContent,
-            likes: 0,
-        };
+        if (!user) {
+			alert("User data not available.");
+			return;
+		}
 
-        setPosts([newPost, ...posts]);
-        setPostContent('');
-        setSelectedImage('');
-    };
+        const formData = new FormData();
+        formData.append('userEmail', user.email);
+        formData.append('textContent', postContent);
+        if (selectedImage) {
+            formData.append('file', selectedImage);
+        }
 
-    const handleLike = (postId: number) => {
-        const updatedPosts = posts.map((post) =>
-            post.id === postId ? { ...post, likes: post.likes + 1 } : post
-        );
-        setPosts(updatedPosts);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/posts/create`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('Post created:', result);
+
+            setPostContent('');
+            setSelectedImage(null);
+            alert('Post successfully created!');
+        } catch (error) {
+            console.error('Failed to create post:', error);
+            alert('Failed to create post. Please try again later.');
+        }
     };
 
     return (
         <div className="add-post-container w-[90%] sm:w-[80%] md:w-[75%] lg:w-[70%] pt-4 md:pt-5 px-3">
             <div className="image-text-container">
                 <div className="image-div">
-                    <img
-                        src={updatedUser.profilePicture || defaultProfilePicture}
-                        alt="Profile"
-                        className="img2"
-                    />
+                    {user ? (
+                            <img
+                                src={user.profilePicture || defaultProfilePicture}
+                                alt="Profile"
+                                className="img2"
+                            />
+                        ) : (
+                            <img
+                                src={defaultProfilePicture}
+                                alt="Default Profile"
+                                className="img2"
+                            />
+                    )}
                 </div>
             </div>
 
@@ -106,34 +116,17 @@ function AddPost() {
 
             {selectedImage && (
                 <div className="image-preview">
-                    <img src={selectedImage} alt="Preview" className="preview-image" />
+                    <img
+                        src={URL.createObjectURL(selectedImage)}
+                        alt="Preview"
+                        className="preview-image"
+                    />
                 </div>
             )}
 
             <button className="post-button" onClick={handlePost}>
                 Post it!
             </button>
-
-{/*            <div className="posts-list">
-                {posts.map((post) => (
-                    <div key={post.id} className="post-item">
-                        <div className="post-header">
-                            <img
-                                src={post.user.profilePicture}
-                                alt={`${post.user.username}'s profile`}
-                                className="img4"
-                            />
-                            <span>{post.user.username}</span>
-                        </div>
-                        <div className="tekst">{post.status}</div>
-                        {post.image && <img src={post.image} alt="Post" className="post-image" />}
-                        <div className="post-actions">
-                            <button onClick={() => handleLike(post.id)}>Like</button>
-                            <span>{post.likes} Likes</span>
-                        </div>
-                    </div>
-                ))}
-            </div>*/}
         </div>
     );
 }

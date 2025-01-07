@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react'
 
 import NotFoundPage from './pages/NotFoundPage.tsx'
 import Homepage from './pages/Homepage.tsx'
@@ -13,7 +14,8 @@ import CookieUsePage from './pages/CookieUsePage.tsx'
 import MainPage from './pages/MainPage.tsx'
 import SetupYourAccountPage from './pages/SetupYourAccountPage.tsx'
 import MyAccountPage from './pages/MyAccountPage.tsx'
-
+import ChatPage from './pages/ChatPage.tsx'
+import { AuthProvider } from "./context/AuthContext";
 
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -76,11 +78,20 @@ const router = createBrowserRouter([
     path: '/my-account',
     element: <MyAccountPage/>,
     errorElement: <NotFoundPage/>
+  },
+  {
+    path: '/chat',
+    element: <ChatPage/>,
+    errorElement: <NotFoundPage/>
   }
 ])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-)
+    <ChakraProvider value={defaultSystem}>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
+    </ChakraProvider>
+  </StrictMode>
+);

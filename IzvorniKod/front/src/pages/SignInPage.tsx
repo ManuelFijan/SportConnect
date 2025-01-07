@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/SingInPage.css';
-import { useState } from 'react';
-
-const api = "http://localhost:8080";  // base api-ja na backendu
+import { useState, useContext } from "react";
+import { AuthContext, User } from "../context/AuthContext"; // Import AuthContext
 
 const SignInPage = () => {
+  const { setToken, setUserEmail, setUser } = useContext(AuthContext); 
+
   const [input, setValue] = useState('')
   const [errorMessage, setEmailError] = useState('')
   const [bool1, setBool1] = useState(true)
@@ -71,37 +72,56 @@ const SignInPage = () => {
     }
 
     //tek ako je sve dobrog formata radimo fetch podataka na backend
-    if (var1 && var2) {
-      try {
-        const response = await fetch(`${api}/users/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            identifier: input,
-            password: password,
-          }),
-        });
-      
-        const data = await response.json();
-      
-        //ako je odgovor sa statusom ok, uspjesno smo logirani i idemo na /main-page
-        if (response.ok) {
-          console.log('Login successful:', data);
-          navigate('/main-page', { state: { user: data.user, fromSignIn: true}});
-        } else {
-          console.log(data);
+   if (var1 && var2) {
+			try {
+				const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/users/login`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						identifier: input,
+						password: password,
+					}),
+				});
 
-          if(data.error){
-            setServerErrorMessage(data.error);  // ako dode do greske kod login-a, postavimo error koji se kasnije ispise
-          }
-        }
+				const data = await response.json();
 
-      } catch (error) {
-        console.error('Error logging in:', error);
-      }
-    }
+				if (response.ok) {
+					console.log("Login successful:", data);
+
+					// Spremi token i userEmail u AuthContext
+					if (data.accessToken && data.user && data.user.email) {
+						localStorage.setItem("token", data.accessToken);
+						setToken(data.accessToken);
+
+						localStorage.setItem("userEmail", data.user.email);
+						setUserEmail(data.user.email);
+
+						setUser(data.user as User); 
+
+						// Odlazak na /main-page
+            navigate("/main-page", {
+              state: {
+                user: data.user,
+                fromSignIn: true
+              }
+            });
+					} else {
+						setServerErrorMessage("Invalid response from server.");
+					}
+				} else {
+					if (data.error) {
+						setServerErrorMessage(data.error);
+					} else {
+						setServerErrorMessage("Login failed. Please try again.");
+					}
+				}
+			} catch (error) {
+				console.error("Error logging in:", error);
+				setServerErrorMessage("An error occurred during login.");
+			}
+		}
   }
   
   // prvi div unutar se ne smije zvat login jer vec imamo takvu klasu u Homepage-u pa se mijesa css(razlog proslog scroll problema)

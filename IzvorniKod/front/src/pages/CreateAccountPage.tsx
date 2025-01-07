@@ -1,11 +1,12 @@
 import '../styles/CreateAccountPage.css'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; //potrebno za redirect (navigiranje) na drugu stranicu
 import Footer from '../components/Footer';
-
-const api = "http://localhost:8080";  // base api-ja na backendu
+import { AuthContext, User } from "../context/AuthContext"; // Import AuthContext
 
 function CreateAccountPage(){
+    const { setToken, setUserEmail, setUser } = useContext(AuthContext);
+
     //kontrola formata imena
     const [name, setName] = useState('')
     const [errorMessage3, setNameError] = useState('')
@@ -201,53 +202,94 @@ function CreateAccountPage(){
 
         //ako su svi podatci uneseni u formu dobrog oblika radi se fetch na backend kako bi registrirali korisnika
         if (var1 && var2 && var3 && var4 && var5 && var6) {
-            try {
-              const response = await fetch(`${api}/users/register`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                    firstName: name,
-                    lastName: surname,
-                    userName: username,
-                    userType: btn_role,
-                    subscriptionPlan: btn_membership,
-                    mobileNumber: num
-                  }),
-              });
-        
-              const data = await response.json();
-        
-              //ako je sve proslo ok, uspjesno smo registrirani i idemo na /main-page
-              if (response.ok) {
-                console.log('Register successful:', data);
-                navigate('/main-page', { state: {user: data, fromCreateAccount: true} });
-              } else {
-                console.log(data);
+			try {
+				const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/users/register`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({
+						email: email,
+						password: password,
+						firstName: name,
+						lastName: surname,
+						userName: username,
+						userType: btn_role,
+						subscriptionPlan: btn_membership,
+						mobileNumber: num,
+					}),
+				});
 
-                // ako nije sve proslo ok postavljamo error-e koje je backend vratio kako bi ih mogli ispisati
-                if (data.emailError) {
-                    setEmailError(data.emailError);  // postavljamo emailError za prikaz sign in page-a
-                    setBool1(false);
-                }
-                if (data.userNameError) {
-                    setUsernameError(data.userNameError);  //postavljamo userNameError za prikaz sign in page-a
-                    setBool4(false);
-                } 
+				const data = await response.json();
 
-                if(data.phoneNumberError){
-                    setNumError(data.phoneNumberError);  //postavljamo phoneNumberError za prikaz sign in page-a
-                    setBool5(false);
-                }
-              }
+				//ako je sve proslo ok, uspjesno smo registrirani i idemo na /main-page
+				if (response.ok) {
+					console.log("Register successful:", data);
 
-            } catch (error) {
-              console.error('Error while register:', error);
-            }
-        }
+					const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_API}/users/login`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							identifier: email,
+							password: password,
+						}),
+					});
+
+					const loginData = await loginResponse.json();
+
+					if (loginResponse.ok) {
+						console.log("Login successful:", loginData);
+
+						// Spremi accessToken i userEmail u localStorage
+						if (loginData.accessToken && loginData.user && loginData.user.email) {
+							localStorage.setItem("token", loginData.accessToken);
+							localStorage.setItem("userEmail", loginData.user.email);
+
+							// Update AuthContext
+							setToken(loginData.accessToken);
+							setUserEmail(loginData.user.email);
+							setUser(loginData.user as User);
+
+							// Odlazak na /main-page
+							navigate("/main-page", {
+								state: {
+									user: loginData.user,
+									fromCreateAccount: true
+								}
+							});
+						} else {
+							console.warn("Access token or user email missing in login response.");
+							alert("Registration succeeded but failed to log in. Please log in manually.");
+						}
+					} else {
+						console.log("Login failed:", loginData);
+						alert(`Login Error: ${loginData.message || "Failed to log in."}`);
+					}
+				} else {
+					console.log(data);
+
+                    // Postavljanje svih potrebnih errora do kojih je moglo doci prilikom registracije
+					if (data.emailError) {
+						setEmailError(data.emailError);
+						setBool1(false);
+					}
+					if (data.userNameError) {
+						setUsernameError(data.userNameError);
+						setBool4(false);
+					}
+					if (data.phoneNumberError) {
+						setNumError(data.phoneNumberError);
+						setBool5(false);
+					}
+				}
+			} catch (error) {
+				console.error("Error while registering and logging in:", error);
+				alert("An unexpected error occurred. Please try again later.");
+			}
+		}
     }
 
     // funckija za odselektiranje gumba ako drugi selektiramo

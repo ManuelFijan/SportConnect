@@ -4,14 +4,12 @@ function Login() {
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
 
-    const api = "http://localhost:8080";  // base api-ja na backendu
-
     /*ako je putanja na /sign-in onda linkovi/gumbi koji su tada u pozadini 
     nemaju funkcionalnost */
 
     return (
         <>
-            <Link to={bool ? '' : `${api}/oauth2/authorization/google`} className="">
+            <Link to={bool ? '' : `${import.meta.env.VITE_BACKEND_API}/oauth2/authorization/google`} className="">
                 <button className={bool ? "sign-button-1" : "button-1"} role="button">
                     <div className='flex justify-center space-x-3'>
                         <img src="./google-logo.png" alt="" className='w-6'/>
@@ -22,7 +20,7 @@ function Login() {
                 </button>
             </Link>
 
-            <Link to={bool ? '' : `${api}/oauth2/authorization/github`} className="mt-[-1.3rem]">
+            <Link to={bool ? '' : `${import.meta.env.VITE_BACKEND_API}/oauth2/authorization/github`} className="mt-[-1.3rem]">
                 <button className={bool ? "sign-button-1" : "button-1"} role="button">
                     <div className='flex justify-center space-x-3'>
                         <img src="./github-logo.png" alt="" className='w-6'/>

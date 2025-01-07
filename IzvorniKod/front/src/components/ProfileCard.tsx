@@ -1,36 +1,21 @@
 import '../styles/ProfileCard.css'
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import defaultProfilePicture from '/user.png';
-import { useEffect, useState } from 'react';
-
-const api = "http://localhost:8080";  // base api-ja na backendu
+import { useContext } from 'react';
+import { AuthContext } from "../context/AuthContext";
 
 function ProfileCard(){
-    const location = useLocation()
-    const {user} = location.state || {}
+    const { user } = useContext(AuthContext);
 
-    const [updatedUser, setUpdatedUser] = useState(user);
-
-    /* preko email-a user-a dohvaćamo najaktualnije podatke tog user-a (jer se email ne može promijeniti, to je kao id)
-       i nakon toga dobivene podatke stavljamo u varijablu UpdatedUser kako bi ih mogli prikazati na page-u
-    */
-    useEffect(() => {
-            fetch(`${api}/users/get-information/${user.email}`)
-                .then(response => response.json())
-                .then(data => {
-                    setUpdatedUser(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
-        }
-    , []);
+	if (!user) {
+		return <p>Loading user data...</p>;
+	}
 
     return (
-        <div className='profile-container'>
+        <div className='profile-container sticky top-[7.5rem]'>
             <img src="./profile-background.jpg" alt="background" className='img1'/>
-            <img src={updatedUser.profilePicture || defaultProfilePicture} alt={`${updatedUser.userName}'s profile`} className='img2'/>
-            <p>{updatedUser.firstName} {updatedUser.lastName}</p>
+            <img src={user.profilePicture || defaultProfilePicture} alt={`${user.userName}'s profile`} className='img2 md:w-[4rem] md:h-[4rem] lg:w-[5rem] lg:h-[5rem]'/>
+            <p className='mt-[-1.6rem]'>{user.firstName} {user.lastName}</p>
             <Link to="/my-account" state={{user}}>
                 <button className='button'>
                     My profile

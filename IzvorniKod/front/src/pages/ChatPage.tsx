@@ -1,14 +1,11 @@
-import '../styles/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useEffect, useState, useContext } from 'react';
-import ProfileCard from '../components/ProfileCard';
-import Feed from '../components/Feed';
-import AddPost from '../components/AddPost';
 import { AuthContext } from "../context/AuthContext";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import ChatWindow from '../components/ChatWindow';
 
-function MainPage() {
+function ChatPage() {
     const navigate = useNavigate();
     const { token, user } = useContext(AuthContext); // Access AuthContext
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -26,19 +23,14 @@ function MainPage() {
                 <div>
                     <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={user.profilePicture || "/user.png"}/>
 
-                    <div className='body-main-page'>
-                        <div className='left-div-main-page'>
-                            <ProfileCard/>
+                    <div className='flex'>
+                        <div className='w-[10%]'/>
+
+                        <div className='w-[80%] flex flex-col justify-center items-center'>
+                            <ChatWindow/>
                         </div>
 
-                        <div className='middle-div-main-page flex flex-col justify-center items-center'>
-                            <AddPost/>
-                            <Feed user={user}/>
-                        </div>
-
-                        <div className='right-div-main-page'>
-                            <p className='mt-9 sticky top-[8.7rem]'>RIGHT DIV</p>
-                        </div>
+                        <div className='w-[10%]'/>
                     </div>
 
                 </div>
@@ -50,4 +42,4 @@ function MainPage() {
     );
 }
 
-export default MainPage;
+export default ChatPage;

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/CreateAccountPage.css';
 import Footer from '../components/Footer'; 
+import { AuthContext, User } from "../context/AuthContext"; // Import AuthContext
 
 // oblik varijable koji nam je potreban prilikom fetch-a na backend kako bi mogli dobiti podatke
 interface UserData {
@@ -13,25 +14,44 @@ interface UserData {
     provider: string;
 }
 
-const api = "http://localhost:8080";  // base api-ja na backendu
-
 function SetupYourAccountPage(){
+    const { setToken, setUserEmail, setUser } = useContext(AuthContext); // Access AuthContext
     const [userData, setUserData] = useState<UserData | null>(null);
+
+    const navigate = useNavigate();
 
     /*svaki put kada se refresh-a stranica fetch-amo backend kako bi dobili najaktualnije podatke
       dobivene preko google ili facebook sign in
     */
-      useEffect(() => {
-        fetch(`${api}/users/signedin`, {credentials: "include"})
-            .then(response =>  response.json())
-            .then(data => {
+    useEffect(() => {
+        fetch(`${import.meta.env.VITE_BACKEND_API}/users/signedin`, { credentials: "include" })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user info");
+                }
+                return response.json();
+            })
+            .then((data) => {
                 console.log("User Info:", data);
                 setUserData(data);
+                setUser(data as User);
+
+                // Token se postavlja na "google"
+                localStorage.setItem("token", "google");
+                setToken("google");
+
+                // Postavljanje userEmail u localStorage i AuthContext
+                if (data.email) {
+                    localStorage.setItem("userEmail", data.email);
+                    setUserEmail(data.email);
+                } else {
+                    console.warn("Email not found in user data.");
+                }
             })
-            .catch(error => {
-                console.error("Error fetching user info:", error)
+            .catch((error) => {
+                console.error("Error fetching user info:", error);
             });
-    }, []);
+    }, [setToken, setUserEmail, setUser]);
 
     //kontrola formata lozinke
     const [password, setPassword] = useState('')
@@ -51,8 +71,6 @@ function SetupYourAccountPage(){
     const [num, setNum] = useState('')
     const [errorMessage5, setNumError] = useState('')
     const [bool5, setBool5] = useState(true)
-
-    const navigate = useNavigate();
     
     //ove 3 funkcije sluze samo da promjenimo vrijednosti varijable kada se unese nesto u polje forme
     const passwordOnChange = (e : any) => {
@@ -154,55 +172,94 @@ function SetupYourAccountPage(){
 
         //ako su svi podatci uneseni u formu dobrog oblika radi se fetch na backend kako bi registrirali korisnika
         if (var2 && var4 && var5) {
-            try {
-                const response = await fetch(`${api}/users/register`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: userData?.email,     // ovaj mali upitnik je da se makne error za possible null
-                    password: password,
-                    firstName: userData?.firstName,
-                    lastName: userData?.lastName,
-                    userName: (username || userData?.userName || ""),
-                    userType: btn_role,
-                    subscriptionPlan: btn_membership,
-                    mobileNumber: num,
-                    profilePicture: userData?.profilePicture
-                  }),
-              });
-        
-              const data = await response.json();
-        
-              //ako je sve proslo ok, uspjesno smo registrirani i idemo na /main-page
-              if (response.ok) {
-                console.log('Register successful:', data);
-                navigate('/main-page', { state: {user: data, fromCreateAccount: true} });
-              } else {
-                console.log(data);
+			try {
+				const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/users/register`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({
+						email: userData?.email,
+						password: password,
+						firstName: userData?.firstName,
+						lastName: userData?.lastName,
+						userName: username || userData?.userName || "",
+						userType: btn_role,
+						subscriptionPlan: btn_membership,
+						mobileNumber: num,
+						profilePicture: userData?.profilePicture
+					})
+				});
 
-                // ako nije sve proslo ok postavljamo error-e koje je backend vratio kako bi ih mogli ispisati
-                if (data.userNameError) {
-                    setUsernameError(data.userNameError);  //postavljamo userNameError za prikaz sign in page-a
-                    setBool4(false);
-                } 
+				const data = await response.json();
 
-                if(data.phoneNumberError){
-                    setNumError(data.phoneNumberError);  //postavljamo phoneNumberError za prikaz sign in page-a
-                    setBool5(false);
-                }
+				// ako je registracija uspjesna, postavi token, userEmail, user u AuthContext i idi na /main-page
+				if (response.ok) {
+					console.log("Register successful:", data);
+					const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_API}/users/login`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							identifier: data.email,
+							password: password,
+						}),
+					});
 
-                if(data.emailError){
-                    setEmailError(data.emailError);  //postavljamo phoneNumberError za prikaz sign in page-a
-                    setBool3(false);
-                }
-              }
+					const loginData = await loginResponse.json();
 
-            } catch (error) {
-              console.error('Error while register:', error);
-            }
-        }
+					if (loginResponse.ok) {
+						console.log("Login successful:", loginData);
+
+						// isto kao u create-acc
+						if (loginData.accessToken && loginData.user && loginData.user.email) {
+							localStorage.setItem("token", loginData.accessToken);
+							localStorage.setItem("userEmail",loginData.user.email);
+
+							// Update AuthContext
+							setToken(loginData.accessToken);
+							setUserEmail(loginData.user.email);
+							setUser(loginData.user as User);
+
+							// Idi na /main-page
+							navigate("/main-page", {
+								state: {
+									user: loginData.user,
+									fromCreateAccount: true,
+								}
+							});
+						} else {
+							console.warn("Access token or user email missing in login response.");
+							alert("Setup succeeded but failed to log in. Please log in manually.");
+						}
+					} else {
+						console.log("Login failed:", loginData);
+						alert(`Login Error: ${loginData.message || "Failed to log in."}`);
+					}
+				} else {
+					console.log(data);
+
+					// postavljanje svih potrebnih error-a
+					if (data.emailError) {
+						setEmailError(data.emailError);
+						setBool3(false);
+					}
+					if (data.userNameError) {
+						setUsernameError(data.userNameError);
+						setBool4(false);
+					}
+					if (data.phoneNumberError) {
+						setNumError(data.phoneNumberError);
+						setBool5(false);
+					}
+				}
+			} catch (error) {
+				console.error("Error while registering and logging in:", error);
+				alert("An unexpected error occurred. Please try again later.");
+			}
+		}
     }
 
     // funckija za odselektiranje gumba ako drugi selektiramo

@@ -3,14 +3,25 @@ import Logo from "../components/Logo.tsx";
 import Login from "../components/Login.tsx";
 import Footer from "../components/Footer.tsx";
 import SignInPage from './SignInPage.tsx';
-
-import { useLocation } from 'react-router-dom';
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Homepage(){
     // saznaj je li url /sign-in
     const location = useLocation()
     const bool = location.pathname === '/sign-in'
- 
+    const navigate = useNavigate();
+	const { token } = useContext(AuthContext); // Pristupi tokenu iz AuthContext
+
+    // ovo sluzi ako smo samo otvorili browser da se ode na main-page bez ikakvog sign-in/up
+    useEffect(() => {
+		if (token) {
+			// Ako token postoji, idi na /main-page
+			navigate("/main-page");
+		}
+	}, [token, navigate]);
+
     /*kada je url /sign-in onda dodamo prefix u imenu klase glavnog diva
     te u .css dat. pogodimo taj div i bluramo ga cijelog, a posto je bool = true onda
     se izrenderira nova komponenta koju fiksiramo na sredinu stranice*/

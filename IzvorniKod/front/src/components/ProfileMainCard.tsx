@@ -1,16 +1,11 @@
 import '../styles/ProfileMainCard.css';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext, User } from "../context/AuthContext";
 import defaultProfilePicture from '/user.png';
 
-const api = "http://localhost:8080";  // base api-ja na backendu
-
 function ProfileMainCard() {
-    const location = useLocation();
-    const { user } = location.state || {};
-    const [updatedUser, setUpdatedUser] = useState(user);
-    const [formData, setFormData] = useState(user)
-
+    const { user, setUser } = useContext(AuthContext);
+    const [formData, setFormData] = useState<User | null>(user);
     const [isEditing, setIsEditing] = useState(false);
 
     const [firstNameError, setFirstNameError] = useState('')
@@ -23,23 +18,23 @@ function ProfileMainCard() {
     const [bool1, setBool1] = useState(true)
 
     const [errorMessage2, setNumError] = useState('')
-    const [bool2, setBool2] = useState(true)
+    const [bool2, setBool2] = useState(true)    
 
-    /* preko email-a user-a dohvaćamo najaktualnije podatke tog user-a (jer se email ne može promijeniti, to je kao id)
-       i nakon toga dobivene podatke stavljamo u varijablu UpdatedUser kako bi ih mogli prikazati na page-u
-    */
     useEffect(() => {
-            fetch(`${api}/users/get-information/${user.email}`)
-                .then(response => response.json())
-                .then(data => {
-                    setUpdatedUser(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
+        if (isEditing) {
+          // Onemogućavanje scrollanja
+          document.body.style.overflow = "hidden";
+        } else {
+          // Omogućavanje scrollanja
+          document.body.style.overflow = "auto";
         }
-    , []);
-
+      
+        // Čišćenje efekta pri unmountu
+        return () => {
+          document.body.style.overflow = "auto";
+        };
+      }, [isEditing]);
+      
     // ako se promjene podatci unutar forme ova funkcija prode po svim unosima i samo update-a podatke u varijabli formData
     const handleInputChange = (e : any) => {
         const { name, value } = e.target;
@@ -50,7 +45,7 @@ function ProfileMainCard() {
         // svaki put kada ponovo otvorimo ili zatvorimo formu, u nju stavimo najnovijeg user-a i postavimo bools na true jer nema errora
         // u smislu ovo je kao refresh forme
         setIsEditing(!isEditing);  
-        setFormData(updatedUser);
+        setFormData(user);
         setBool1(true);
         setBool2(true);
         setBool3(true);
@@ -58,8 +53,10 @@ function ProfileMainCard() {
     };
 
     // kada stisnemo gumb submit na formi onda ulazimo u ovu funkciju koja sluzi u ovom slucaju da update-amo podatke user-a
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!formData) return;
 
         let var1 = false, var2 = false, var3 = false, var4 = false
 
@@ -140,57 +137,65 @@ function ProfileMainCard() {
         /* ako je su svi podatci dobrog formata radimo fetch na backend preko mail-a user-a (to je kao id)
            prema primljenom mail-u backend update-a podatke i vrati ih
         */
-        if(var1 && var2 && var3 && var4){
-            try {
-                const response = await fetch(`${api}/users/update?email=${(user.email)}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        firstName: formData.firstName,
-                        lastName: formData.lastName,
-                        userName: formData.userName,
-                        mobileNumber: formData.mobileNumber,
-                        subscriptionPlan: formData.subscriptionPlan
-                      }),
-                });
-        
-                const data = await response.json();
-    
-                /* ako je odgovor od backend-a vracen sa statusom ok, postavimo podatke u updatedUser i varijablu koja prati
-                   da li trenutno editamo page ili ne na suprotnu vrijednost od one koja je bila
-                */
-                if (response.ok) {
-                    setUpdatedUser(data)
-                    setIsEditing(!isEditing) // ako je proslo vise se ne edit-a i sigurno nema error-a
-                } else {
-    
-                    // inace ostajemo u edit prozoru i postavljamo koji vec error treba 
-    
-                    if (data.userNameError) {
-                        setUsernameError(data.userNameError);  //postavljamo userNameError za prikaz 
-                        setBool1(false);
-                    } 
-    
-                    if(data.phoneNumberError){
-                        setNumError(data.phoneNumberError);  //postavljamo phoneNumberError za prikaz
-                        setBool2(false);
-                    }
-    
-                }
-            } catch (error) {
-                console.error('Error while updating user:', error);
-            }
-        }
+        if (var1 && var2 && var3 && var4) {
+			try {
+				const response = await fetch(
+					`${import.meta.env.VITE_BACKEND_API}/users/update?email=${encodeURIComponent(user.email)}`,
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({
+							firstName: formData.firstName,
+							lastName: formData.lastName,
+							userName: formData.userName,
+							mobileNumber: formData.mobileNumber,
+							subscriptionPlan: formData.subscriptionPlan,
+						}),
+					}
+				);
+
+				const data = await response.json();
+
+				// Ako je update uspjesan, update AuthContext i zatvori formu
+				if (response.ok) {
+					setUser(data);
+					setIsEditing(false);
+				} else {
+					// postavljanje svih potrebnih error-a
+
+					if (data.userNameError) {
+						setUsernameError(data.userNameError);
+						setBool1(false);
+					}
+
+					if (data.phoneNumberError) {
+						setNumError(data.phoneNumberError);
+						setBool2(false);
+					}
+				}
+			} catch (error) {
+				console.error("Error while updating user:", error);
+			}
+		}
     };
     
+    // Ako se user ili formData nisu jos load-ali, prikazi loading
+	if (!user || !formData) {
+		return (
+			<div className="flex items-center justify-center h-full">
+				<p className="text-white text-xl">Loading...</p>
+			</div>
+		);
+	}
 
     return (
-        <div className='profile-container-main'>
+        <div className={'profile-container-main'}>
             <img src="./profile-background.jpg" alt="background" className='img1-main' />
-            <img src={updatedUser.profilePicture || defaultProfilePicture} alt={`${updatedUser.userName}'s profile`} className='img2-main' />
-            <p>{updatedUser.firstName} {updatedUser.lastName}</p>
+            <img src={user.profilePicture || defaultProfilePicture} alt={`${user.userName}'s profile`} className='img2-main' />
+            <p className='mt-[-4.3rem]'>{user.firstName} {user.lastName}</p>
 
             <button onClick={toggleEditForm} className='button-edit'>
                 Edit Profile

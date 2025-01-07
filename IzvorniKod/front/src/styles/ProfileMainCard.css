@@ -1,194 +1,213 @@
-.profile-container-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(83, 94, 109);
-    border-radius: 0.4rem;
-    width: 80%;
-    padding: 0.8rem;
-    margin-top: 1rem;
+.profile-container-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(83, 94, 109);
+  border-radius: 0.4rem;
+  width: 80%;
+  padding: 0.8rem;
+  padding-top: 1rem;
+  margin-top: 1rem;
 }
 
-.img1-main{
-    border-radius: 0.4rem;
-    width: 30rem;
+.img1-main {
+  border-radius: 0.4rem;
+  width: 97%;
 }
 
-.img2-main{
-    position: relative;
-    top: -1.2rem;
-    border-radius: 10rem;
-    width: 35%;
+.img2-main {
+  position: relative;
+  top: -5.2rem;
+  border-radius: 10rem;
+  width: 35%;
 }
 
-.profile-container-main p{
-    font-size: large;
-    color: white;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+.profile-container-main p {
+  font-size: large;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-.button-edit{
-    background-color: #5643CC;
-    border-radius: 0.4rem;
-    padding: 0.3rem 1rem;
-    color: white;
-    font-size: 1rem;
-    margin-bottom: -0.3rem;
+.button-edit {
+  background-color: #5643cc;
+  border-radius: 0.4rem;
+  padding: 0.3rem 1rem;
+  color: white;
+  font-size: 1rem;
+  margin-bottom: -0.3rem;
 }
 
-.edit-form input{
-    margin-bottom: 0.1rem;
-    background: rgba(218, 214, 223, 0.6); 
-    color: white;
-    font-weight: bold;
-    backdrop-filter: blur(4px); 
-    width: 100%;
-    padding: 0.5rem;
-    border: 0.5px solid #ccc;
-    border-radius: 1rem;
+.edit-form input {
+  margin-bottom: 0.1rem;
+  background: rgba(218, 214, 223, 0.6);
+  color: white;
+  font-weight: bold;
+  backdrop-filter: blur(4px);
+  width: 100%;
+  padding: 0.5rem;
+  border: 0.5px solid #ccc;
+  border-radius: 1rem;
 }
 
-.edit-form{
-    margin-top: 15px;
+.edit-form {
+  margin-top: 15px;
 }
 
 .profile-container-main {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  z-index: 1000;
 }
 
 .modal-content {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    width: 90%;
-    max-width: 35rem;
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-    z-index: 1001;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 35rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+  z-index: 1001;
 }
 
 .edit-form h2 {
-    text-align: center;
-    color: lightgray;
-    margin-bottom: 0.2rem;
+  text-align: center;
+  color: lightgray;
+  margin-bottom: 0.2rem;
 }
 
 .edit-form div {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .edit-form label {
-    display: block;
-    color: lightgray;
-    font-size: 1rem;
-    font-weight: bolder;
-    margin-bottom: 0.5rem;
+  display: block;
+  color: lightgray;
+  font-size: 1rem;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
 }
 
 .edit-form select {
-    width: 100%;
-    padding: 0.5rem;
-    border: 0.5px solid #ccc;
-    border-radius: 1rem;
-    margin-bottom: 0.1rem;
-    background: rgba(218, 214, 223, 0.6); 
-    color: white;
-    font-weight: bold;
-    backdrop-filter: blur(4px); 
+  width: 100%;
+  padding: 0.5rem;
+  border: 0.5px solid #ccc;
+  border-radius: 1rem;
+  margin-bottom: 0.1rem;
+  background: rgba(218, 214, 223, 0.6);
+  color: white;
+  font-weight: bold;
+  backdrop-filter: blur(4px);
 }
 
-.edit-form option{
-    background: rgba(111, 105, 117, 0.6);  
-    color: white;
-    font-weight: bold;
+.edit-form option {
+  background: rgba(111, 105, 117, 0.6);
+  color: white;
+  font-weight: bold;
 }
 
 .modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
 }
 
-.button-save, .button-close {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.button-save,
+.button-close {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .button-save {
-    background-color: #058909;
-    color: #fff;
-    font-weight: bold;
+  background-color: #058909;
+  color: #fff;
+  font-weight: bold;
 }
 
 .button-close {
-    background-color: #b71004;
-    color: #fff;
-    font-weight: bold;
+  background-color: #b71004;
+  color: #fff;
+  font-weight: bold;
 }
 
-@media (max-width:1178px) {
-    .modal-content {
-        padding: 2rem;
-        max-width: 32rem;
-
-    }
-    .button-save, .button-close {
-        padding: 0.2rem 0.5rem;
-        gap: 1rem;
-
-    }
+@media (max-width: 1178px) {
+  .modal-content {
+    padding: 2rem;
+    max-width: 32rem;
+  }
+  .button-save,
+  .button-close {
+    padding: 0.2rem 0.5rem;
+    gap: 1rem;
+  }
 }
 
-@media (max-width:1010px) {
-    .modal-content {
-        padding: 2rem;
-        max-width: 30rem;
-
-    }
-    .button-save, .button-close {
-        padding: 0.2rem 0.5rem;
-        gap: 1rem;
-
-    }
+@media (max-width: 1010px) {
+  .modal-content {
+    padding: 2rem;
+    max-width: 30rem;
+  }
+  .button-save,
+  .button-close {
+    padding: 0.2rem 0.5rem;
+    gap: 1rem;
+  }
 }
 
-@media(max-width:880px){
-    .modal-content {
-        padding: 2rem;
-        max-width: 25rem;
+@media (max-width: 880px) {
+  .modal-content {
+    padding: 2rem;
+    max-width: 25rem;
+  }
+  .button-save,
+  .button-close {
+    padding: 0.2rem 0.5rem;
+    gap: 1rem;
+  }
 
-    }
-    .button-save, .button-close {
-        padding: 0.2rem 0.5rem;
-        gap: 1rem;
-    }
+  .img2-main {
+    top: -2.5rem;
+    width: 30%;
+    margin-bottom: 2rem;
+  }
 }
 
-@media(max-width:770px){
-    .modal-content {
-        padding: 2rem;
-        max-width: 20rem;
+@media (max-width: 770px) {
+  .modal-content {
+    padding: 2rem;
+    max-width: 20rem;
+  }
+  .button-save,
+  .button-close {
+    padding: 0.2rem 0.5rem;
+    gap: 1rem;
+  }
 
-    }
-    .button-save, .button-close {
-        padding: 0.2rem 0.5rem;
-        gap: 1rem;
-    }
+  .img2-main {
+    top: -2.5rem;
+    width: 30%;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .img2-main {
+    top: -2rem;
+    margin-bottom: 2.5rem;
+  }
 }
