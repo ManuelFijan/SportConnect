@@ -96,7 +96,7 @@ public class SecurityConfig {
                                 "/users/get-information/**", "/users/signedin",
                                 "/posts/create", "/posts/*/like", "/posts/*/comment",
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
-                                "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**", "/posts/**", "/chat/unread-counts/**"
+                                "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**", "/posts/**", "/chat/unread-counts/**", "/users/all"
                         )
                 )
                 .authorizeHttpRequests(authorize -> authorize
@@ -106,7 +106,7 @@ public class SecurityConfig {
                                 "/users/get-information/**", "/users/test",
                                 "/posts/create", "/posts/*/like", "/posts/*/comment",
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
-                                "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**", "/posts/**", "/chat/unread-counts/**"
+                                "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**", "/posts/**", "/chat/unread-counts/**", "/users/all"
                         ).permitAll()
                         //.requestMatchers("/chat/**", "/pusher/**").authenticated()
                         .anyRequest().authenticated()
