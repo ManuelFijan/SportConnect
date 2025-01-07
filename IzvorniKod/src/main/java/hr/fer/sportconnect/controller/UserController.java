@@ -85,7 +85,7 @@ public class UserController {
     @GetMapping("/search")
     public ResponseEntity<?> searchUsers(@RequestParam("query") String query) {
         try {
-            List<User> users = userService.searchUsers(query);
+            List<User> users = userService.searchUsersByEmail(query);
             return ResponseEntity.ok(users);
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error searching users.");

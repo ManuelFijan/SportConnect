@@ -226,7 +226,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> searchUsersByEmail(String email) {
-        return userRepository.findByEmailContainingIgnoreCase(email);
+        return userRepository.findByEmailStartingWithIgnoreCase(email);
     }
 
     @Override
