@@ -32,6 +32,10 @@ color: white;
 font-size: 14px;
 margin-top: -2rem;
 margin-bottom: -0.3rem;
+transition-duration: 0.3s;
+}
+.button:hover{
+    background-color: #403396;
 }
 
 @media (max-width:1178px) {

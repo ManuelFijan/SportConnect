@@ -18,8 +18,8 @@ export default function PostsCard({
   com,
   user,
 }: any) {
-  const [likes, setLikes] = useState(false);
-  const [comm, setComm] = useState(true);
+  const [likes, setLikes] = useState(isLiked);
+  const [comm, setComm] = useState(isSaved);
   const [saves, setSaves] = useState(false);
   const [likeNum, setLikeNum] = useState(like);
   const [commNum, setCommNum] = useState(com);
@@ -147,10 +147,10 @@ export default function PostsCard({
               onClick={handleLike}
             />
           )}
-          <span className="pr-2 mt-[0.1rem] ml-1 cursor-pointer">
+          <span className="pr-2 mt-[0.1rem] ml-1 cursor-pointer" onClick={handleLike}>
             {likeNum}
           </span>
-          <span className="mr-1 ml-1 cursor-pointer mt-[0.1rem] hidden md:block">
+          <span className="mr-1 ml-1 cursor-pointer mt-[0.1rem] hidden md:block" onClick={handleLike}>
             Useful
           </span>
         </div>
@@ -182,7 +182,7 @@ export default function PostsCard({
               className="cursor-pointer text-purple-600 h-4 w-5 mr-2 mt-[0.2rem] pl-1 ml-1 md:mr-1"
             />
           )}
-          <span className="pr-2 pl-1 cursor-pointer hidden lg:block">Save</span>
+          <span className="pr-2 pl-1 cursor-pointer hidden lg:block" onClick={handleSave}>Save</span>
         </div>
       </div>
 

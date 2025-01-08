@@ -71,14 +71,14 @@ export default function Feed({ user }: any) {
   return (
     <div
       className={
-        "w-[90%] sm:w-[80%] md:w-[75%] lg:w-[70%] h-auto bg-white rounded-lg flex flex-col justify-center items-center pt-3" +
+        "w-[90%] sm:w-[80%] md:w-[75%] lg:w-[70%] h-auto bg-gray-500 rounded-lg flex flex-col justify-center items-center pt-3" +
         (user.userType === "PARTNER" ? "" : " mt-3")
       }
     >
       {/* Toggle buttons for sorting */}
       <div className="flex gap-4 mb-4">
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+          className="px-4 py-2 bg-[#5643CC] hover:bg-[#40319e] transition duration-300 text-white rounded-lg"
           onClick={() => setViewSaved(!viewSaved)}
         >
           {viewSaved ? "View All Posts" : "View Saved"}
@@ -86,8 +86,8 @@ export default function Feed({ user }: any) {
 
         <button
           className={`px-4 py-2 ${
-            sortBy === "newest" ? "bg-green-500" : "bg-gray-500"
-          } text-white rounded-lg`}
+            sortBy === "newest" ? "bg-green-500" : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+          } text-gray-700 rounded-lg`}
           onClick={() => handleSortChange("newest")}
         >
           Newest
@@ -95,8 +95,8 @@ export default function Feed({ user }: any) {
 
         <button
           className={`px-4 py-2 ${
-            sortBy === "mostLikes" ? "bg-green-500" : "bg-gray-500"
-          } text-white rounded-lg`}
+            sortBy === "mostLikes" ? "bg-green-500" : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+          } text-gray-700 rounded-lg`}
           onClick={() => handleSortChange("mostLikes")}
         >
           Most Likes
@@ -104,8 +104,8 @@ export default function Feed({ user }: any) {
 
         <button
           className={`px-4 py-2 ${
-            sortBy === "mostSaves" ? "bg-green-500" : "bg-gray-500"
-          } text-white rounded-lg`}
+            sortBy === "mostSaves" ? "bg-green-500" : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+          } text-gray-700 rounded-lg`}
           onClick={() => handleSortChange("mostSaves")}
         >
           Most Saves
