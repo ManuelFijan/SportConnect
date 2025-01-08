@@ -8,6 +8,7 @@ import { HiMiniWrench, HiOutlineWrench } from "react-icons/hi2";
 import { AiFillDollarCircle, AiOutlineDollar } from "react-icons/ai";
 import { IoChatboxEllipses, IoChatboxEllipsesOutline } from "react-icons/io5";
 import { AuthContext } from "../../context/AuthContext";
+import { AiOutlineSetting, AiFillSetting } from "react-icons/ai";
 
 function Navbar({ isOpen, setIsOpen }: any) {
   const navigate = useNavigate();
@@ -97,6 +98,24 @@ function Navbar({ isOpen, setIsOpen }: any) {
             />
             <span className="font-semibold">Pricing</span>
           </Link>
+
+          {/* Admin link */}
+          {user?.email === 'vid123@gmail.com' && (
+            <Link
+              to={"/admin?" + path}
+              className="flex items-center gap-1 group"
+            >
+              <AiOutlineSetting 
+                size={27}
+                className="small-icons group-hover:hidden"
+              />
+              <AiFillSetting
+                size={27}
+                className="small-icons hidden group-hover:block"
+              />
+              <span className="font-semibold">Admin Panel</span>
+            </Link>
+          )}
         </div>
       </div>
 
