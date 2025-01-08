@@ -60,25 +60,26 @@ public class PaymentController {
                         .setCancelUrl(clientBaseURL + "/failed-payment");
 
         for (Product product : requestDTO.getItems()) {
-            paramsBuilder.addLineItem(
-                    SessionCreateParams.LineItem.builder()
-                            .setQuantity(1L)
-                            .setPriceData(
-                                    PriceData.builder()
-                                            .setProductData(
-                                                    PriceData.ProductData.builder()
-                                                            .putMetadata("subscription_plan", product.getName().split(" ")[2].toUpperCase())
-                                                            .putMetadata("app_id", product.getId())
-                                                            .setName(product.getName())
-                                                            .build()
-                                            )
-                                            .setCurrency(ProductDAO.getProduct(product.getId()).getDefaultPriceObject().getCurrency())
-                                            .setUnitAmountDecimal(ProductDAO.getProduct(product.getId()).getDefaultPriceObject().getUnitAmountDecimal())
-                                            .setRecurring(PriceData.Recurring.builder().setInterval(PriceData.Recurring.Interval.MONTH).build())
-                                            .build())
-                            .build());
+            SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
+                .setQuantity(1L)
+                .setPriceData(
+                        PriceData.builder()
+                                .setProductData(
+                                        PriceData.ProductData.builder()
+                                                .putMetadata("subscription_plan", subscriptionPlan)
+                                                .putMetadata("app_id", product.getId())
+                                                .setName(product.getName())
+                                                .build()
+                                )
+                                .setCurrency(ProductDAO.getProduct(product.getId()).getDefaultPriceObject().getCurrency())
+                                .setUnitAmountDecimal(ProductDAO.getProduct(product.getId()).getDefaultPriceObject().getUnitAmountDecimal())
+                                .setRecurring(PriceData.Recurring.builder().setInterval(PriceData.Recurring.Interval.MONTH).build())
+                                .build())
+                .build();
+            paramsBuilder.addLineItem(lineItem);
         }
         Session session = Session.create(paramsBuilder.build());
+
         // Return the URL directly in the response body
         return ResponseEntity.ok(session.getUrl());
     }
