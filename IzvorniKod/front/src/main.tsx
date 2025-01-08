@@ -17,7 +17,7 @@ import MyAccountPage from './pages/MyAccountPage.tsx'
 import ChatPage from './pages/ChatPage.tsx'
 import SuccessfulPaymentPage from "./pages/SuccessfulPaymentPage.tsx";
 import FailurePaymentPage from "./pages/FailurePaymentPage.tsx";
-import AdminPage from './pages/AdminPage.tsx'
+import AdminPage from "./pages/AdminPage.tsx"
 import { AuthProvider } from "./context/AuthContext";
 
 import './styles/index.css'
@@ -97,10 +97,10 @@ const router = createBrowserRouter([
 		element: <FailurePaymentPage />,
 		errorElement: <NotFoundPage />,
 	},
-	{
+  {
 		path: "/admin",
 		element: <AdminPage/>,
-		errorElement: <NotFoundPage />,
+		errorElement: <NotFoundPage/>,
 	}
 ])
 
