@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext, User } from "../context/AuthContext";
 import defaultProfilePicture from '/user.png';
 import { FaMedal } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 function ProfileMainCard() {
     const { user, setUser } = useContext(AuthContext);
@@ -198,37 +199,71 @@ function ProfileMainCard() {
             <img src={user.profilePicture || defaultProfilePicture} alt={`${user.userName}'s profile`} className='img2-main' />
 
             <div className="flex items-center gap-2 h-20 -mt-20">
-                <span className="text-3xl text-white font-bold mb-2">{user.firstName} {user.lastName}</span>
+                <span className="text-2xl lg:text-3xl text-white font-bold mb-2">{user.firstName} {user.lastName}</span>
                 
                 {/*ovisno koji je plan takve je boje medalja*/}
                 {user.subscriptionPlan === 'GOLD' && (
-                    <div className="text-[#f0bf0d]">
-                    <FaMedal size={40}/>
-                    </div>
+                    <>
+                        <div className="text-[#f0bf0d] hidden lg:block">
+                            <FaMedal size={40}/>
+                        </div>
+
+                        <div className="text-[#f0bf0d] block lg:hidden">
+                            <FaMedal size={30}/>
+                        </div>
+                    </>
                 )}
 
                 {user.subscriptionPlan === 'SILVER' && (
-                    <div className="text-[#cecdcd]">
-                    <FaMedal size={40}/>
-                    </div>
-                )}
+                    <>
+                        <div className="text-[#cecdcd] hidden lg:block">
+                            <FaMedal size={40}/>
+                        </div>
+
+                        <div className="text-[#cecdcd] block lg:hidden">
+                            <FaMedal size={30}/>
+                        </div>
+                    </>
+                )} 
 
                 {user.subscriptionPlan === 'BRONZE' && (
-                    <div className="text-[#b3652c]">
-                    <FaMedal size={40}/>
-                    </div>
+                    <>
+                        <div className="text-[#b3652c] hidden lg:block">
+                            <FaMedal size={40}/>
+                        </div>
+
+                        <div className="text-[#b3652c] block lg:hidden">
+                            <FaMedal size={30}/>
+                        </div>
+                    </>
                 )}
 
                 {user.subscriptionPlan === 'FREE' && (
-                    <div className="text-[#279536]">
-                    <FaMedal size={40}/>
-                    </div>
+                    <>
+                        <div className="text-[#279536] hidden lg:block">
+                            <FaMedal size={40}/>
+                        </div>
+
+                        <div className="text-[#279536] block lg:hidden">
+                            <FaMedal size={30}/>
+                        </div>
+                    </>
                 )}
             </div>
 
-            <button onClick={toggleEditForm} className='button-edit mt-2'>
+            <button onClick={toggleEditForm} className='bg-[#5643cc] hover:bg-[#34297b] rounded-lg py-[0.4rem] lg:py-[0.7rem] px-[0.8rem] lg:px-[1.4rem] text-white text-[1rem] mb-[-0.3rem] md:mt-2'>
                 Edit Profile
             </button>
+
+            <Link 
+                to="/pricing" 
+                state={{ message1: "You are just one step away...",
+                        message2: "Choose the plan that best suits your needs and unlock the features you desire!"
+                }} 
+                className="mt-3 text-sm lg:text-base bg-[#a7fbcb] text-gray-500 font-bold py-2 px-1 lg:px-4 rounded-lg hover:bg-[#51bf81] transition duration-200 no-underline block md:hidden"
+            >
+                Upgrade Now
+            </Link>
 
             {isEditing && (
                 <div className="modal-overlay bg-gray-700 bg-opacity-80">
