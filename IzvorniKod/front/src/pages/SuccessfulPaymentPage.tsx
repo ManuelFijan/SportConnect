@@ -1,24 +1,33 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function SuccessfulPaymentPage() {
   const navigate = useNavigate();
-  const [countdown, setCountdown] = useState(10); 
-  const [loading] = useState(true); 
+  const { search } = useLocation(); // link stavljamo u varijablu search
+  const [countdown, setCountdown] = useState(10);
+  const [loading] = useState(true);
+  const [rank, setRank] = useState("");
 
-  // timer
+  // iz linka poslanog sa backend-a izvlacimo rank da ga mozemo prikazati na stranici
+  useEffect(() => {
+    const urlParams = new URLSearchParams(search); 
+    const rankFromURL = urlParams.get("rank");
+    setRank(rankFromURL || "Unknown"); 
+  }, [search]);
+
+  // Timer
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev === 1) {
-          clearInterval(timer); 
-          navigate("/my-account"); // kada dode na 0 ide na /my-account
+          clearInterval(timer);
+          navigate("/my-account"); // idemo na my-account nakon uspjesnog placanja
         }
         return prev - 1;
       });
-    }, 1000); 
+    }, 1000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, [navigate]);
 
   return (
@@ -27,8 +36,8 @@ function SuccessfulPaymentPage() {
         <h1 className="text-4xl font-bold text-green-600 mb-4">
           Successful Payment!!!
         </h1>
-        <p className="text-xl text-gray-700 mb-4">
-          You have upgraded to [OVDJE DOLAZI LEVEL]
+        <p className="text-3xl text-gray-700 mb-4">
+          You have upgraded to <span className="font-bold">{rank}</span>
         </p>
 
         {/* Spinner */}
@@ -36,11 +45,10 @@ function SuccessfulPaymentPage() {
           <div className="spinner-border animate-spin inline-block w-16 h-16 border-4 border-solid border-green-500 rounded-full mb-4"></div>
         )}
 
-        {/* Odbrojavanje */}
+        {/* Countdown */}
         <div className="text-3xl font-bold text-gray-800">
           Redirecting back in: {countdown} seconds
         </div>
-
       </div>
     </div>
   );

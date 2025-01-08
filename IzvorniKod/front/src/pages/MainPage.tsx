@@ -12,6 +12,7 @@ function MainPage() {
   const navigate = useNavigate();
   const { token, user } = useContext(AuthContext); // Access AuthContext
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   // Redirect na home ako nije authenticated
   useEffect(() => {
@@ -19,6 +20,10 @@ function MainPage() {
       navigate("/");
     }
   }, [token, navigate]);
+
+  const handleUpdate = () => {
+    setUpdate(!update);
+  }
 
   return (
     <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
@@ -36,8 +41,8 @@ function MainPage() {
             </div>
 
             <div className="middle-div-main-page flex flex-col justify-center items-center">
-              {user.userType === "PARTNER" && <AddPost />}
-              <Feed user={user} />
+              {user.userType === "PARTNER" && <AddPost handleUpdate={handleUpdate}/>}
+              <Feed user={user} update={update}/>
             </div>
 
             <div className="right-div-main-page">

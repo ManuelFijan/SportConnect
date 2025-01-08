@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { IoIosMore } from "react-icons/io";
+import ReadMore from "../ReadMore";
 
-export default function Comments({ bool, addComm, user }: any) {
-  const [list, setList] = useState([""]);
+export default function Comments({ bool, comments, addCom, user }: any) {
   const [input, setInput] = useState("");
 
-  let br = list.filter((str) => str.trim() === "").length;
-
   const handleChange = (e: any) => {
-    setInput(e.target.value)
+    setInput(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,16 +14,29 @@ export default function Comments({ bool, addComm, user }: any) {
 
     let tmp = new FormData(e.currentTarget);
     let tmp2 = tmp.get("comment") || "";
-    const tmp3 = list.filter((str) => str.trim() !== "");
-    if (typeof tmp2 === "string" && tmp2 != "") setList([...tmp3, tmp2]);
 
-    setInput("")
-
-    addComm();
+    setInput("");
+    addCom(tmp2);    
   };
 
-  const handleDeleteCom = () => {
-    // delete comment
+  const handleDeleteCom = async (comId: any) => {
+    try {
+      const userEmail = user.email;
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/posts/comment/${comId}?userEmail=${userEmail}`,
+        { method: "DELETE" }
+      );
+      const data = await response.text();
+      console.log(data);
+
+      if (response.ok) {
+        addCom();
+      } else {
+        console.error("Error deleting comment.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -58,13 +69,13 @@ export default function Comments({ bool, addComm, user }: any) {
         </form>
       </div>
       {/* COMMENTS */}
-      {bool && br < 1 && (
-        <div className="flex flex-col gap-1 w-full text-xs">
-          {list.map((item, ind) => (
+      {bool && comments.length > 0 && (
+        <div className="flex flex-col gap-1 w-full text-xs mb-[-0.2rem]">
+          {comments.map((comInfo: any, ind: any) => (
             <div className="flex flex-row gap-3  w-full mt-[-1rem]" key={ind}>
               <div>
                 <img
-                  src={user.profilePicture || "./user.png"}
+                  src={comInfo.user.profilePicture || "./user.png"}
                   alt="user_picture"
                   width={20}
                   height={16}
@@ -73,23 +84,34 @@ export default function Comments({ bool, addComm, user }: any) {
               </div>
               <div className="w-[90%] flex flex-col gap-3">
                 <span className="font-semibold">
-                  {user.firstName + " " + user.lastName}
+                  {comInfo.user.firstName + " " + comInfo.user.lastName}
                 </span>
-                <p className="break-all">{item}</p>
+                <ReadMore message={comInfo.text} post={false} />
               </div>
-              <div className="dropdown">
+              {comInfo.user.userId == user.userId ? (
+                <div className="dropdown">
+                  <IoIosMore
+                    data-bs-toggle="dropdown"
+                    height={16}
+                    width={16}
+                    className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                  />
+                  <ul className="dropdown-menu">
+                    <li
+                      onClick={() => handleDeleteCom(comInfo.commentId)}
+                      className="dropdown-item cursor-pointer"
+                    >
+                      Delete
+                    </li>
+                  </ul>
+                </div>
+              ) : (
                 <IoIosMore
-                  data-bs-toggle="dropdown"
                   height={16}
                   width={16}
-                  className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                  className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
                 />
-                <ul className="dropdown-menu">
-                  <li onClick={handleDeleteCom} className="dropdown-item cursor-pointer">
-                    Delete
-                  </li>
-                </ul>
-              </div>
+              )}
             </div>
           ))}
         </div>
