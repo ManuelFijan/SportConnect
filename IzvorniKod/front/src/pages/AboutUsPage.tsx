@@ -8,6 +8,7 @@ function AboutUsPage() {
     let s = location.search
     const bool = s.includes("main")
     const bool2 = s.includes("acc")
+    const bool3 = s.includes("chat")
 
     const {user} = useLocation().state || {}
 
@@ -104,10 +105,18 @@ function AboutUsPage() {
                 <p className="mt-6 font-bold">SportConnect - Nourish & Thrive. Your community for healthy living.</p>
             </div>
 
-            {(bool || bool2) ? (
-                <div className="about bg-gray-700 pt-24 flex justify-end pr-10">
-                    <Link to={bool ? "/main-page" : "/my-account"} state={{user, fromMainPage:true}}>
-                        <button className='btn btn-secondary'>Back</button>
+            {(bool || bool2 || bool3) ? (
+                <div className="about bg-gray-700 pt-24 flex justify-end pr-10 pb-3">
+                    <Link 
+                        to={bool 
+                                ? "/main-page" 
+                                : bool2 
+                                ? "/my-account" 
+                                : "/chat"
+                        } 
+                        state={{ user, fromMainPage: true }}
+                    >
+                        <button className="btn btn-secondary">Back</button>
                     </Link>
                 </div>
             ) : (

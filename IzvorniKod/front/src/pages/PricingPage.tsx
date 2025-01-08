@@ -12,6 +12,7 @@ const PricingPage: React.FC = () => {
     let s = location.search;
     const bool = s.includes("main");
     const bool2 = s.includes("acc");
+    const bool3 = s.includes("chat");
 
     const { message1 } = location.state || {};
     const { message2 } = location.state || {};
@@ -68,7 +69,7 @@ const PricingPage: React.FC = () => {
         } else {
             console.error("No matching product found for payment item name: " + paymentItemName);
         }
-    
+        
         fetch(`${import.meta.env.VITE_BACKEND_API}/checkout/hosted`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -85,6 +86,7 @@ const PricingPage: React.FC = () => {
                 return response.text();
             })
             .then((url) => {
+                console.log(url);
                 window.location.href = url; 
             })
             .catch((error) => {
@@ -150,9 +152,17 @@ const PricingPage: React.FC = () => {
                     </Link>
                 </div>
             ) : (
-                (bool || bool2) ? (
-                    <div className="about1 bg-gray-700 mt-10 mb-3">
-                        <Link to={bool ? "/main-page" : "/my-account"} state={{ user, fromMainPage: true }}>
+                (bool || bool2 || bool3) ? (
+                    <div className="about1 bg-gray-700 mt-32">
+                        <Link 
+                            to={bool 
+                                    ? "/main-page" 
+                                    : bool2 
+                                    ? "/my-account" 
+                                    : "/chat"
+                            } 
+                            state={{ user, fromMainPage: true }}
+                        >
                             <button className="btn btn-secondary">Back</button>
                         </Link>
                     </div>

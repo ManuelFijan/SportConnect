@@ -7,6 +7,7 @@ function TermsOfServicePage() {
     let s = location.search
     const bool = s.includes("main")
     const bool2 = s.includes("acc")
+    const bool3 = s.includes("chat")
 
     const {user} = useLocation().state || {}
 
@@ -124,10 +125,18 @@ function TermsOfServicePage() {
             </div>
         </div>  
 
-        {(bool || bool2) ? (
+        {(bool || bool2 || bool3) ? (
                 <div className="about bg-gray-700 pt-3 flex justify-end pr-10">
-                    <Link to={bool ? "/main-page" : "/my-account"} state={{user, fromMainPage:true}}>
-                        <button className='btn btn-secondary'>Back</button>
+                    <Link 
+                        to={bool 
+                                ? "/main-page" 
+                                : bool2 
+                                ? "/my-account" 
+                                : "/chat"
+                        } 
+                        state={{ user, fromMainPage: true }}
+                    >
+                        <button className="btn btn-secondary">Back</button>
                     </Link>
                 </div>
             ) : (
