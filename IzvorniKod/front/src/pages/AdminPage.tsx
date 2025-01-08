@@ -11,9 +11,7 @@ import UserFeed from "../components/UserFeed";
 import PostsCard from "../components/Posts/PostsCard";
 
 const AdminPage: React.FC = () => {
-
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { token, user } = useContext(AuthContext); // Access AuthContext
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [users, setUsers] = useState<any[]>([]);

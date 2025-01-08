@@ -102,7 +102,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
           {/* Admin link */}
           {user?.email === 'vid123@gmail.com' && (
             <Link
-              to={"/admin?" + path}
+              to={"/admin"}
               className="flex items-center gap-1 group"
             >
               <AiOutlineSetting 
