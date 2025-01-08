@@ -13,20 +13,13 @@ li:hover {
   background-color: rgb(135, 149, 170) !important;
 }
 
-.body-main-page {
-  display: flex;
-}
-
 .left-div-main-page {
   width: 20%;
-  border: 2px solid blue;
 }
 .middle-div-main-page {
-  width: 60%;
-  border: 2px solid red;
+  width: 50%;
 }
 
 .right-div-main-page {
   width: 20%;
-  border: 2px solid green;
 }

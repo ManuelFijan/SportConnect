@@ -81,7 +81,7 @@ function AddPost({ handleUpdate } : any) {
   };
 
   return (
-    <div className="add-post-container w-[90%] sm:w-[80%] md:w-[75%] lg:w-[70%] pt-4 md:pt-5 px-3 bg-gray-500">
+    <div className="add-post-container w-full pt-4 md:pt-5 px-3 bg-gray-500">
       <div className="image-text-container">
         <div className="image-div">
           {user && (

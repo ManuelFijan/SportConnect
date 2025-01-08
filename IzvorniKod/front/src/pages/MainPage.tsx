@@ -35,7 +35,7 @@ function MainPage() {
             userPic={user.profilePicture || "/user.png"}
           />
 
-          <div className="body-main-page">
+          <div className="body-main-page flex gap-5">
             <div className="left-div-main-page">
               <ProfileCard />
             </div>

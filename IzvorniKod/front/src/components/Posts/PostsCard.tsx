@@ -144,7 +144,7 @@ export default function PostsCard({
   };
 
   return (
-    <div className="h-auto w-[93%] bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg">
+    <div className="h-auto w-[87%] bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg">
       {/* USER */}
       <div className="flex flex-row justify-between text-gray-700">
         <div className="flex flex-row gap-2">
@@ -189,13 +189,13 @@ export default function PostsCard({
       {/* CONTENT */}
       <div className="flex flex-col gap-2 text-gray-700">
         <ReadMore message={message} post={true} />
-        {pic && (
-          <img
-            src={pic}
-            alt="post_image"
-            className="w-full h-[320px] rounded-md object-cover"
-          />
-        )}
+          {pic && (
+            <img
+              src={pic}
+              alt="post_image"
+              className="w-full h-[320px] rounded-md object-cover"
+            />
+          )}
       </div>
 
       {/* INTERACTION */}
