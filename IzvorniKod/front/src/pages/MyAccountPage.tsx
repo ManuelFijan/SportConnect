@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import ProfileMainCard from "../components/ProfileMainCard.tsx";
 import { AuthContext } from "../context/AuthContext";
 import Feed from "../components/Posts/Feed.tsx";
+import { Link } from "react-router-dom";
 
 function MyAccountPage() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -30,9 +31,29 @@ function MyAccountPage() {
             <ProfileMainCard />
             <Feed user={user} />
           </div>
-          <div className="bg-gray-700 w-[25%] flex flex-col items-center pt-2">
-            <h3>Right Section</h3>
-            <p>Content for the right section.</p>
+          <div className="bg-gray-700 w-[25%] flex flex-col items-center">
+            {user.subscriptionPlan !== "GOLD" && (
+              <div className="bg-[rgb(83,94,109)] rounded-lg p-6 text-center mt-3 mr-5">
+                <h1 className="text-2xl font-bold text-[#a7fbcb] mb-4">
+                  Unlock Better Features!
+                </h1>
+
+                <p className="text-white mb-6 font-semibold">
+                  Upgrade your subscription plan today to access exclusive content, partners, and more!
+                </p>
+                
+                <Link 
+                  to="/pricing" 
+                  state={{ message1: "You are just one step away...",
+                          message2: "Choose the plan that best suits your needs and unlock the features you desire!"
+                  }} 
+                  className="bg-[#a7fbcb] text-gray-500 font-bold py-2 px-4 rounded-lg hover:bg-[#51bf81] transition duration-200 no-underline"
+                >
+                  Upgrade Now
+                </Link>
+              </div>
+
+            )}
           </div>
         </div>
       )}

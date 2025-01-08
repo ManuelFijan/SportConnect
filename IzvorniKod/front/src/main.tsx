@@ -15,6 +15,8 @@ import MainPage from './pages/MainPage.tsx'
 import SetupYourAccountPage from './pages/SetupYourAccountPage.tsx'
 import MyAccountPage from './pages/MyAccountPage.tsx'
 import ChatPage from './pages/ChatPage.tsx'
+import SuccessfulPaymentPage from "./pages/SuccessfulPaymentPage.tsx";
+import FailurePaymentPage from "./pages/FailurePaymentPage.tsx";
 import { AuthProvider } from "./context/AuthContext";
 
 import './styles/index.css'
@@ -83,7 +85,17 @@ const router = createBrowserRouter([
     path: '/chat',
     element: <ChatPage/>,
     errorElement: <NotFoundPage/>
-  }
+  },
+  {
+		path: "/successful-payment",
+		element: <SuccessfulPaymentPage />,
+		errorElement: <NotFoundPage />,
+	},
+	{
+		path: "/failed-payment",
+		element: <FailurePaymentPage />,
+		errorElement: <NotFoundPage />,
+	},
 ])
 
 createRoot(document.getElementById('root')!).render(

@@ -2,6 +2,7 @@ import '../styles/ProfileMainCard.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext, User } from "../context/AuthContext";
 import defaultProfilePicture from '/user.png';
+import { FaMedal } from "react-icons/fa6";
 
 function ProfileMainCard() {
     const { user, setUser } = useContext(AuthContext);
@@ -152,8 +153,7 @@ function ProfileMainCard() {
 							firstName: formData.firstName,
 							lastName: formData.lastName,
 							userName: formData.userName,
-							mobileNumber: formData.mobileNumber,
-							subscriptionPlan: formData.subscriptionPlan,
+							mobileNumber: formData.mobileNumber
 						}),
 					}
 				);
@@ -182,7 +182,7 @@ function ProfileMainCard() {
 			}
 		}
     };
-    
+
     // Ako se user ili formData nisu jos load-ali, prikazi loading
 	if (!user || !formData) {
 		return (
@@ -196,12 +196,39 @@ function ProfileMainCard() {
         <div className={'profile-container-main'}>
             <img src="./profile-background.jpg" alt="background" className='img1-main' />
             <img src={user.profilePicture || defaultProfilePicture} alt={`${user.userName}'s profile`} className='img2-main' />
-            <p className='mt-[-4.3rem]'>{user.firstName} {user.lastName}</p>
 
-            <button onClick={toggleEditForm} className='button-edit'>
+            <div className="flex items-center gap-2 h-20 -mt-20">
+                <span className="text-3xl text-white font-bold mb-2">{user.firstName} {user.lastName}</span>
+                
+                {/*ovisno koji je plan takve je boje medalja*/}
+                {user.subscriptionPlan === 'GOLD' && (
+                    <div className="text-[#f0bf0d]">
+                    <FaMedal size={40}/>
+                    </div>
+                )}
+
+                {user.subscriptionPlan === 'SILVER' && (
+                    <div className="text-[#cecdcd]">
+                    <FaMedal size={40}/>
+                    </div>
+                )}
+
+                {user.subscriptionPlan === 'BRONZE' && (
+                    <div className="text-[#b3652c]">
+                    <FaMedal size={40}/>
+                    </div>
+                )}
+
+                {user.subscriptionPlan === 'FREE' && (
+                    <div className="text-[#279536]">
+                    <FaMedal size={40}/>
+                    </div>
+                )}
+            </div>
+
+            <button onClick={toggleEditForm} className='button-edit mt-2'>
                 Edit Profile
             </button>
-
 
             {isEditing && (
                 <div className="modal-overlay bg-gray-700 bg-opacity-80">
@@ -227,15 +254,6 @@ function ProfileMainCard() {
                                 <label>Phone Number:</label>
                                 <input type="text" name="mobileNumber" value={formData.mobileNumber} onChange={handleInputChange} />
                                 {bool2 ? '' : <div style={{ color: 'red', fontWeight: 'bold'}}>{errorMessage2}</div>}
-                            </div>
-                            <div>
-                                <label>Package:</label>
-                                <select name="subscriptionPlan" value={formData.subscriptionPlan} onChange={handleInputChange}>
-                                    <option value="FREE">FREE</option>
-                                    <option value="BRONZE">BRONZE</option>
-                                    <option value="SILVER">SILVER</option>
-                                    <option value="GOLD">GOLD</option>
-                                </select>
                             </div>
                             <div className="modal-buttons">
                                 <button type="submit" className="button-save">Save Changes</button>

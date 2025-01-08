@@ -23,17 +23,10 @@
   width: 35%;
 }
 
-.profile-container-main p {
-  font-size: large;
-  color: white;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
 .button-edit {
   background-color: #5643cc;
   border-radius: 0.4rem;
-  padding: 0.3rem 1rem;
+  padding: 0.7rem 1.4rem;
   color: white;
   font-size: 1rem;
   margin-bottom: -0.3rem;

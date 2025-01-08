@@ -1,9 +1,7 @@
 import React from 'react';
 import Title from './PricingCard/Title';
-import Button from './PricingCard/Button';
 import Feature from './PricingCard/Feature';
 import Price from './PricingCard/Price';
-import {Link} from "react-router-dom";
 
 // vraca boju za bronze, silver, itd.
 const getBorderColor = (color: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'): string => {
@@ -23,6 +21,31 @@ const getBorderColor = (color: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'):
     }
 };
 
+const getLighterColor = (color: 'bronze' | 'silver' | 'gold' | 'green' | 'gray'): string => {
+    let baseColor = '';
+    switch (color) {
+        case 'bronze':
+            baseColor = '#fad0b3';  
+            break;
+        case 'silver':
+            baseColor = '#f3f3f3';  
+            break;
+        case 'gold':
+            baseColor = '#fff6d2';  
+            break;
+        case 'green':
+            baseColor = '#e6ffdc'; 
+            break;
+        case 'gray':
+            baseColor = 'gray';
+            break;
+        default:
+            baseColor = 'transparent';
+    }
+
+    return baseColor; 
+};
+
 interface PricingCardProps {
     title: string;
     price: number;
@@ -30,6 +53,8 @@ interface PricingCardProps {
     isFeatureIncluded: boolean[];
     borderColor: 'bronze' | 'silver' | 'gold' | 'green' | 'gray';
     buttonText: string;
+    onClick: () => void;
+    isFiltered: boolean;
 }
 
 // vraca pricing card koji je sastavljen od ostalih komponenata za pricing card
@@ -39,23 +64,30 @@ const PricingCard: React.FC<PricingCardProps> = ({
                                                      features,
                                                      isFeatureIncluded,
                                                      borderColor,
-                                                     buttonText
+                                                     buttonText,
+                                                     onClick,
+                                                     isFiltered
                                                 }) => {
+
+    const backgroundColor = getLighterColor(borderColor);
+
     return (
         <div
             className={`card ${borderColor}`}
-            style={{ border: `2px solid ${getBorderColor(borderColor)}` }}
+            style={{ 
+                border: `3px solid ${getBorderColor(borderColor)}` ,
+                backgroundColor
+            }}
         >
-            <Title title={title}/>
-            <Price price={price}/>
+            <Title title={title} backgroundColor={backgroundColor}/>
+            <Price price={price} backgroundColor={backgroundColor}/>
             <ul className="features-pricing-list">
                 {features.map((feature, index) => (
                     <Feature key={feature} included={isFeatureIncluded[index]} feature={feature}/>
                 ))}
             </ul>
-            <Link to={'/create-an-account'}>
-                <Button text={buttonText}/>
-            </Link>
+            {/* Gumb prikazujemo samo ako je isFiltered true*/}
+            {isFiltered && <button onClick={onClick}>{buttonText}</button>}
         </div>
     );
 };
