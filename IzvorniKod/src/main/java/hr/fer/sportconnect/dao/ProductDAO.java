@@ -16,7 +16,7 @@ public class ProductDAO {
 
         sampleProduct.setName("Free to Bronze");
         sampleProduct.setId("free1");
-        samplePrice.setCurrency("eur");
+        samplePrice.setCurrency("usd");
         samplePrice.setUnitAmountDecimal(BigDecimal.valueOf(1500));
         sampleProduct.setDefaultPriceObject(samplePrice);
         products[0] = sampleProduct;
@@ -26,7 +26,7 @@ public class ProductDAO {
 
         sampleProduct.setName("Free to Silver");
         sampleProduct.setId("free2");
-        samplePrice.setCurrency("eur");
+        samplePrice.setCurrency("usd");
         samplePrice.setUnitAmountDecimal(BigDecimal.valueOf(2500));
         sampleProduct.setDefaultPriceObject(samplePrice);
         products[1] = sampleProduct;
@@ -36,7 +36,7 @@ public class ProductDAO {
 
         sampleProduct.setName("Free to Gold");
         sampleProduct.setId("free3");
-        samplePrice.setCurrency("eur");
+        samplePrice.setCurrency("usd");
         samplePrice.setUnitAmountDecimal(BigDecimal.valueOf(3500));
         sampleProduct.setDefaultPriceObject(samplePrice);
         products[2] = sampleProduct;
@@ -46,7 +46,7 @@ public class ProductDAO {
 
         sampleProduct.setName("Bronze to Silver");
         sampleProduct.setId("bronze1");
-        samplePrice.setCurrency("eur");
+        samplePrice.setCurrency("usd");
         samplePrice.setUnitAmountDecimal(BigDecimal.valueOf(1000));
         sampleProduct.setDefaultPriceObject(samplePrice);
         products[3] = sampleProduct;
@@ -56,7 +56,7 @@ public class ProductDAO {
 
         sampleProduct.setName("Bronze to Gold");
         sampleProduct.setId("bronze2");
-        samplePrice.setCurrency("eur");
+        samplePrice.setCurrency("usd");
         samplePrice.setUnitAmountDecimal(BigDecimal.valueOf(2000));
         sampleProduct.setDefaultPriceObject(samplePrice);
         products[4] = sampleProduct;
@@ -66,7 +66,7 @@ public class ProductDAO {
 
         sampleProduct.setName("Silver to Gold");
         sampleProduct.setId("silver1");
-        samplePrice.setCurrency("eur");
+        samplePrice.setCurrency("usd");
         samplePrice.setUnitAmountDecimal(BigDecimal.valueOf(1000));
         sampleProduct.setDefaultPriceObject(samplePrice);
         products[5] = sampleProduct;

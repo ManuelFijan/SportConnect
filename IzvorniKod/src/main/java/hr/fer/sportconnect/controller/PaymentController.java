@@ -8,9 +8,8 @@ import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData;
 import hr.fer.sportconnect.dao.ProductDAO;
-import hr.fer.sportconnect.dto.RequestDTO;
+import hr.fer.sportconnect.dto.PurchaseRequestDTO;
 import hr.fer.sportconnect.service.impl.CustomerServiceImpl;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,10 +36,10 @@ public class PaymentController {
     public PaymentController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
     }
-    String STRIPE_API_KEY = "sk_test_51QdC7rAQiKrikYdhQa6ncJaaIcqcyY41I2AwZQrUxRr6yKUpVHDqpepQrzv4I4QTAg6B20wixj37zo0cD1B1whvH007kY1uuK2";
+    String STRIPE_API_KEY = System.getenv("SPRING_STRIPE_API_SECRET_KEY");
 
     @PostMapping("/hosted")
-    public ResponseEntity<String> hostedCheckout(@RequestBody RequestDTO requestDTO) throws StripeException{
+    public ResponseEntity<String> hostedCheckout(@RequestBody PurchaseRequestDTO requestDTO) throws StripeException{
 
         if (requestDTO.getItems() == null) {
             System.out.println("Array length is 0");
@@ -51,13 +50,13 @@ public class PaymentController {
 
         // Start by finding an existing customer record from Stripe or creating a new one if needed
         Customer customer = customerService.findOrCreateCustomer(requestDTO.getCustomerEmail(), requestDTO.getCustomerName());
-
+        String subscriptionPlan = requestDTO.getItems()[0].getName().split(" ")[2];
         // Next, create a checkout session by adding the details of the checkout
         SessionCreateParams.Builder paramsBuilder =
                 SessionCreateParams.builder()
                         .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
                         .setCustomer(customer.getId())
-                        .setSuccessUrl(clientBaseURL + "/successful-payment?session_id={CHECKOUT_SESSION_ID}")
+                        .setSuccessUrl(clientBaseURL + "/successful-payment?rank=" + subscriptionPlan + "&session_id={CHECKOUT_SESSION_ID}")
                         .setCancelUrl(clientBaseURL + "/failed-payment");
 
         for (Product product : requestDTO.getItems()) {
@@ -68,6 +67,7 @@ public class PaymentController {
                                     PriceData.builder()
                                             .setProductData(
                                                     PriceData.ProductData.builder()
+                                                            .putMetadata("subscription_plan", product.getName().split(" ")[2].toUpperCase())
                                                             .putMetadata("app_id", product.getId())
                                                             .setName(product.getName())
                                                             .build()

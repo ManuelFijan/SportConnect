@@ -1,6 +1,7 @@
 package hr.fer.sportconnect.service.impl;
 
 import hr.fer.sportconnect.dto.*;
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 import hr.fer.sportconnect.exceptions.LoginException;
 import hr.fer.sportconnect.exceptions.RegistrationException;
@@ -14,8 +15,6 @@ import hr.fer.sportconnect.repository.PartnerRepository;
 import hr.fer.sportconnect.repository.UserRepository;
 import hr.fer.sportconnect.security.JwtTokenProvider;
 import hr.fer.sportconnect.service.UserService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -156,6 +155,22 @@ public class UserServiceImpl implements UserService {
         user.setUserName(updateDto.getUserName());
         user.setMobileNumber(updateDto.getMobileNumber());
 
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserDto updateSubscriptionPlan(String email, SubscriptionPlan newSubscriptionPlan) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        User user = optionalUser.get();
+
+        user.setSubscriptionPlan(newSubscriptionPlan);
         userRepository.save(user);
 
         return userMapper.toDto(user);

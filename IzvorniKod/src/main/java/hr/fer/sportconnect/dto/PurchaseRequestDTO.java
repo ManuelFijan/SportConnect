@@ -2,7 +2,7 @@ package hr.fer.sportconnect.dto;
 
 import com.stripe.model.Product;
 
-public class RequestDTO
+public class PurchaseRequestDTO
 {
     Product[] items;
     String customerName;
