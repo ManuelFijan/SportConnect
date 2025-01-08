@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function ReadMore({ message }: any) {
+export default function ReadMore({ message, post }: any) {
   const [isOpen, setOpen] = useState(false);
   const [text, setText] = useState(message);
 
@@ -21,8 +21,8 @@ export default function ReadMore({ message }: any) {
   };
 
   return (
-    <div>
-      <span className="text-textColor">{text}</span>
+    <div className={"" + (!post && "mt-[-1rem] mb-[1.2rem]")}>
+      <span className="text-textColor break-all">{text}</span>
       {message.length > 190 && (
         <button onClick={toogleActive} className="text-gray-400 text-xs ml-2">
           {isOpen ? "Show less" : "Show more"}

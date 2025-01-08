@@ -7,22 +7,22 @@ import { IoIosMore, IoIosHeartEmpty, IoMdHeart } from "react-icons/io";
 
 export default function PostsCard({
   postId,
-  firstname,
-  lastname,
-  profilePic,
+  creator,
   pic,
   message,
   like,
   isLiked,
   isSaved,
-  com,
   user,
+  delCom,
+  newSaved,
 }: any) {
   const [likes, setLikes] = useState(isLiked);
-  const [comm, setComm] = useState(isSaved);
-  const [saves, setSaves] = useState(false);
+  const [comm, setComm] = useState(false);
+  const [saves, setSaves] = useState(isSaved);
   const [likeNum, setLikeNum] = useState(like);
-  const [commNum, setCommNum] = useState(com);
+  const [newCom, setNewCom] = useState(false);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     setLikes(isLiked);
@@ -64,7 +64,8 @@ export default function PostsCard({
       console.log(data);
 
       if (response.ok) {
-        setSaves(!saves);
+        setSaves(!isSaved);
+        newSaved();
       } else {
         console.error("Error saving/un-saving the post.");
       }
@@ -73,13 +74,73 @@ export default function PostsCard({
     }
   };
 
-  const handleComments = () => {
-    setCommNum((prev: any) => prev + 1);
+  useEffect(() => {
+    getComments();
+  }, [newCom]);
+
+  const getComments = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/posts/${postId}/comments`
+      );
+      if (response.ok) {
+        const data = await response.json();
+
+        setComments(data);
+      } else {
+        console.error("Failed to fetch posts comments.");
+      }
+    } catch (error) {
+      console.error("Error fetching posts comments:", error);
+    }
   };
 
-  const handleDelete = () => {
-    // Handle comment deletion
-    console.log("Delete comment functionality here.");
+  const addCom = async (message: string) => {
+    if (message) {
+      try {
+        const userEmail = user.email;
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_API}/posts/${postId}/comment?userEmail=${userEmail}&commentText=${message}`,
+          { method: "POST" }
+        );
+        const data = await response.json();
+        console.log(data);
+
+        if (response.ok) {
+          setNewCom(!newCom);
+        } else {
+          console.error(
+            "Error with adding new comment at post(post id: " +
+              { postId } +
+              ")."
+          );
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    } else {
+      setNewCom(!newCom); // samo triger da se useEffect napravi i povuku obnovljeni komentari nakon brisanja
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const userEmail = user.email;
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/posts/${postId}?userEmail=${userEmail}`,
+        { method: "DELETE" }
+      );
+      const data = await response.text();
+      console.log(data);
+
+      if (response.ok) {
+        delCom();
+      } else {
+        console.error("Error deleting comment.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -88,41 +149,52 @@ export default function PostsCard({
       <div className="flex flex-row justify-between text-gray-700">
         <div className="flex flex-row gap-2">
           <img
-            src={profilePic || "./user.png"}
+            src={creator?.profilePicture || "./user.png"}
             alt="user_picture"
             height={24}
             width={24}
             className="rounded-full flex-1 w-[1.5rem] h-[1.5rem] mt-2 text-gray-700"
           />
           <span className="text-gray-700 mt-2">
-            {firstname} {lastname}
+            {creator.firstName} {creator.lastName}
           </span>
         </div>
-        {user.userType === "PARTNER" && (
-          <div className="dropdown">
+        {user.userType === "PARTNER" &&
+          (creator.userId === user.userId ? (
+            <div className="dropdown">
+              <IoIosMore
+                data-bs-toggle="dropdown"
+                height={16}
+                width={16}
+                className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+              />
+              <ul className="dropdown-menu">
+                <li
+                  onClick={handleDelete}
+                  className="dropdown-item cursor-pointer"
+                >
+                  Delete
+                </li>
+              </ul>
+            </div>
+          ) : (
             <IoIosMore
-              data-bs-toggle="dropdown"
               height={16}
               width={16}
-              className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+              className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
             />
-            <ul className="dropdown-menu">
-              <li
-                onClick={handleDelete}
-                className="dropdown-item cursor-pointer"
-              >
-                Delete
-              </li>
-            </ul>
-          </div>
-        )}
+          ))}
       </div>
 
       {/* CONTENT */}
       <div className="flex flex-col gap-2 text-gray-700">
-        <ReadMore message={message} />
+        <ReadMore message={message} post={true} />
         {pic && (
-          <img src={pic} alt="post_image" className="w-full h-[320px] rounded-md object-cover" />
+          <img
+            src={pic}
+            alt="post_image"
+            className="w-full h-[320px] rounded-md object-cover"
+          />
         )}
       </div>
 
@@ -147,21 +219,29 @@ export default function PostsCard({
               onClick={handleLike}
             />
           )}
-          <span className="pr-2 mt-[0.1rem] ml-1 cursor-pointer" onClick={handleLike}>
+          <span
+            className="pr-1 mt-[0.1rem] ml-1 cursor-pointer"
+            onClick={handleLike}
+          >
             {likeNum}
           </span>
-          <span className="mr-1 ml-1 cursor-pointer mt-[0.1rem] hidden md:block" onClick={handleLike}>
+          <span
+            className="mr-1 cursor-pointer mt-[0.1rem] hidden md:block"
+            onClick={handleLike}
+          >
             Useful
           </span>
         </div>
 
         {/* Comments */}
-        <div className="text-gray-700 flex flex-row bg-white rounded-full p-1">
-          <VscCommentDiscussion
-            onClick={() => setComm(!comm)}
-            className="cursor-pointer text-purple-600 h-5 w-5 mr-1 mt-[0rem] pl-1 ml-1"
-          />
-          <span className="pr-2 md:pr-1 ml-1 cursor-pointer">{commNum}</span>
+        <div
+          className="text-gray-700 flex flex-row bg-white rounded-full p-1"
+          onClick={() => setComm(!comm)}
+        >
+          <VscCommentDiscussion className="cursor-pointer text-purple-600 h-5 w-5 mr-1 mt-[0rem] pl-1 ml-1" />
+          <span className="pr-2 md:pr-1 ml-1 cursor-pointer">
+            {comments.length}
+          </span>
           <span className="mr-1 cursor-pointer hidden md:block">Comments</span>
         </div>
 
@@ -182,12 +262,17 @@ export default function PostsCard({
               className="cursor-pointer text-purple-600 h-4 w-5 mr-2 mt-[0.2rem] pl-1 ml-1 md:mr-1"
             />
           )}
-          <span className="pr-2 pl-1 cursor-pointer hidden lg:block" onClick={handleSave}>Save</span>
+          <span
+            className="pr-2 pl-1 cursor-pointer hidden lg:block"
+            onClick={handleSave}
+          >
+            Save
+          </span>
         </div>
       </div>
 
       {/* COMMENTS */}
-      <Comments bool={comm} addComm={handleComments} user={user} />
+      <Comments bool={comm} comments={comments} addCom={addCom} user={user} />
     </div>
   );
 }

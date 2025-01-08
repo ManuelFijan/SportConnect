@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import PostsCard from "./PostsCard";
 
-export default function Feed({ user }: any) {
+export default function Feed({ user, update }: any) {
   const [posts, setPosts] = useState<any[]>([]);
   const [savedPosts, setSavedPosts] = useState<any[]>([]);
   const [viewSaved, setViewSaved] = useState(false);
   const [sortBy, setSortBy] = useState<string>("newest");
+  const [del, setDel] = useState(false);
 
   const fetchPosts = async (sortBy: string | null = null) => {
     try {
@@ -40,7 +41,7 @@ export default function Feed({ user }: any) {
     }
   };
 
-  function findUserL(post: any) {
+  function findUserL(post: any) {    
     let likedby = post.likedBy;
     for (let j = 0; j < likedby.length; j++) {
       if (likedby[j].userId === user.userId) return true;
@@ -58,14 +59,23 @@ export default function Feed({ user }: any) {
 
   useEffect(() => {
     fetchPosts(sortBy);
-  }, [sortBy]);
+  }, [sortBy, del, update]);
 
   useEffect(() => {
     fetchSavedPosts();
-  }, [user.email]);
+  }, [user.email, del, update]);
 
   const handleSortChange = (newSortBy: string) => {
     setSortBy(newSortBy); // Update sorting parameter
+  };
+
+  const delCom = () => {
+    setDel(!del); // triger za rerender obnovljenih objava bez onih koje su obrisane
+  };
+
+  const newSaved = () => {
+    fetchSavedPosts()
+    fetchPosts()
   };
 
   return (
@@ -86,7 +96,7 @@ export default function Feed({ user }: any) {
 
         <button
           className={`px-4 py-2 ${
-            sortBy === "newest" ? "bg-green-500" : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+            sortBy === "newest" ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 " : "bg-gray-200 hover:bg-gray-300 transition duration-400"
           } text-gray-700 rounded-lg`}
           onClick={() => handleSortChange("newest")}
         >
@@ -95,7 +105,7 @@ export default function Feed({ user }: any) {
 
         <button
           className={`px-4 py-2 ${
-            sortBy === "mostLikes" ? "bg-green-500" : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+            sortBy === "mostLikes" ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 " : "bg-gray-200 hover:bg-gray-300 transition duration-400"
           } text-gray-700 rounded-lg`}
           onClick={() => handleSortChange("mostLikes")}
         >
@@ -104,7 +114,7 @@ export default function Feed({ user }: any) {
 
         <button
           className={`px-4 py-2 ${
-            sortBy === "mostSaves" ? "bg-green-500" : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+            sortBy === "mostSaves" ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 " : "bg-gray-200 hover:bg-gray-300 transition duration-400"
           } text-gray-700 rounded-lg`}
           onClick={() => handleSortChange("mostSaves")}
         >
@@ -117,22 +127,22 @@ export default function Feed({ user }: any) {
             <PostsCard
               key={post.postId}
               postId={post.postId}
-              firstname={post.partner.firstname}
-              lastname={post.partner.lastname}
-              profilePic={post.partner.profilePicture}
+              creator={post.partner}
               pic={post.imageUrl}
               message={post.textContent}
               like={post.likeCount}
               isLiked={findUserL(post)}
               isSaved={findUserS(post)}
-              com={post.comments.length}
               user={user}
+              delCom={delCom}
+              newSaved={newSaved}
             />
           ))
         : posts.map((post: any) => (
             <PostsCard
               key={post.postId}
               postId={post.postId}
+              creator={post.partner}
               firstname={post.partner.firstName}
               lastname={post.partner.lastName}
               profilePic={post.partner.profilePicture}
@@ -141,8 +151,9 @@ export default function Feed({ user }: any) {
               like={post.likeCount}
               isLiked={findUserL(post)}
               isSaved={findUserS(post)}
-              com={post.comments.length}
               user={user}
+              delCom={delCom}
+              newSaved={newSaved}
             />
           ))}
     </div>
