@@ -81,7 +81,7 @@ export default function Feed({ user, update }: any) {
   return (
     <div
       className={
-        "w-full h-auto bg-gray-500 rounded-lg flex flex-col justify-center items-center pt-3" +
+        "w-full h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center pt-3" +
         (user.userType === "PARTNER" ? "" : " mt-3")
       }
     >

@@ -23,7 +23,7 @@ function MainPage() {
 
   const handleUpdate = () => {
     setUpdate(!update);
-  }
+  };
 
   return (
     <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
@@ -36,16 +36,20 @@ function MainPage() {
           />
 
           <div className="body-main-page flex gap-5">
-            <div className="left-div-main-page">
+            <div className="left-div-main-page hidden md:block">
               <ProfileCard />
             </div>
 
-            <div className="middle-div-main-page flex flex-col justify-center items-center">
-              {user.userType === "PARTNER" && <AddPost handleUpdate={handleUpdate}/>}
-              <Feed user={user} update={update}/>
+            <div className="w-[100%] md:w-[50%] flex justify-center items-center">
+              <div className="middle-div-main-page flex flex-col justify-center items-center w-[80%] md:w-full">
+                {user.userType === "PARTNER" && (
+                  <AddPost handleUpdate={handleUpdate} />
+                )}
+                <Feed user={user} update={update} />
+              </div>
             </div>
 
-            <div className="right-div-main-page">
+            <div className="right-div-main-page hidden md:block">
               <p className="mt-9 sticky top-[8.7rem]">RIGHT DIV</p>
             </div>
           </div>

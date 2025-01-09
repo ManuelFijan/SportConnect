@@ -33,7 +33,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
 
       <div className="navbar-links hidden md:flex w-[70%] text-lg mt-[5.5rem] justify-between">
         {/*LINKS*/}
-        <div className="flex ml-[80px] gap-7">
+        <div className="flex ml-[80px] gap-4">
           <Link
             to="/main-page"
             className="flex items-center gap-1 group"
@@ -113,7 +113,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
                 size={27}
                 className="small-icons hidden group-hover:block"
               />
-              <span className="font-semibold">Admin Panel</span>
+              <span className="font-semibold w- border-1 border-solid-white text-xs md:text-lg">Admin Panel</span>
             </Link>
           )}
         </div>
