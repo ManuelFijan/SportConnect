@@ -6,6 +6,7 @@ import ProfileCard from "../components/ProfileCard";
 import Feed from "../components/Posts/Feed";
 import AddPost from "../components/Posts/AddPost";
 import { AuthContext } from "../context/AuthContext";
+import AdsList from "../components/AdsList.tsx";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function MainPage() {
@@ -50,7 +51,9 @@ function MainPage() {
             </div>
 
             <div className="right-div-main-page hidden md:block">
-              <p className="mt-9 sticky top-[8.7rem]">RIGHT DIV</p>
+              <div className="mr-3 mt-3">
+                <AdsList />
+              </div>
             </div>
           </div>
         </div>
