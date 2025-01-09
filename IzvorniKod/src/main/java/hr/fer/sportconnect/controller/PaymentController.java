@@ -46,7 +46,7 @@ public class PaymentController {
             return ResponseEntity.badRequest().body("Input array cannot be null");
         }
         Stripe.apiKey = STRIPE_API_KEY;
-        String clientBaseURL = "http://localhost:3000";
+        String clientBaseURL = "https://sportconnect-8b7o.onrender.com";
 
         // Start by finding an existing customer record from Stripe or creating a new one if needed
         Customer customer = customerService.findOrCreateCustomer(requestDTO.getCustomerEmail(), requestDTO.getCustomerName());
