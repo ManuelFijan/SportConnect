@@ -10,6 +10,7 @@ import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData;
 import hr.fer.sportconnect.dao.ProductDAO;
 import hr.fer.sportconnect.dto.PurchaseRequestDTO;
 import hr.fer.sportconnect.service.impl.CustomerServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/checkout")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sportconnect-8b7o.onrender.com"}, allowCredentials = "true")
 public class PaymentController {
+
+    @Value("${stripe.key}")
+    private String STRIPE_API_KEY;
 
     @RequestMapping(method = RequestMethod.OPTIONS)
     public ResponseEntity<Void> handleOptions() {
@@ -36,7 +40,7 @@ public class PaymentController {
     public PaymentController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
     }
-    String STRIPE_API_KEY = System.getenv("SPRING_STRIPE_API_SECRET_KEY");
+    //String STRIPE_API_KEY = System.getenv("SPRING_STRIPE_API_SECRET_KEY");
 
     @PostMapping("/hosted")
     public ResponseEntity<String> hostedCheckout(@RequestBody PurchaseRequestDTO requestDTO) throws StripeException{
@@ -46,7 +50,7 @@ public class PaymentController {
             return ResponseEntity.badRequest().body("Input array cannot be null");
         }
         Stripe.apiKey = STRIPE_API_KEY;
-        String clientBaseURL = "https://sportconnect-8b7o.onrender.com";
+        String clientBaseURL = "http://localhost:3000";
 
         // Start by finding an existing customer record from Stripe or creating a new one if needed
         Customer customer = customerService.findOrCreateCustomer(requestDTO.getCustomerEmail(), requestDTO.getCustomerName());
