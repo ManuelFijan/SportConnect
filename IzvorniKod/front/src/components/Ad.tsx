@@ -6,12 +6,12 @@ const Ad = ({
     textContent: string;
   }) => {
     return (
-      <div className="p-4 bg-[rgb(83,94,109)] rounded-lg shadow-md hidden md:block">
+      <div className="p-[0.8rem] bg-[rgb(83,94,109)] rounded-lg shadow-md hidden md:block">
         <div className="text-sm lg:text-lg flex items-center justify-start text-white font-medium">
           <span>Sponsored Ad</span>
         </div>
   
-        <div className="flex flex-col mt-4">
+        <div className="flex flex-col mt-2">
             {/* Slika sa dinamičkom širinom */}
             <div className="relative w-full max-w-screen-lg mx-auto">
                 <img
@@ -22,7 +22,7 @@ const Ad = ({
             </div>
   
             {/* Tekst ispod slike */}
-            <p className="text-white font-semibold mt-4 text-sm lg:text-base text-center">
+            <p className="text-white font-semibold mt-2 text-sm lg:text-base text-center">
                 {textContent}
             </p>
         </div>
