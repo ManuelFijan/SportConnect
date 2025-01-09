@@ -1,89 +1,91 @@
-.profile-container{
+.profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: #535e6d;
   border-radius: 0.4rem;
-  width: 80%;
+  width: 95%;
   padding: 0.8rem;
   margin-top: 1rem;
   margin-left: 1rem;
 }
-.img1{
-border-radius: 0.4rem;
-width: 30rem;
+.img1 {
+  border-radius: 0.4rem;
+  width: 30rem;
 }
-.img2{
-position: relative;
-top: -2.2rem;
-border-radius: 10rem;
-width: 35%;
+.img2 {
+  position: relative;
+  top: -2.2rem;
+  border-radius: 10rem;
+  width: 35%;
 }
-.profile-container p{
-font-size: small;
-margin-bottom: 0.5rem;
+.profile-container p {
+  font-size: medium;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
-.button{
-background-color: #5643CC;
-border-radius: 0.4rem;
-padding: 0.4rem 0.9rem;
-color: white;
-font-size: 14px;
-margin-top: -2rem;
-margin-bottom: -0.3rem;
-transition-duration: 0.3s;
+.button {
+  background-color: #5643cc;
+  border-radius: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 0.2rem;
+  margin-bottom: -0.3rem;
+  transition-duration: 0.3s;
 }
-.button:hover{
-    background-color: #403396;
-}
-
-@media (max-width:1178px) {
-.button{
-    font-size: 10px;
+.button:hover {
+  background-color: #403396;
 }
 
-.profile-container p{
-    font-size: 9px;
+@media (max-width: 1178px) {
+  .button {
+    font-size: 12px;
+  }
+
+  .profile-container p {
+    font-size: 15px;
     margin-bottom: 0.2rem;
-}
+  }
 }
 
-@media (max-width:1010px) {
-.button{
-    font-size: 9px;
+@media (max-width: 1010px) {
+  .button {
+    font-size: 12px;
     padding: 0.3rem 0.6rem;
-}
+  }
 
-.profile-container p{
-    font-size: 9px;
+  .profile-container p {
+    font-size: 12px;
     margin-bottom: 0.2rem;
-}
+  }
 }
 
-@media(max-width:880px){
-.img2{
+@media (max-width: 880px) {
+  .img2 {
     top: -1.8rem;
     width: 35%;
-}
+  }
 
-.img1{
-  height: 4rem;
-}
+  .img1 {
+    height: 4rem;
+  }
 
-.profile-container p{
+  .profile-container p {
     margin-bottom: 0.2rem;
-    margin-top: -0.7rem;
-}
+    margin-top: -1rem;
+  }
 
-.button{
-    font-size: 8px;
+  .button {
+    font-size: 10px;
     width: 4.3rem;
-}
+  }
 }
 
-@media(max-width:770px){
-.profile-container{
+@media (max-width: 770px) {
+  .profile-container {
     display: none;
-}
+  }
 }

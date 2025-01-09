@@ -99,7 +99,6 @@ function CreateAccountPage(){
         e.preventDefault()
 
         const btn_role = findChecked('role').toUpperCase()
-        const btn_membership = findChecked('membership').toUpperCase()
         
         // kontrola jesu li svi formati inputa dobri
         // ne mozes koristit bool var. ranije navedene jer su one useState() te se
@@ -216,7 +215,7 @@ function CreateAccountPage(){
 						lastName: surname,
 						userName: username,
 						userType: btn_role,
-						subscriptionPlan: btn_membership,
+						subscriptionPlan: "FREE",
 						mobileNumber: num,
 					}),
 				});
@@ -317,7 +316,7 @@ function CreateAccountPage(){
             <div className='logopic'>
                 <img src="/logo.png"/>
             </div>
-            <div className='create-card'>
+            <div className='create-card border border-[#cd3636]'>
                 <h2 className='ml-2'>
                     Create an account
                 </h2>
@@ -345,39 +344,21 @@ function CreateAccountPage(){
                             {bool4 ? '' : <div style={{ color: 'red' }}>{errorMessage4}</div>}
                         </div>
 
-                        <div className='right-container mr-2 '>
+                        <div className='right-container'>
                             <input type="text" onChange={numOnChange} placeholder="Contact (mobile/telephone number)" className="form-control mt-3" maxLength={19} required/>
                             {bool5 ? '' : <div style={{ color: 'red' }}>{errorMessage5}</div>}
                             <input type="text" onChange={emailOnChange} placeholder="E-mail" className="form-control mt-3" maxLength={50} required/>
                             {bool1 ? '' : <div style={{ color: 'red' }}>{errorMessage}</div>}
                             <input type="password" onChange={passwordOnChange} placeholder="Password" className="form-control mt-3" maxLength={20} required/>
                             {bool2 ? '' : <div style={{ color: 'red' }}>{errorMessage2}</div>}
-
-                            <div className="btn-group mt-[0.8rem]" role="group" aria-label="Toggle button group" id='toggleForm2'>
-                                <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="membership" value="Free" required/> Free 
-                                </label>
-
-                                <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="membership" value="Bronze" required/> Bronze 
-                                </label>
-
-                                <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="membership" value="Silver" required/> Silver 
-                                </label>
-
-                                <label className="btn btn-outline-dark" onClick={() => toggleActive(2)}>
-                                    <input type="radio" className="btn-check" name="membership" value="Gold" required/> Gold   
-                                </label>
-                            </div>
                         </div>
                     </div>
 
                     <input type="checkbox" className='ml-2 mt-3' required/>
-                        <p className='text-xs ml-7 mt-[-20px]'>
-                            I have read and agree to SportConnect's <a href="/terms-of-service">Terms of Service </a>
-                            and <a href="/privacy-policy">Privacy Policy</a> 
-                        </p>
+                    <p className='text-xs ml-7 mt-[-20px]'>
+                        I have read and agree to SportConnect's <a href="/terms-of-service">Terms of Service </a>
+                        and <a href="/privacy-policy">Privacy Policy</a> 
+                    </p>
                                                        
                     
                     <div className='buttons ml-2'>
@@ -404,7 +385,7 @@ function CreateAccountPage(){
                 <img src="./SignIn.png" alt="motivatePicture" />
             </div>
 
-            <div className="about-create-page bg-gray-700">
+            <div className="about-create-page bg-gray-700 pb-3">
                 <Footer/>
             </div>
         </div>
