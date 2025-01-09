@@ -1,284 +1,248 @@
-.logopic{
-    width: 10rem;
-    margin-left: 30px;
+.logopic {
+  width: 10rem;
+  margin-left: 30px;
 }
-.logopic img{
-    padding-top: 1.5rem;
-    padding-left: 1.5rem;
-}
-
-.picture{
-    position: absolute;
-    top: 4%;
-    right: 2.5%;
-}
-.picture img{
-    border-radius: 1rem;
-    width: 18rem;
+.logopic img {
+  padding-top: 1.5rem;
+  padding-left: 1.5rem;
 }
 
-.create-card{
-    background-color: whitesmoke;
-    border-radius: 1.3rem;
-    height: 40rem;
-    width: 50%;
-    border: 2px white;
-    position: absolute;
-    top: 20%;
-    left: 25%;
-    padding: 2rem;
+.picture {
+  position: absolute;
+  top: 4%;
+  right: 2.5%;
 }
-.left-container{
-    width: 18rem;
-    margin-left: 0.5rem;
-}
-.right-container{
-    margin-top: -1rem;
-    width: 18rem;
-}
-.form-container{
-    display: flex;
-    justify-content: space-between;
+.picture img {
+  border-radius: 1rem;
+  width: 18rem;
 }
 
-form{
-    display: inline;
-}
-form input{
-    margin-bottom: 0.1rem;
-}
-
-.message{
-    margin-top: 3rem;
-}
-.signUp{
-    color: #5E5DF0;
-    text-decoration: none;
+.create-card {
+  background-color: whitesmoke;
+  border-radius: 1.3rem;
+  height: 40rem;
+  width: 50%;
+  border: 2px white;
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  padding: 2rem;
 }
 
-
-.buttons{
-    margin-top: 1.1rem;
-    display: flex;
-    justify-content: flex-start;
-}
-.btn1{
-    background-color: #5E5DF0;
-    color: whitesmoke;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1.4rem;
-}
-.btn1:hover{
-    background-color: #4c4cae;
-}
-.close-btn{
-    background-color: #737380;
-    color: whitesmoke;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-}
-.close-btn:hover{
-    background-color: #f04511;
-}
-.btn-group{
-    width: 18rem;
+.right-container {
+  margin-top: 2.4rem;
+  flex: 1;
 }
 
-.link{
-    position: absolute;
-    top: 94%;
-    left: 5%;
-    margin-left: 0.8rem;
+.left-container {
+  flex: 1;
 }
 
-.about-create-page{
-    margin-top: 42rem;
-    color: #aeadad;
-    text-align: center;  
-    background-color: #3B3B3B; 
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
+.form-container {
+  display: flex;
+  gap: 16px;
 }
 
-div div p{
-    margin-top: -1rem;
+form {
+  display: inline;
+}
+form input {
+  margin-bottom: 0.1rem;
+}
+
+.message {
+  margin-top: 3rem;
+}
+.signUp {
+  color: #5e5df0;
+  text-decoration: none;
+}
+
+.buttons {
+  margin-top: 1.1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+.btn1 {
+  background-color: #5e5df0;
+  color: whitesmoke;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.4rem;
+}
+.btn1:hover {
+  background-color: #4c4cae;
+}
+.close-btn {
+  background-color: #737380;
+  color: whitesmoke;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+.close-btn:hover {
+  background-color: #f04511;
+}
+.btn-group {
+  width: 18rem;
+}
+
+.link {
+  margin-top: 6rem;
+  margin-left: 0.8rem;
+}
+
+.about-create-page {
+  margin-top: 42rem;
+  color: #aeadad;
+  text-align: center;
+  background-color: #3b3b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div div p {
+  margin-top: -1rem;
 }
 
 div div form p a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-h2 img{
-    display: inline;
-    position: relative;
-    top: -0.2rem;
-    left: 0.2rem;
+h2 img {
+  display: inline;
+  position: relative;
+  top: -0.2rem;
+  left: 0.2rem;
 }
 
-div div h2{
-    margin-bottom: 3rem;
+div div h2 {
+  margin-bottom: 3rem;
 }
 
 @media (max-width: 1318px) {
-    .create-card{
-        width: 50%;
-        left: 25%;
-    }
+  .create-card {
+    width: 50%;
+    left: 25%;
+  }
 
-    .picture{
-        width: 14rem;
-    }
+  .picture {
+    width: 14rem;
+  }
 
-    .form-container{
-        justify-content: space-around;
-    }
-    .left-container{
-        width: 15rem;
-        margin-left: -1rem;
-    }
-    .right-container{
-        margin-top: -1rem;
-        width: 15rem;
-    }
-    .btn-group{
-        width: 15rem;
-    }
+  .form-container {
+    justify-content: space-around;
+  }
+
+  .btn-group {
+    width: 15rem;
+  }
 }
 
 @media (max-width: 1034px) {
-    .logopic{
-        width: 9rem;
-    }
+  .logopic {
+    width: 9rem;
+  }
 
-    .create-card{
-        width: 56%;
-        left: 20%;
-        top: 23%;
-    }
+  .create-card {
+    width: 56%;
+    left: 20%;
+    top: 23%;
+  }
 
-    .picture{
-        width: 12rem;
-        margin-top: 1.5rem;
-    }
+  .picture {
+    width: 12rem;
+    margin-top: 1.5rem;
+  }
 
-    .left-container{
-        width: 14rem;
-    }
-    .right-container{
-        width: 14rem;
-    }
-    .btn-group{
-        width: 14rem;
-    }
+  .btn-group {
+    width: 14rem;
+  }
+
+  .about-create-page {
+    margin-top: 45rem;
+  }
 }
 
 @media (max-width: 924px) {
-    .create-card{
-        width: 58%;
-        left: 20%;
-    }
+  .create-card {
+    width: 70%;
+    left: 20%;
+  }
 
-    .logopic{
-        width: 7rem;
-    }
-    .logopic img{
-        padding-left: 0.5rem;
-    }
+  .logopic {
+    width: 7rem;
+  }
+  .logopic img {
+    padding-left: 0.5rem;
+  }
 
-    .picture{
-        width: 10rem;
-        margin-top: 1.5rem;
-    }
+  .picture {
+    width: 10rem;
+    margin-top: 1.5rem;
+  }
 
-    .left-container{
-        width: 13rem;
-    }
-    .right-container{
-        width: 13rem;
-    }
-    .btn-group{
-        width: 13rem;
-    }
+  .btn-group {
+    width: 13rem;
+  }
 }
 
 @media (max-width: 844px) {
-    .create-card{
-        width: 77%;
-        left: 12%;
-        top: 30%;
-    }
+  .create-card {
+    width: 77%;
+    left: 12%;
+  }
 
-    .picture{
-        display: none;
-    }
+  .picture {
+    display: none;
+  }
 
-    .left-container{
-        width: 14em;
-        margin-left: -2rem;
-    }
-    .right-container{
-        width: 14rem;
-    }
-    .btn-group{
-        width: 14rem;
-    }
+  .btn-group {
+    width: 14rem;
+  }
 
-    .about-create-page{
-        margin-top: 47rem;
-    }
+  .about-create-page {
+    margin-top: 47rem;
+  }
 }
 
 @media (max-width: 693px) {
-    .create-card{
-        width: 75%;
-        left:16%;
-        top: 17%;
-        height: 57rem;
-    }
+  .create-card {
+    width: 75%;
+    left: 16%;
+    top: 17%;
+    height: 50rem;
+  }
 
-    .form-container{
-        flex-direction: column;
-        justify-content: center;
-    }
-    .left-container{
-        width: 20rem;
-        margin-left: 0.5rem;
-    }
-    .right-container{
-        margin-top: -0.1rem;
-        margin-left: 0.5rem;
-        width: 20rem;
-    }
-    .btn-group{
-        width: 20rem;
-    }
+  .form-container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0px;
+  }
 
-    .link{
-        margin-top: 1rem;
-    }
+  .right-container {
+    margin-top: 0rem;
+  }
+
+  .btn-group {
+    width: 20rem;
+  }
+
+  .link {
+    margin-top: 1rem;
+  }
 }
 
 @media (max-width: 693px) {
-    .create-card{
-        top: 30%;
-    }
+  .btn-group {
+    width: 19rem;
+  }
 
-    .left-container{
-        width: 19rem;
-    }
-    .right-container{
-        width: 19rem;
-    }
-    .btn-group{
-        width: 19rem;
-    }
+  .link {
+    margin-left: 1.2rem;
+    margin-top: 5rem;
+  }
 
-    .link{
-        margin-left: 1.2rem;
-    }
-
-    .about-create-page{
-        margin-top: 65rem;
-    }
+  .about-create-page {
+    margin-top: 58rem;
+  }
 }

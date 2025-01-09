@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function FailurePaymentPage() {
   const navigate = useNavigate();
-  const [countdown, setCountdown] = useState(10); 
+  const [countdown, setCountdown] = useState(5); 
   const [loading] = useState(true); 
 
   // timer

@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 function SuccessfulPaymentPage() {
   const navigate = useNavigate();
   const { search } = useLocation(); // link stavljamo u varijablu search
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(5);
   const [loading] = useState(true);
   const [rank, setRank] = useState("");
 
