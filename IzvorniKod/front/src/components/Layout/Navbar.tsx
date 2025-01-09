@@ -25,15 +25,15 @@ function Navbar({ isOpen, setIsOpen }: any) {
 
   return (
     <div className="navbar-container sticky top-0 z-50">
-      <div className="name">
+      <div className="name w-[35%] md:w-[20%]">
         <h4>
           <strong>SportConnect</strong>
         </h4>
       </div>
 
-      <div className="navbar-links hidden md:flex w-[70%] text-lg mt-[5.5rem] justify-between">
+      <div className="navbar-links hidden md:flex w-[65%] text-lg mt-[5.5rem] justify-between">
         {/*LINKS*/}
-        <div className="flex ml-[80px] gap-4">
+        <div className="flex ml-[30px] gap-7">
           <Link
             to="/main-page"
             className="flex items-center gap-1 group"
@@ -47,7 +47,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
               size={25}
               className="small-icons hidden group-hover:block"
             />
-            <span className="font-semibold">Homepage</span>
+            <span className="font-semibold">Home</span>
           </Link>
 
           <Link
@@ -113,27 +113,27 @@ function Navbar({ isOpen, setIsOpen }: any) {
                 size={27}
                 className="small-icons hidden group-hover:block"
               />
-              <span className="font-semibold w- border-1 border-solid-white text-xs md:text-lg">Admin Panel</span>
+              <span className="font-semibold text-xs md:text-lg">Admin panel</span>
             </Link>
           )}
         </div>
       </div>
 
       {/*RIGHT*/}
-      <div className="mobile-menu w-[30%]">
+      <div className="mobile-menu w-[15%] pl-7">
         <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
 
-        <div className="top-right">
-          <div className="hidden md:flex gap-4">
-            <div className="group mt-1 md:ml-20 lg:ml-28 2xl:ml-52">
+        <div className="top-right mt-[-0.6rem] mr-3 md:flex md:justify-end lg:mr-7">
+          <div className="hidden md:flex gap-3">
+            <div className="group">
               <Link
                 to={"/chat"}
               >
               <IoChatboxEllipsesOutline 
-                className="small-icons group-hover:hidden cursor-pointer md:size-[2.5rem] lg:size-[3.5rem]"
+                className="small-icons group-hover:hidden cursor-pointer md:size-[1.7rem] lg:size-[2.5rem]"
               />
               <IoChatboxEllipses 
-                className="small-icons hidden group-hover:block cursor-pointer md:size-[2.5rem] lg:size-[3.5rem]"
+                className="small-icons hidden group-hover:block cursor-pointer md:size-[1.7rem] lg:size-[2.5rem]"
               />
               </Link>
             </div>
@@ -141,7 +141,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
             <div className="dropdown">
               <img
                 src={user?.profilePicture || "./user.png"}
-                className="profile cursor-pointer rounded-full w-10 h-10 lg:w-14 lg:h-14"
+                className="profile cursor-pointer mt-[-0.2rem] rounded-full w-8 h-8 lg:w-10 lg:h-10"
                 id="dropdownMenuButton"
                 data-bs-toggle="dropdown"
                 alt="User Icon"

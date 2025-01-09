@@ -14,7 +14,7 @@ export default function PostsCard({
   isLiked,
   isSaved,
   user,
-  delCom,
+  delPost,
   newSaved,
 }: any) {
   const [likes, setLikes] = useState(isLiked);
@@ -134,7 +134,7 @@ export default function PostsCard({
       console.log(data);
 
       if (response.ok) {
-        delCom();
+        delPost();
       } else {
         console.error("Error deleting comment.");
       }

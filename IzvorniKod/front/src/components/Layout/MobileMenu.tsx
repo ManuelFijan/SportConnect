@@ -9,10 +9,10 @@ interface MobileMenuProps {
 
 function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
   const [isScreenWide, setIsScreenWide] = useState(window.innerWidth > 767);
-  const {user} = useLocation().state || {}
+  const { user } = useLocation().state || {};
 
-  let path = location.pathname
-  path = path.substring(1, path.length)
+  let path = location.pathname;
+  path = path.substring(1, path.length);
 
   /* prilikom rendera stranice postavlja bool varijablu je li sirina prozora veca od 767 px i prema tome ako je
      zatvara mobile menu, ako je na screen-u manje sirine od 767 px mobile menu ostao otvoren
@@ -42,15 +42,15 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
       // Omogućavanje scrollanja
       document.body.style.overflow = "auto";
     }
-  
+
     // Čišćenje efekta pri unmountu
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
-  
+
   return (
-    <div className="main-menu md:hidden ml-[50%]">
+    <div className="main-menu md:hidden">
       <div
         className="flex flex-col gap-[4.5px] cursor-pointer"
         onClick={() => setIsOpen((prev) => !prev)}
@@ -68,25 +68,48 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
 
       {isOpen && !isScreenWide && (
         <div className="menu fixed top-[80px] left-0 w-full flex flex-col items-center justify-center gap-8 font-medium text-xl z-10">
-          <Link to="/main-page" className="text-white" state={{user, fromMainPage:true}}>
-            Homepage
+          <Link
+            to="/main-page"
+            className="text-white transform transition-transform duration-200 hover:scale-125"
+            state={{ user, fromMainPage: true }}
+          >
+            Home
           </Link>
-          <Link to={"/about-us?"+path} className="text-white" state={{user}}>
+          <Link
+            to={"/about-us?" + path}
+            className="text-white transform transition-transform duration-200 hover:scale-125"
+            state={{ user }}
+          >
             About
           </Link>
-          <Link to={"/terms-of-service?"+path} className="text-white" state={{user}}>
+          <Link
+            to={"/terms-of-service?" + path}
+            className="text-white transform transition-transform duration-200 hover:scale-125"
+            state={{ user }}
+          >
             Services
           </Link>
-          <Link to={"/pricing?"+path} className="text-white" state={{user}}>
+          <Link to={"/pricing?" + path} className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
             Pricing
           </Link>
-          <Link to={location.pathname} className="text-white" state={{user, fromMainPage:true}}>
+          {/* Admin link */}
+          {user?.email === "vid123@gmail.com" && (
+            <Link to={"/admin"} className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
+              Admin panel
+            </Link>
+          )}
+          <Link
+            to={"/chat"}
+            className="text-white transform transition-transform duration-200 hover:scale-125"
+            state={{ user, fromMainPage: true }}
+          >
             Messages
           </Link>
-          <Link to="/my-account" className="text-white" state={{user}}>
+          <Link to="/my-account" className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
             Profile
           </Link>
-          <Link to="/" className="sign-out-button ml-8">
+          <Link to="/" 
+          className="sign-out-button ml-8">
             <button>Sign Out</button>
           </Link>
         </div>
