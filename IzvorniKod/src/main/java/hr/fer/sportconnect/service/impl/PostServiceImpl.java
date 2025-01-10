@@ -141,7 +141,9 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
 
-        if (!post.getPartner().equals(user)) {
+        boolean isAdmin = user.getEmail().equalsIgnoreCase("admin@admin.com");
+
+        if (!isAdmin && !post.getPartner().equals(user)) {
             throw new RuntimeException("You are not authorized to delete this post.");
         }
 
@@ -163,7 +165,10 @@ public class PostServiceImpl implements PostService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new RuntimeException("Comment not found with id: " + commentId));
 
-        if (!comment.getUser().equals(user)) {
+        boolean isAdmin = user.getEmail().equalsIgnoreCase("admin@admin.com");
+
+        // If user is not the commenter and also not admin, can't delete
+        if (!isAdmin && !comment.getUser().equals(user)) {
             throw new RuntimeException("You are not authorized to delete this comment.");
         }
 
