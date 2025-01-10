@@ -98,7 +98,7 @@ public class SecurityConfig {
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
                                 "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**",
                                 "/posts/**", "/chat/unread-counts/**", "/users/all",
-                                "/stripe-webhooks/events", "/chat/conversations/**", "/chat/conversations/*/read"
+                                "/stripe-webhooks/events", "/chat/conversations/**", "/chat/conversations/*/read", "/users/update-profile-picture"
                         )
                 )
                 .authorizeHttpRequests(authorize -> authorize
@@ -110,7 +110,7 @@ public class SecurityConfig {
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
                                 "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**",
                                 "/posts/**", "/chat/unread-counts/**", "/users/all",
-                                "/stripe-webhooks/events", "/chat/conversations/**", "/chat/conversations/*/read"
+                                "/stripe-webhooks/events", "/chat/conversations/**", "/chat/conversations/*/read", "/users/update-profile-picture"
                         ).permitAll()
                         //.requestMatchers("/chat/**", "/pusher/**").authenticated()
                         .anyRequest().authenticated()
