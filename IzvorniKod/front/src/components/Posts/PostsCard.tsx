@@ -4,6 +4,7 @@ import ReadMore from "../ReadMore";
 import { FaRegSave, FaSave } from "react-icons/fa";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { IoIosMore, IoIosHeartEmpty, IoMdHeart } from "react-icons/io";
+import { FaMedal } from "react-icons/fa6";
 
 export default function PostsCard({
   postId,
@@ -159,43 +160,82 @@ export default function PostsCard({
             {creator.firstName} {creator.lastName}
           </span>
         </div>
-        {user.userType === "PARTNER" &&
-          (creator.userId === user.userId ? (
-            <div className="dropdown">
+        <div className="flex gap-2 mt-2">
+          {/*ovisno koji je plan takve je boje medalja*/}
+          {creator.subscriptionPlan === "GOLD" && (
+            <>
+              <div className="text-[#f0bf0d] flex gap-1 items-center justify-center rounded-full border-1 border-[#f0bf0d] px-2 opacity-65 h-7">
+                <FaMedal className="w-[14px] h-[14px]" />
+                <span className="text-sm">GOLD</span>
+              </div>
+            </>
+          )}
+
+          {creator.subscriptionPlan === "SILVER" && (
+            <>
+              <div className="text-[#cecdcd] flex gap-1 items-center justify-center rounded-full border-1 border-[#cecdcd] px-2 opacity-65 h-7">
+                <FaMedal className="w-[14px] h-[14px]" />
+                <span className="text-sm">SILVER</span>
+              </div>
+            </>
+          )}
+
+          {creator.subscriptionPlan === "BRONZE" && (
+            <>
+              <div className="text-[#b3652c] flex gap-1 items-center justify-center rounded-full border-1 border-[#b3652c] px-2 opacity-65 h-7">
+                <FaMedal className="w-[14px] h-[14px]" />
+                <span className="text-sm">BRONZE</span>
+              </div>
+            </>
+          )}
+
+          {creator.subscriptionPlan === "FREE" && (
+            <>
+             <div className="text-[#279536] flex gap-1 items-center justify-center rounded-full border-1 border-[#279536] px-[10px] opacity-65 h-7">
+                <FaMedal className="w-[14px] h-[14px]" />
+                <span className="text-sm">FREE</span>
+              </div>
+            </>
+          )}
+          {/* odreduje moze li  user birsati objavu (...) */}
+          {user.userType === "PARTNER" &&
+            (creator.userId === user.userId ? (
+              <div className="dropdown mr-1">
+                <IoIosMore
+                  data-bs-toggle="dropdown"
+                  height={16}
+                  width={16}
+                  className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                />
+                <ul className="dropdown-menu">
+                  <li
+                    onClick={handleDelete}
+                    className="dropdown-item cursor-pointer"
+                  >
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            ) : (
               <IoIosMore
-                data-bs-toggle="dropdown"
                 height={16}
                 width={16}
-                className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300 mr-1"
               />
-              <ul className="dropdown-menu">
-                <li
-                  onClick={handleDelete}
-                  className="dropdown-item cursor-pointer"
-                >
-                  Delete
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <IoIosMore
-              height={16}
-              width={16}
-              className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
-            />
-          ))}
+            ))}
+        </div>
       </div>
 
       {/* CONTENT */}
       <div className="flex flex-col gap-2 text-gray-700">
         <ReadMore message={message} post={true} />
-          {pic && (
-            <img
-              src={pic}
-              alt="post_image"
-              className="w-full h-[320px] rounded-md object-cover"
-            />
-          )}
+        {pic && (
+          <img
+            src={pic}
+            alt="post_image"
+            className="w-full h-[320px] rounded-md object-cover"
+          />
+        )}
       </div>
 
       {/* INTERACTION */}

@@ -15,6 +15,8 @@ export default function Feed({ user, update }: any) {
       if (response.ok) {
         const data = await response.json();
         setPosts(data); // Set posts data to state
+        console.log(data);
+
       } else {
         console.error("Failed to fetch posts.");
       }
@@ -41,6 +43,7 @@ export default function Feed({ user, update }: any) {
 
   useEffect(() => {
     fetchPosts(sortBy);
+    
   }, [sortBy, del, update]);
 
   const handleSortChange = (newSortBy: string) => {

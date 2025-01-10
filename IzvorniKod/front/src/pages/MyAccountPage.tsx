@@ -2,9 +2,9 @@ import Navbar from "../components/Layout/Navbar.tsx";
 import { useState, useContext } from "react";
 import ProfileMainCard from "../components/ProfileMainCard.tsx";
 import { AuthContext } from "../context/AuthContext";
-import Feed from "../components/Posts/Feed.tsx";
 import { Link } from "react-router-dom";
 import AdsList from "../components/AdsList.tsx";
+import ProfileFeed from "../components/Posts/ProfileFeed.tsx";
 
 function MyAccountPage() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -23,15 +23,15 @@ function MyAccountPage() {
     <div className="bg-gray-700 min-w-screen min-h-screen">
       <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={user.profilePicture || "/user.png"} />
       {!isMenuOpen && (
-        <div className="flex justify-center align-items-top py-2">
+        <div className="flex justify-center align-items-top py-2 gap-4">
           <div className="bg-gray-700 w-[25%] flex flex-col items-center pt-2">
             <div className="mt-2 ml-5">
               <AdsList/>
             </div>
           </div>
-          <div className="edit-container bg-gray-700 w-[50%] flex flex-col gap-3 justify-center items-center">
+          <div className="edit-container bg-gray-700 w-[45%] flex flex-col gap-3 justify-start items-center">
             <ProfileMainCard />
-            <Feed user={user} />
+            <ProfileFeed user={user} />
           </div>
           <div className="bg-gray-700 w-[25%] flex flex-col items-center">
             {user.subscriptionPlan !== "GOLD" && (
