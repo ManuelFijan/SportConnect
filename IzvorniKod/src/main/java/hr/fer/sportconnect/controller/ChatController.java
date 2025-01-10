@@ -1,5 +1,6 @@
 package hr.fer.sportconnect.controller;
 
+import hr.fer.sportconnect.dto.ConversationWithLastMessageDTO;
 import hr.fer.sportconnect.dto.CreateConversationRequest;
 import hr.fer.sportconnect.dto.SendMessageRequest;
 import hr.fer.sportconnect.model.Conversation;
@@ -31,7 +32,7 @@ public class ChatController {
      * Create a new conversation or get existing one between two users
      */
     @PostMapping("/conversations")
-    public ResponseEntity<Conversation> createConversation(@RequestBody CreateConversationRequest request, Principal principal) {
+    public ResponseEntity<ConversationWithLastMessageDTO> createConversation(@RequestBody CreateConversationRequest request, Principal principal) {
         if (principal == null) {
             logger.error("Principal is null. Unauthorized access attempt.");
             return ResponseEntity.status(401).build(); // Unauthorized
@@ -48,8 +49,18 @@ public class ChatController {
 
         try {
             Conversation conversation = chatService.createConversation(sender.get(), recipient.get());
-            logger.info("Conversation created/fetched with ID: {}", conversation.getId());
-            return ResponseEntity.ok(conversation);
+            // Fetch the ConversationWithLastMessageDTO for the created conversation
+            List<ConversationWithLastMessageDTO> dtos = chatService.getUserConversationsWithLastMessage(sender.get());
+            Optional<ConversationWithLastMessageDTO> convoDTOOpt = dtos.stream()
+                    .filter(dto -> dto.getConversationId().equals(conversation.getId()))
+                    .findFirst();
+            if (convoDTOOpt.isPresent()) {
+                logger.info("Conversation created/fetched with ID: {}", conversation.getId());
+                return ResponseEntity.ok(convoDTOOpt.get());
+            } else {
+                logger.error("Failed to map conversation to DTO");
+                return ResponseEntity.status(500).build();
+            }
         } catch (Exception e) {
             logger.error("Error creating conversation: ", e);
             return ResponseEntity.status(500).build();
@@ -57,16 +68,29 @@ public class ChatController {
     }
 
     /**
-     * Get all conversations for the authenticated user
+     * Get all conversations for the authenticated user along with the latest message in each conversation
      */
     @GetMapping("/conversations")
-    public ResponseEntity<List<Conversation>> getConversations(Principal principal) {
-        Optional<User> user = userRepository.findByEmail(principal.getName());
-        if (!user.isPresent()) {
+    public ResponseEntity<List<ConversationWithLastMessageDTO>> getConversations(Principal principal) {
+        if (principal == null) {
+            logger.error("Principal is null. Unauthorized access attempt.");
+            return ResponseEntity.status(401).build();
+        }
+
+        Optional<User> userOpt = userRepository.findByEmail(principal.getName());
+        if (!userOpt.isPresent()) {
+            logger.error("Authenticated user not found: {}", principal.getName());
             return ResponseEntity.badRequest().build();
         }
-        List<Conversation> conversations = chatService.getUserConversations(user.get());
-        return ResponseEntity.ok(conversations);
+        User user = userOpt.get();
+        try {
+            List<ConversationWithLastMessageDTO> conversationsWithLastMessages = chatService.getUserConversationsWithLastMessage(user);
+            logger.info("Fetched {} conversations with last messages for user: {}", conversationsWithLastMessages.size(), user.getEmail());
+            return ResponseEntity.ok(conversationsWithLastMessages);
+        } catch (Exception e) {
+            logger.error("Error fetching conversations with last messages: ", e);
+            return ResponseEntity.status(500).build();
+        }
     }
 
     /**

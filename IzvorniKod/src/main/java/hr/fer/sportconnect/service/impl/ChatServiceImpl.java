@@ -1,6 +1,7 @@
 package hr.fer.sportconnect.service.impl;
 
 import com.pusher.rest.Pusher;
+import hr.fer.sportconnect.dto.ConversationWithLastMessageDTO;
 import hr.fer.sportconnect.dto.MessageDTO;
 import hr.fer.sportconnect.model.Conversation;
 import hr.fer.sportconnect.model.Message;
@@ -10,11 +11,11 @@ import hr.fer.sportconnect.repository.MessageRepository;
 import hr.fer.sportconnect.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Set;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -25,8 +26,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Autowired
     public ChatServiceImpl(ConversationRepository conversationRepository,
-                           MessageRepository messageRepository,
-                           Pusher pusher) {
+                           MessageRepository messageRepository, Pusher pusher) {
         this.conversationRepository = conversationRepository;
         this.messageRepository = messageRepository;
         this.pusher = pusher;
@@ -71,13 +71,7 @@ public class ChatServiceImpl implements ChatService {
         messageRepository.save(message);
 
         // Convert Message to MessageDTO
-        MessageDTO dto = new MessageDTO(
-                message.getId(),
-                message.getContent(),
-                conversationId,
-                sender.getEmail(),
-                message.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        );
+        MessageDTO dto = new MessageDTO(message.getId(), message.getContent(), conversationId, sender.getEmail(), message.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         // Trigger the Pusher event with MessageDTO
         pusher.trigger("private-conversation-" + conversationId, "new-message", dto);
@@ -87,8 +81,59 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public List<Message> getConversationMessages(Long conversationId) {
-        Conversation conversation = conversationRepository.findById(conversationId)
-                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+        Conversation conversation = conversationRepository.findById(conversationId).orElseThrow(() -> new RuntimeException("Conversation not found"));
         return messageRepository.findByConversationOrderByTimestampAsc(conversation);
+    }
+
+    @Override
+    public List<ConversationWithLastMessageDTO> getUserConversationsWithLastMessage(User user) {
+        // Fetch all conversations the user is part of
+        List<Conversation> conversations = conversationRepository.findByParticipantsContaining(user);
+
+
+        if (conversations.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Fetch all latest messages
+        List<Message> latestMessages = messageRepository.findLatestMessagesForConversations(conversations);
+
+        // Map conversation ID to its latest message
+        Map<Long, Message> conversationLastMessageMap = latestMessages.stream().collect(Collectors.toMap(m -> m.getConversation().getId(), m -> m));
+
+
+        List<ConversationWithLastMessageDTO> conversationDTOs = conversations.stream().map(conversation -> {
+            Message lastMessage = conversationLastMessageMap.get(conversation.getId());
+
+            Optional<User> otherParticipantOpt = conversation.getParticipants().stream()
+                    .filter(participant -> !participant.getEmail().equals(user.getEmail()))
+                    .findFirst();
+
+            String participantEmail = otherParticipantOpt.map(User::getEmail).orElse("Unknown");
+            String participantProfilePicture = otherParticipantOpt.map(User::getProfilePicture).orElse("/user.png");
+
+            if (lastMessage != null) {
+                return new ConversationWithLastMessageDTO(
+                        conversation.getId(),
+                        participantEmail,
+                        lastMessage.getContent(),
+                        lastMessage.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                        lastMessage.getSender().getEmail(),
+                        participantProfilePicture
+                );
+            } else {
+                // No messages in the conversation yet
+                return new ConversationWithLastMessageDTO(
+                        conversation.getId(),
+                        participantEmail,
+                        null,
+                        null,
+                        null,
+                        participantProfilePicture
+                );
+            }
+        }).collect(Collectors.toList());
+
+        return conversationDTOs;
     }
 }
