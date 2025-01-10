@@ -7,16 +7,18 @@ public class ConversationWithLastMessageDTO {
     private String lastMessageTimestamp;
     private String senderEmail;
     private String profileImage;
+    private int unreadCount;
 
     public ConversationWithLastMessageDTO() {}
 
-    public ConversationWithLastMessageDTO(Long conversationId, String participantEmail, String lastMessageContent, String lastMessageTimestamp, String senderEmail, String profileImage) {
+    public ConversationWithLastMessageDTO(Long conversationId, String participantEmail, String lastMessageContent, String lastMessageTimestamp, String senderEmail, String profileImage, int unreadCount) {
         this.conversationId = conversationId;
         this.participantEmail = participantEmail;
         this.lastMessageContent = lastMessageContent;
         this.lastMessageTimestamp = lastMessageTimestamp;
         this.senderEmail = senderEmail;
         this.profileImage = profileImage;
+        this.unreadCount = unreadCount;
     }
 
     public Long getConversationId() {
@@ -65,5 +67,13 @@ public class ConversationWithLastMessageDTO {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public int getUnreadCount() {
+        return unreadCount;
+    }
+
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
     }
 }

@@ -4,8 +4,10 @@ import com.pusher.rest.Pusher;
 import hr.fer.sportconnect.dto.ConversationWithLastMessageDTO;
 import hr.fer.sportconnect.dto.MessageDTO;
 import hr.fer.sportconnect.model.Conversation;
+import hr.fer.sportconnect.model.ConversationReadStatus;
 import hr.fer.sportconnect.model.Message;
 import hr.fer.sportconnect.model.User;
+import hr.fer.sportconnect.repository.ConversationReadStatusRepository;
 import hr.fer.sportconnect.repository.ConversationRepository;
 import hr.fer.sportconnect.repository.MessageRepository;
 import hr.fer.sportconnect.service.ChatService;
@@ -22,13 +24,15 @@ public class ChatServiceImpl implements ChatService {
 
     private final ConversationRepository conversationRepository;
     private final MessageRepository messageRepository;
+    private final ConversationReadStatusRepository readStatusRepository;
     private final Pusher pusher;
 
     @Autowired
     public ChatServiceImpl(ConversationRepository conversationRepository,
-                           MessageRepository messageRepository, Pusher pusher) {
+                           MessageRepository messageRepository, ConversationReadStatusRepository readStatusRepository, Pusher pusher) {
         this.conversationRepository = conversationRepository;
         this.messageRepository = messageRepository;
+        this.readStatusRepository = readStatusRepository;
         this.pusher = pusher;
     }
 
@@ -44,7 +48,14 @@ public class ChatServiceImpl implements ChatService {
         Conversation conversation = new Conversation();
         conversation.getParticipants().add(user1);
         conversation.getParticipants().add(user2);
-        return conversationRepository.save(conversation);
+        Conversation savedConversation = conversationRepository.save(conversation);
+
+        // Initialize read status for both users
+        ConversationReadStatus readStatusUser1 = new ConversationReadStatus(savedConversation, user1, LocalDateTime.now());
+        ConversationReadStatus readStatusUser2 = new ConversationReadStatus(savedConversation, user2, LocalDateTime.now());
+        readStatusRepository.saveAll(Arrays.asList(readStatusUser1, readStatusUser2));
+
+        return savedConversation;
     }
 
     @Override
@@ -112,6 +123,19 @@ public class ChatServiceImpl implements ChatService {
             String participantEmail = otherParticipantOpt.map(User::getEmail).orElse("Unknown");
             String participantProfilePicture = otherParticipantOpt.map(User::getProfilePicture).orElse("/user.png");
 
+            // Get last read timestamp
+            Optional<ConversationReadStatus> readStatusOpt = readStatusRepository.findByConversationAndUser(conversation, user);
+            LocalDateTime safeDefault = LocalDateTime.of(1970, 1, 1, 0, 0);
+            LocalDateTime lastReadTimestamp = readStatusOpt
+                    .map(ConversationReadStatus::getLastReadTimestamp)
+                    .orElse(safeDefault);
+
+            // Calculate unread messages
+            int unreadCount = 0;
+            if (lastMessage != null) {
+                unreadCount = messageRepository.countUnreadMessages(conversation, lastReadTimestamp, user);
+            }
+
             if (lastMessage != null) {
                 return new ConversationWithLastMessageDTO(
                         conversation.getId(),
@@ -119,7 +143,8 @@ public class ChatServiceImpl implements ChatService {
                         lastMessage.getContent(),
                         lastMessage.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         lastMessage.getSender().getEmail(),
-                        participantProfilePicture
+                        participantProfilePicture,
+                        unreadCount
                 );
             } else {
                 // No messages in the conversation yet
@@ -129,11 +154,35 @@ public class ChatServiceImpl implements ChatService {
                         null,
                         null,
                         null,
-                        participantProfilePicture
+                        participantProfilePicture,
+                        unreadCount
                 );
             }
         }).collect(Collectors.toList());
 
         return conversationDTOs;
+    }
+
+    @Override
+    public void updateLastReadTimestamp(User user, Long conversationId) {
+        Conversation conversation = conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+
+        ConversationReadStatus readStatus = readStatusRepository.findByConversationAndUser(conversation, user)
+                .orElse(new ConversationReadStatus(conversation, user, LocalDateTime.now()));
+
+        readStatus.setLastReadTimestamp(LocalDateTime.now());
+        readStatusRepository.save(readStatus);
+    }
+
+    @Override
+    public int getUnreadMessageCount(User user, Long conversationId) {
+        Conversation conversation = conversationRepository.findById(conversationId)
+                .orElseThrow(() -> new RuntimeException("Conversation not found"));
+
+        Optional<ConversationReadStatus> readStatusOpt = readStatusRepository.findByConversationAndUser(conversation, user);
+        LocalDateTime lastReadTimestamp = readStatusOpt.map(ConversationReadStatus::getLastReadTimestamp).orElse(LocalDateTime.MIN);
+
+        return messageRepository.countUnreadMessages(conversation, lastReadTimestamp, user);
     }
 }

@@ -119,4 +119,30 @@ public class ChatController {
         List<Message> messages = chatService.getConversationMessages(conversationId);
         return ResponseEntity.ok(messages);
     }
+
+    /**
+     * Update last read timestamp for a conversation
+     */
+    @PostMapping("/conversations/{conversationId}/read")
+    public ResponseEntity<Void> markConversationAsRead(@PathVariable Long conversationId, Principal principal) {
+        if (principal == null) {
+            logger.error("Principal is null. Unauthorized access attempt.");
+            return ResponseEntity.status(401).build();
+        }
+
+        Optional<User> userOpt = userRepository.findByEmail(principal.getName());
+        if (!userOpt.isPresent()) {
+            logger.error("Authenticated user not found: {}", principal.getName());
+            return ResponseEntity.badRequest().build();
+        }
+        User user = userOpt.get();
+        try {
+            chatService.updateLastReadTimestamp(user, conversationId);
+            logger.info("Updated last read timestamp for user {} in conversation {}", user.getEmail(), conversationId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            logger.error("Error updating last read timestamp: ", e);
+            return ResponseEntity.status(500).build();
+        }
+    }
 }

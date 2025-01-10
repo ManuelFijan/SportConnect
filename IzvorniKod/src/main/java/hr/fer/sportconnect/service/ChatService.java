@@ -12,4 +12,6 @@ public interface ChatService {
     Message sendMessage(User sender, Long conversationId, String content);
     List<Message> getConversationMessages(Long conversationId);
     List<ConversationWithLastMessageDTO> getUserConversationsWithLastMessage(User user);
+    void updateLastReadTimestamp(User user, Long conversationId);
+    int getUnreadMessageCount(User user, Long conversationId);
 }
