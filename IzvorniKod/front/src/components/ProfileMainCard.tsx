@@ -208,7 +208,7 @@ function ProfileMainCard() {
                 <img src="./profile-background.jpg" alt="background" className="img1-main w-full rounded-lg" />
 
                 <div
-                    className="absolute left-1/2 bottom-[-3%] transform -translate-x-1/2 translate-y-1/2 w-[15vw] h-[15vw] bg-white rounded-full overflow-hidden flex items-center justify-center shadow-lg"
+                    className="absolute left-1/2 bottom-[-3%] transform -translate-x-1/2 translate-y-1/2 w-[15vw] h-[15vw] rounded-full overflow-hidden flex items-center justify-center"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
