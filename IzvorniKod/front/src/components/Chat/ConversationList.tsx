@@ -1,15 +1,17 @@
 import React, { useState, useContext } from "react";
 import UserSearch from "./UserSearch";
-import { Conversation } from "../../types/Conversation";
+import { ConversationWithLastMessage } from "../../types/ConversationWithLastMessage";
 import { User } from "../../types/User";
 import { AuthContext } from "../../context/AuthContext";
 
 interface ConversationListProps {
-	conversations: Conversation[];
-	setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>;
-	onSelectConversation: (conversation: Conversation) => void;
-	selectedConversation: Conversation | null;
-	isSearching: boolean; 
+	conversations: ConversationWithLastMessage[];
+	setConversations: React.Dispatch<
+		React.SetStateAction<ConversationWithLastMessage[]>
+	>;
+	onSelectConversation: (conversation: ConversationWithLastMessage) => void;
+	selectedConversation: ConversationWithLastMessage | null;
+	isSearching: boolean;
 	setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -19,23 +21,33 @@ const ConversationList: React.FC<ConversationListProps> = ({
 	onSelectConversation,
 	selectedConversation,
 	isSearching,
-	setIsSearching
+	setIsSearching,
 }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { userEmail } = useContext(AuthContext);
 
+	console.log("Conversations:", conversations);
+	console.log(userEmail)
+
 	const filteredConversations = conversations.filter((convo) => {
-		return convo.participants.some(
-			(participant: User) =>
-				participant.email
-					.toLowerCase()
-					.startsWith(searchTerm.toLowerCase()) &&
-				participant.email.toLowerCase() !== userEmail?.toLowerCase()
-		);
+		if (!convo.participantEmail) {
+			console.warn(
+				`Conversation ${convo.conversationId} is missing participantEmail`
+			);
+			return false;
+		}
+		return convo.participantEmail
+			.toLowerCase()
+			.startsWith(searchTerm.toLowerCase());
 	});
 
 	const handleUserSelect = (user: User) => {
 		const token = localStorage.getItem("token");
+
+		if (!token) {
+			alert("You must be logged in to start a conversation.");
+			return;
+		}
 
 		fetch(`${import.meta.env.VITE_BACKEND_API}/chat/conversations`, {
 			method: "POST",
@@ -56,7 +68,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
 				}
 				return response.json();
 			})
-			.then((conversation) => {
+			.then((conversation: ConversationWithLastMessage) => {
 				setConversations((prev) => [...prev, conversation]);
 				onSelectConversation(conversation);
 				setIsSearching(false);
@@ -64,6 +76,44 @@ const ConversationList: React.FC<ConversationListProps> = ({
 			.catch((error) => {
 				console.error("Error creating conversation:", error);
 				alert(error.message);
+			});
+	};
+
+	const handleConversationClick = (conversation: ConversationWithLastMessage) => {
+		onSelectConversation(conversation);
+
+		const token = localStorage.getItem("token");
+		if (!token) return;
+
+		fetch(
+			`${import.meta.env.VITE_BACKEND_API}/chat/conversations/${conversation.conversationId}/read`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+			.then((response) => {
+				if (!response.ok) {
+					console.error(
+						`Failed to mark conversation ${conversation.conversationId} as read`
+					);
+				}
+				return response;
+			})
+			.then(() => {
+				setConversations((prevConversations) =>
+					prevConversations.map((convo) =>
+						convo.conversationId === conversation.conversationId
+							? { ...convo, unreadCount: 0 }
+							: convo
+					)
+				);
+			})
+			.catch((error) => {
+				console.error("Error marking conversation as read:", error);
 			});
 	};
 
@@ -89,47 +139,48 @@ const ConversationList: React.FC<ConversationListProps> = ({
 					<ul className="max-h-[27rem] overflow-y-auto scrollbar scrollbar-thumb-[#5434ab] scrollbar-track-transparent">
 						{filteredConversations.length > 0 ? (
 							filteredConversations.map((convo) => {
-								const otherParticipant =
-									convo.participants.find(
-										(p) =>
-											p.email.toLowerCase() !==
-											userEmail?.toLowerCase()
-									);
+								const participantEmail = convo.participantEmail;
+								const participantProfilePicture =
+									convo.profileImage || "/user.png";
+
 								return (
 									<li
-										key={convo.id}
-										onClick={() => onSelectConversation(convo)}
+										key={convo.conversationId}
+										onClick={() =>
+											handleConversationClick(convo)
+										}
 										className={`p-2 cursor-pointer flex items-center gap-4 rounded-md -ml-10 ${
-											selectedConversation?.id === convo.id
+											selectedConversation?.conversationId ===
+											convo.conversationId
 												? "bg-[#c9c1dd]"
 												: "hover:bg-[#5434ab]"
 										}`}
 									>
-
 										<img
-											src={
-												otherParticipant?.profilePicture ||
-												"/user.png"
-											}
-											alt={
-												otherParticipant?.firstName ||
-												"Users pic"
-											}
+											src={participantProfilePicture}
+											alt={participantEmail}
 											className="w-12 h-12 rounded-full object-cover"
-											title={otherParticipant?.email} // kada se postavi mis na sliku prikaze se username osobe s kojom pricas
+											onError={(e) => {
+												(
+													e.target as HTMLImageElement
+												).src = "/user.png"; 
+											}}
+											title={participantEmail}
 										/>
 										<div className="flex flex-col -ml-3">
-											<span className="font-semibold text-lg truncate text-black">
-												{otherParticipant?.firstName}{" "}
-												{otherParticipant?.lastName}
-											</span>
+											<div className="flex justify-between items-center">
+												<span className="font-semibold text-lg truncate text-black">
+													{participantEmail}
+												</span>
+												{convo.unreadCount > 0 && (
+													<span className="ml-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+														{convo.unreadCount}
+													</span>
+												)}
+											</div>
 
-											<span className="font-semibold text-sm truncate text-black">
-												{"("}{otherParticipant?.email}{")"}
-											</span>
-											
 											<span className="text-sm text-gray-500">
-												{convo.lastMessage ||
+												{convo.lastMessageContent ||
 													"No messages yet"}
 											</span>
 										</div>
@@ -144,8 +195,10 @@ const ConversationList: React.FC<ConversationListProps> = ({
 					</ul>
 				</>
 			) : (
-				// ovo se otvori kada se pritisne gumb NEW CHAT
-				<UserSearch onUserSelect={handleUserSelect} setIsSearching={setIsSearching}/>
+				<UserSearch
+					onUserSelect={handleUserSelect}
+					setIsSearching={setIsSearching}
+				/>
 			)}
 		</div>
 	);

@@ -3,26 +3,23 @@ import ConversationList from "./ConversationList";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 import Pusher from "pusher-js";
-import { Conversation } from "../../types/Conversation";
+import { ConversationWithLastMessage } from "../../types/ConversationWithLastMessage";
 import { Message } from "../../types/Message";
 import { AuthContext } from "../../context/AuthContext";
 
 const ChatWindow: React.FC = () => {
-	const [conversations, setConversations] = useState<Conversation[]>([]);
-	const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+	const [conversations, setConversations] = useState<ConversationWithLastMessage[]>([]); 
+	const [selectedConversation, setSelectedConversation] = useState<ConversationWithLastMessage | null>(null);
 	const [messages, setMessages] = useState<Message[]>([]);
-	const { token, userEmail, user} = useContext(AuthContext);
+	const { token, userEmail, user } = useContext(AuthContext);
 	const [isSearching, setIsSearching] = useState(false);
 
-    //ovo se obavlja automatski promjenom tokena (imanja ili ne tokena)
 	useEffect(() => {
-        // ako nema tokena ispisuje ovo
 		if (!token) {
 			console.error("No token found. User might not be authenticated.");
 			return;
 		}
 
-		// ako ima tokena, onda fetch korisnikovih razgovora
 		fetch(`${import.meta.env.VITE_BACKEND_API}/chat/conversations`, {
 			method: "GET",
 			headers: {
@@ -36,33 +33,37 @@ const ChatWindow: React.FC = () => {
 				}
 				return response.json();
 			})
-			.then((data: Conversation[]) => {setConversations(data);}) // postavljamo varijablu conversations
-			.catch((error) => console.error("Error fetching conversations:", error));
+			.then((data: ConversationWithLastMessage[]) => {
+				setConversations(data);
+			})
+			.catch((error) =>
+				console.error("Error fetching conversations:", error)
+			);
 	}, [token]);
 
-    // kada se promijeni selectedConversation onda se ide ovdje
 	useEffect(() => {
 		if (selectedConversation && token) {
-			// Fetch poruka za odabrani conversation (svaki ima svoj unique id)
-			fetch(`${import.meta.env.VITE_BACKEND_API}/chat/messages/${selectedConversation.id}`, {
-				method: "GET",
-				headers: {
-					Authorization: `Bearer ${token}`,
-					"Content-Type": "application/json",
-				},
-			})
+			fetch(
+				`${import.meta.env.VITE_BACKEND_API}/chat/messages/${selectedConversation.conversationId}`,
+				{
+					method: "GET",
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "application/json",
+					},
+				}
+			)
 				.then((response) => {
 					if (!response.ok) {
 						throw new Error("Failed to fetch messages");
 					}
 					return response.json();
 				})
-				.then((data: Message[]) => setMessages(data))  // postavljamo varijablu messages
+				.then((data: Message[]) => setMessages(data))
 				.catch((error) =>
 					console.error("Error fetching messages:", error)
 				);
 
-			// Inicijalizacija Pusher subscription-a
 			const pusher = new Pusher("ae2338eb2e8dc21e416e", {
 				cluster: "eu",
 				authEndpoint: `${import.meta.env.VITE_BACKEND_API}/pusher/auth`,
@@ -74,11 +75,25 @@ const ChatWindow: React.FC = () => {
 			});
 
 			const channel = pusher.subscribe(
-				`private-conversation-${selectedConversation.id}`
+				`private-conversation-${selectedConversation.conversationId}` 
 			);
 
 			channel.bind("new-message", (data: Message) => {
 				setMessages((prevMessages) => [...prevMessages, data]);
+
+				if (selectedConversation && data.sender.email !== userEmail) {
+					setConversations((prevConversations) =>
+						prevConversations.map((convo) =>
+							convo.conversationId ===
+							selectedConversation.conversationId
+								? {
+										...convo,
+										unreadCount: convo.unreadCount + 1,
+									}
+								: convo
+						)
+					);
+				}
 			});
 
 			return () => {
@@ -86,9 +101,8 @@ const ChatWindow: React.FC = () => {
 				channel.unsubscribe();
 			};
 		}
-	}, [selectedConversation, token]);
+	}, [selectedConversation, token, userEmail]);
 
-    // sluzi da posaljemo poruku na backend (post metoda), saljemo conversationId i content poruke (input)
 	const handleSendMessage = (content: string) => {
 		if (!selectedConversation) return;
 
@@ -105,7 +119,7 @@ const ChatWindow: React.FC = () => {
 				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
-				conversationId: selectedConversation.id,
+				conversationId: selectedConversation.conversationId,
 				content: content,
 			}),
 		})
@@ -149,7 +163,7 @@ const ChatWindow: React.FC = () => {
 
 				<div className="flex flex-col flex-1">
 					{isSearching ? (
-						// Ako je isSearching true, prikazujemo da se trazi korisnik
+						// Show searching state
 						<div className="flex-grow flex items-center justify-center text-gray-700 text-lg mt-3">
 							<p>Searching for users...</p>
 						</div>
