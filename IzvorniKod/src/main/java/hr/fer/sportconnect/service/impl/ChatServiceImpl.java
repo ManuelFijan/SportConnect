@@ -81,11 +81,21 @@ public class ChatServiceImpl implements ChatService {
 
         messageRepository.save(message);
 
-        // Convert Message to MessageDTO
-        MessageDTO dto = new MessageDTO(message.getId(), message.getContent(), conversationId, sender.getEmail(), message.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("id", message.getId());
+        payload.put("content", message.getContent());
+        payload.put("conversationId", conversationId);
+        payload.put("timestamp", message.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
-        // Trigger the Pusher event with MessageDTO
-        pusher.trigger("private-conversation-" + conversationId, "new-message", dto);
+        Map<String, Object> senderMap = new HashMap<>();
+        senderMap.put("email", sender.getEmail());
+        senderMap.put("firstName", sender.getFirstName());
+        senderMap.put("lastName", sender.getLastName());
+        senderMap.put("profilePicture", sender.getProfilePicture());
+        payload.put("sender", senderMap);
+
+        // push the full payload
+        pusher.trigger("private-conversation-" + conversationId, "new-message", payload);
 
         return message;
     }
