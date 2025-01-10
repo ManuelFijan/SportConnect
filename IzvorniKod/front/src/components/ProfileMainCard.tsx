@@ -22,9 +22,6 @@ function ProfileMainCard() {
     const [errorMessage2, setNumError] = useState('')
     const [bool2, setBool2] = useState(true)    
 
-    const [isHovered, setIsHovered] = useState(false);
-    const [image, setImage] = useState("");
-
     useEffect(() => {
         if (isEditing) {
           // Onemogućavanje scrollanja
@@ -187,12 +184,6 @@ function ProfileMainCard() {
 		}
     };
 
-    const imgUpload = (e: any) => {
-        const file = e.target.files?.[0];
-        if (file) setImage(URL.createObjectURL(file)); // stvara privremeni URL sa kojeg se ce prikazivati slika
-        console.log(file);
-      };
-
     // Ako se user ili formData nisu jos load-ali, prikazi loading
 	if (!user || !formData) {
 		return (
@@ -204,38 +195,11 @@ function ProfileMainCard() {
 
     return (
         <div className={'profile-container-main'}>
-            <div className="relative w-full">
-                <img src="./profile-background.jpg" alt="background" className="img1-main w-full rounded-lg" />
+            <img src="./profile-background.jpg" alt="background" className='img1-main' />
+            <img src={user.profilePicture || defaultProfilePicture} alt={`${user.userName}'s profile`} className='img2-main' />
 
-                <div
-                    className="absolute left-1/2 bottom-[-3%] transform -translate-x-1/2 translate-y-1/2 w-[15vw] h-[15vw] bg-white rounded-full overflow-hidden flex items-center justify-center shadow-lg"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                >
-                    <img
-                        src={image || user.profilePicture || defaultProfilePicture}
-                        alt={`${user.userName}'s profile`}
-                        className="w-full h-full object-cover"
-                    />
-
-                    {isHovered && (
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-2xl sm:text-5xl md:text-7xl">
-                            +
-                        </div>
-                    )}
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                        onChange={imgUpload}
-                    />
-                </div>
-            </div>
-
-
-            <div className="flex items-center gap-2 h-20 mt-[calc(7vw+0.7rem)]">
-                <span className="text-lg md:text-2xl lg:text-3xl text-white font-bold mb-2">{user.firstName} {user.lastName}</span>
+            <div className="flex items-center gap-2 h-20 -mt-20">
+                <span className="text-2xl lg:text-3xl text-white font-bold mb-2">{user.firstName} {user.lastName}</span>
                 
                 {/*ovisno koji je plan takve je boje medalja*/}
                 {user.subscriptionPlan === 'GOLD' && (
@@ -287,7 +251,7 @@ function ProfileMainCard() {
                 )}
             </div>
 
-            <button onClick={toggleEditForm} className='bg-[#5643cc] hover:bg-[#34297b] font-bold rounded-lg py-[0.4rem] lg:py-[0.7rem] px-[0.5rem] lg:px-[1.4rem] text-white text-[1rem] mb-[-0.3rem] md:mt-2'>
+            <button onClick={toggleEditForm} className='bg-[#5643cc] hover:bg-[#34297b] rounded-lg py-[0.4rem] lg:py-[0.7rem] px-[0.8rem] lg:px-[1.4rem] text-white text-[1rem] mb-[-0.3rem] md:mt-2'>
                 Edit Profile
             </button>
 

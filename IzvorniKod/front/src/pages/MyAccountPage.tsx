@@ -24,16 +24,16 @@ function MyAccountPage() {
       <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={user.profilePicture || "/user.png"} />
       {!isMenuOpen && (
         <div className="flex justify-center align-items-top py-2 gap-4">
-          <div className="bg-gray-700 w-[25%] flex flex-col items-center pt-2">
+          <div className="bg-gray-700 hidden md:w-[25%] md:flex flex-col items-center pt-2">
             <div className="mt-2 ml-5">
               <AdsList/>
             </div>
           </div>
-          <div className="edit-container bg-gray-700 w-[45%] flex flex-col gap-3 justify-start items-center">
+          <div className="edit-container bg-gray-700 w-[80%] sm:w-[65%] md:w-[45%] flex flex-col gap-3 justify-start items-center">
             <ProfileMainCard />
             <ProfileFeed user={user} />
           </div>
-          <div className="bg-gray-700 w-[25%] flex flex-col items-center">
+          <div className="bg-gray-700 hidden md:w-[25%] md:flex flex-col items-center">
             {user.subscriptionPlan !== "GOLD" && (
               <div className="bg-[rgb(83,94,109)] rounded-lg p-6 text-center mt-3 mr-5 hidden md:block">
                 <h1 className="text-lg lg:text-2xl font-bold text-[#a7fbcb] mb-4">
