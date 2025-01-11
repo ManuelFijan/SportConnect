@@ -194,11 +194,49 @@ function ProfileMainCard() {
     }
   };
 
-  const imgUpload = (e: any) => {
-    const file = e.target.files?.[0];
-    if (file) setImage(URL.createObjectURL(file)); // stvara privremeni URL sa kojeg se ce prikazivati slika
-    console.log(file);
-  };
+    const imgUpload = async (e: any) => {
+		const file = e.target.files?.[0];
+
+		if (file) {
+			setImage(URL.createObjectURL(file));
+		}
+		if (!file || !user) return;
+
+		try {
+			const formData = new FormData();
+			formData.append("email", user.email);
+			formData.append("file", file);
+
+			const response = await fetch(
+				`${import.meta.env.VITE_BACKEND_API}/users/update-profile-picture`,
+				{
+					method: "POST",
+					body: formData,
+					credentials: "include",
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error("Failed to update profile picture");
+			}
+
+			const updatedUser = await response.json();
+
+			setUser(updatedUser);
+			setImage(updatedUser.profilePicture);
+		} catch (err) {
+			console.error("Error uploading profile picture:", err);
+		}
+	};
+
+    // Ako se user ili formData nisu jos load-ali, prikazi loading
+	if (!user || !formData) {
+		return (
+			<div className="flex items-center justify-center h-full">
+				<p className="text-white text-xl">Loading...</p>
+			</div>
+		);
+	}
 
   // Ako se user ili formData nisu jos load-ali, prikazi loading
   if (!user || !formData) {
