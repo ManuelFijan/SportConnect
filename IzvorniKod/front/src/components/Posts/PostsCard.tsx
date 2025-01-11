@@ -5,6 +5,7 @@ import { FaRegSave, FaSave } from "react-icons/fa";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { IoIosMore, IoIosHeartEmpty, IoMdHeart } from "react-icons/io";
 import { FaMedal } from "react-icons/fa6";
+import { RiAdminLine } from "react-icons/ri";
 
 export default function PostsCard({
   postId,
@@ -149,22 +150,26 @@ export default function PostsCard({
       {/* USER */}
       <div className="flex flex-row justify-between text-gray-700">
         <div className="flex flex-row gap-2">
-          <img
-            src={creator?.profilePicture || "./user.png"}
-            alt="user_picture"
-            height={24}
-            width={24}
-            className="rounded-full flex-1 w-[1.5rem] h-[1.5rem] mt-2 text-gray-700"
-          />
+          {creator.userType === "ADMIN" ? (
+            <RiAdminLine className="rounded-full border-1 border-gray-700 p-1 flex-1 w-[1.7rem] h-[1.7rem] mt-2 text-gray-700" />
+          ) : (
+            <img
+              src={creator?.profilePicture || "./user.png"}
+              alt="user_picture"
+              height={24}
+              width={24}
+              className="rounded-full flex-1 w-[1.5rem] h-[1.5rem] mt-2 text-gray-700"
+            />
+          )}
           <span className="text-gray-700 mt-2">
-            {creator.firstName} {creator.lastName}
+            {creator.firstName} {user.userType !== "ADMIN" && creator.lastName}
           </span>
         </div>
         <div className="flex gap-2 mt-2">
           {/*ovisno koji je plan takve je boje medalja*/}
           {creator.subscriptionPlan === "GOLD" && (
             <>
-              <div className="text-[#f0bf0d] flex gap-1 items-center justify-center rounded-full border-1 border-[#f0bf0d] px-2 opacity-65 h-7">
+              <div className="text-[#f0bf0d] flex gap-1 items-center justify-center rounded-full border-1 border-[#f0bf0d] px-2 opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
                 <span className="text-sm">GOLD</span>
               </div>
@@ -173,7 +178,7 @@ export default function PostsCard({
 
           {creator.subscriptionPlan === "SILVER" && (
             <>
-              <div className="text-[#cecdcd] flex gap-1 items-center justify-center rounded-full border-1 border-[#cecdcd] px-2 opacity-65 h-7">
+              <div className="text-[#cecdcd] flex gap-1 items-center justify-center rounded-full border-1 border-[#cecdcd] px-2 opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
                 <span className="text-sm">SILVER</span>
               </div>
@@ -182,7 +187,7 @@ export default function PostsCard({
 
           {creator.subscriptionPlan === "BRONZE" && (
             <>
-              <div className="text-[#b3652c] flex gap-1 items-center justify-center rounded-full border-1 border-[#b3652c] px-2 opacity-65 h-7">
+              <div className="text-[#b3652c] flex gap-1 items-center justify-center rounded-full border-1 border-[#b3652c] px-2 opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
                 <span className="text-sm">BRONZE</span>
               </div>
@@ -191,15 +196,15 @@ export default function PostsCard({
 
           {creator.subscriptionPlan === "FREE" && (
             <>
-             <div className="text-[#279536] flex gap-1 items-center justify-center rounded-full border-1 border-[#279536] px-[10px] opacity-65 h-7">
+              <div className="text-[#279536] flex gap-1 items-center justify-center rounded-full border-1 border-[#279536] px-[10px] opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
                 <span className="text-sm">FREE</span>
               </div>
             </>
           )}
           {/* odreduje moze li  user birsati objavu (...) */}
-          {user.userType === "PARTNER" &&
-            (creator.userId === user.userId ? (
+          {user.userType !== "CLIENT" &&
+            (creator.userId === user.userId || user.userType === "ADMIN" ? (
               <div className="dropdown mr-1">
                 <IoIosMore
                   data-bs-toggle="dropdown"

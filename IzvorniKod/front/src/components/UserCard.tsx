@@ -7,8 +7,10 @@ export default function UserCard({
     userType,
     subscriptionPlan,
     profilePicture,
-    setFilterUserEmail
+    openUser
   }: any) {
+
+
     return (
       <div className="h-auto w-[96%] bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg">
         <div className="flex flex-row justify-between text-gray-700">
@@ -46,8 +48,8 @@ export default function UserCard({
           </div>
   
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap"
-            onClick={() => setFilterUserEmail(email)}
+            className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-4 rounded whitespace-nowrap"
+            onClick={() => openUser(email)}
           >
             View User's Posts
           </button>

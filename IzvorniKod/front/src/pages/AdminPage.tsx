@@ -1,4 +1,4 @@
-import '../styles/AdminPage.css';
+import "../styles/AdminPage.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
@@ -26,7 +26,7 @@ const AdminPage: React.FC = () => {
       navigate("/");
     }
   }, [token, navigate]);
-/*
+  /*
   const fetchUsers = async () => {
     try {
       const response = await fetch('YOUR_API_ENDPOINT/users', {
@@ -42,91 +42,101 @@ const AdminPage: React.FC = () => {
   };
 */
 
+  const openUser = async (email: any) => {
+    try {
+      const url = `${import.meta.env.VITE_BACKEND_API}/posts/user?userEmail=${email}`;
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedUserPosts(data);
+      } else {
+        console.error("Failed to fetch user posts");
+      }
+    } catch (error) {
+      console.error("Error fetching user posts", error);
+    }
+  };
+
   const handleUserPosts = (posts: any[], userId: string) => {
     setSelectedUserPosts(posts);
     setSelectedUserId(userId);
   };
 
-    return (
-        <div className="admin-page text-white bg-gray-700 min-h-screen min-w-screen">
-           {user ? (
+  return (
+    <div className="admin-page text-white bg-gray-700 min-h-screen min-w-screen">
+      {user ? (
+        <div>
+          <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
 
-            <div>
-                
-                <Navbar
-                isOpen={isMenuOpen}
-                setIsOpen={setMenuOpen}
-                />
+          <div className="body-admin-page">
+            <div className="left-div-admin-page mt-1">
+              <div className="flex flex-col gap-2">
+                <button
+                  className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => {
+                    setShowUsers(true);
+                    setShowFeed(false);
+                    //if (!users.length) fetchUsers();
+                  }}
+                >
+                  {showUsers ? "Hide Users" : "Show Users"}
+                </button>
 
-                <div className="body-admin-page">
-                    <div className="left-div-admin-page">
-                        <div className="flex flex-col gap-2">
-                            <button 
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                onClick={() => {
-                                    setShowUsers(true);
-                                    setShowFeed(false);
-                                    //if (!users.length) fetchUsers();
-                                }}
-                            >
-                                {showUsers ? 'Hide Users' : 'Show Users'}
-                            </button>
-
-                            <button 
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                onClick={() => {
-                                    setShowUsers(false);
-                                    setShowFeed(true);
-                                }}
-                            >
-                                All Posts
-                            </button>
-                        </div>
-
-                        
-                    </div>
-
-                    <div className="middle-div-admin-page flex flex-col justify-center items-center">
-                        {showFeed && <Feed user={user} />}
-                        {showUsers && (
-                            <div className="users-list mt-4 w-full flex flex-col items-center">
-                                <UserFeed 
-                                    //onUserPostsUpdate={handleUserPosts} 
-                                    //selectedUserId={selectedUserId}
-                                />
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="right-div-admin-page">
-                        {selectedUserPosts.length > 0 ? (
-                            selectedUserPosts.map((post: any) => (
-                                <PostsCard
-                                    key={post.postId}
-                                    postId={post.postId}
-                                    firstname={post.partner.firstName}
-                                    lastname={post.partner.lastName}
-                                    profilePic={post.partner.profilePicture}
-                                    pic={post.imageUrl}
-                                    message={post.textContent}
-                                    like={post.likeCount}
-                                    com={post.comments.length}
-                                    user={user}
-                                />
-                            ))
-                        ) : (
-                            <p className="text-center mt-4">Select a user to view their posts</p>
-                        )}
-                    </div>
-                </div>
-
-            
+                <button
+                  className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => {
+                    setShowUsers(false);
+                    setShowFeed(true);
+                  }}
+                >
+                  All Posts
+                </button>
+              </div>
             </div>
-           ) : (
-            <p>No user data available.</p>
-           )}
+
+            <div className="middle-div-admin-page flex flex-col justify-center items-center">
+              {showFeed && <Feed user={user} adminPanel={true} />}
+              {showUsers && (
+                <div className="users-list mt-4 w-full flex flex-col items-center">
+                  <UserFeed
+                    //onUserPostsUpdate={handleUserPosts}
+                    //selectedUserId={selectedUserId}
+                    openUser={openUser}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="right-div-admin-page mt-4">
+              {selectedUserPosts.length > 0 ? (
+                selectedUserPosts.map((post: any) => (
+                  <PostsCard
+                    key={post.postId}
+                    postId={post.postId}
+                    creator={post.partner}
+                    firstname={post.partner.firstName}
+                    lastname={post.partner.lastName}
+                    profilePic={post.partner.profilePicture}
+                    pic={post.imageUrl}
+                    message={post.textContent}
+                    like={post.likeCount}
+                    user={user}
+                    delPost={openUser}
+                  />
+                ))
+              ) : (
+                <p className="text-center mt-4">
+                  Select a user to view their posts
+                </p>
+              )}
+            </div>
+          </div>
         </div>
-    );
+      ) : (
+        <p>No user data available.</p>
+      )}
+    </div>
+  );
 };
 
 export default AdminPage;

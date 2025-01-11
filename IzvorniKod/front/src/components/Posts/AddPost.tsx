@@ -3,12 +3,15 @@ import "../../styles/PostsCard.css";
 import defaultProfilePicture from "/user.png";
 import imageCompression from "browser-image-compression";
 import { AuthContext } from "../../context/AuthContext";
-import { RiImageAddLine } from "react-icons/ri";
+import { RiAdminLine, RiImageAddLine } from "react-icons/ri";
 
-function AddPost({ handleUpdate } : any) {
-  const { user } = useContext(AuthContext);
+function AddPost({ handleUpdate }: any) {
+  const { user } = useContext<any>(AuthContext);
   const [postContent, setPostContent] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [rank, setRank] = useState("FREE");
+
+  const ranks = ["FREE", "BRONZE", "SILVER", "GOLD"];
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPostContent(event.target.value);
@@ -36,6 +39,10 @@ function AddPost({ handleUpdate } : any) {
     }
   };
 
+  const handleRank = (e: any) => {
+    setRank(e.target.value);
+  };
+
   const handlePost = async () => {
     if (!postContent && !selectedImage) {
       alert("Please add some content or an image!");
@@ -53,6 +60,7 @@ function AddPost({ handleUpdate } : any) {
     if (selectedImage) {
       formData.append("file", selectedImage);
     }
+    formData.append("subscriptionPlan", rank);
 
     try {
       const response = await fetch(
@@ -69,7 +77,7 @@ function AddPost({ handleUpdate } : any) {
 
       const result = await response.json();
       console.log("Post created:", result);
-      handleUpdate()
+      handleUpdate();
 
       setPostContent("");
       setSelectedImage(null);
@@ -84,9 +92,11 @@ function AddPost({ handleUpdate } : any) {
     <div className="add-post-container w-full pt-4 md:pt-5 px-3 bg-[#535e6d]">
       <div className="image-text-container">
         <div className="image-div">
-          {user && (
+          {user?.userType === "ADMIN" ? (
+            <RiAdminLine className="img2 rounded-full border-1 border-gray-700 p-2 text-gray-700 bg-white" />
+          ) : (
             <img
-              src={user.profilePicture || defaultProfilePicture}
+              src={user?.profilePicture || defaultProfilePicture}
               alt="Profile"
               className="img2"
             />
@@ -103,17 +113,46 @@ function AddPost({ handleUpdate } : any) {
         />
       </div>
 
-      <label htmlFor="file-upload" className="image-upload gap-2 py-[6px] hover:text-gray-500">
-        <RiImageAddLine />
-        <input
-          id="file-upload"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-        />
-        <p className="mt-0 mb-0">Add image</p>
-      </label>
+      {/* gumbi za biranje ranka objave */}
+      <div className="flex gap-1 text-gray-700 w-full">
+        <label
+          htmlFor="file-upload"
+          className={
+            "image-upload gap-2 py-[6px] hover:text-gray-500" +
+            (user.subscriptionPlan === "FREE" ? (user.userType === "ADMIN" ? " w-[42%]":" w-full") : " w-[42%]")
+          }
+        >
+          <RiImageAddLine />
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+          />
+          <p className="mt-0 mb-0">Add image</p>
+        </label>
+        {ranks.map(
+          (rank) =>
+            (ranks.indexOf(rank) <= ranks.indexOf(user.subscriptionPlan) || user.userType === "ADMIN") &&
+            (user.subscriptionPlan !== "FREE" || user.userType === "ADMIN") && (
+              <label
+                key={rank}
+                className="has-[:checked]:bg-[#97a6b9] has-[:checked]:text-gray-100 text-gray-500 text-sm hover:bg-[#d3e0f0] transition duration-300 hover:text-gray-500 bg-[#ffff] border-1 border-gray-300 rounded-md w-[5rem] h-9 flex justify-center items-center cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  className="opacity-0 absolute cursor-pointer"
+                  name="description"
+                  value={rank}
+                  onChange={handleRank}
+                  required
+                />
+                {rank}
+              </label>
+            )
+        )}
+      </div>
 
       {selectedImage && (
         <div className="image-preview">

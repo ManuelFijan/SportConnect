@@ -1,15 +1,6 @@
 .navbar-links a {
   text-decoration: none;
   color: white;
-  margin-top: -6.4rem;
-}
-
-.navbar-container {
-  background-color: #535e6d;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1rem;
 }
 
 .name {

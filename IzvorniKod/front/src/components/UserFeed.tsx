@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { User } from "../types/User"; 
 
-export default function UserFeed() {
+export default function UserFeed({openUser}:any) {
   const [users, setUsers] = useState<User[]>([]);
 
   const fetchUsers = async () => {
@@ -38,6 +38,7 @@ export default function UserFeed() {
           userName={user.userName}
           userType={user.userType}
           subscriptionPlan={user.subscriptionPlan}
+          openUser={openUser}
         />
       ))}
     </div>

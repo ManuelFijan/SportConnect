@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostsCard from "./PostsCard";
 
-export default function Feed({ user, update }: any) {
+export default function ProfileFeed({ user }: any) {
   const [userPosts, setUserPosts] = useState<any[]>([]);
   const [savedPosts, setSavedPosts] = useState<any[]>([]);
   const [viewSaved, setViewSaved] = useState(false);
@@ -57,11 +57,11 @@ export default function Feed({ user, update }: any) {
 
   useEffect(() => {
     fetchUserPosts();
-  }, [del, update]);
+  }, [del]);
 
   useEffect(() => {
     fetchSavedPosts();
-  }, [user.email, del, update]);
+  }, [user.email, del]);
 
   const delPost = () => {
     setDel(!del); // triger za rerender obnovljenih objava bez onih koje su obrisane
@@ -81,15 +81,21 @@ export default function Feed({ user, update }: any) {
     >
       {/* Toggle buttons for sorting */}
       <div className="flex gap-4 mb-4">
-        <button
-          className="px-4 py-2 bg-[#5643CC] hover:bg-[#40319e] transition duration-300 text-white rounded-lg"
-          onClick={() => setViewSaved(!viewSaved)}
-        >
-          {viewSaved ? "View My Posts" : "View Saved"}
-        </button>
+        {user.userType !== "CLIENT" ? (
+          <button
+            className="px-4 py-2 bg-[#5643CC] hover:bg-[#40319e] transition duration-300 text-white rounded-lg"
+            onClick={() => setViewSaved(!viewSaved)}
+          >
+            {viewSaved ? "View My Posts" : "View Saved"}
+          </button>
+        ) : (
+          <div className="px-4 py-2 bg-[#5643CC] transition duration-300 text-white rounded-lg">
+            Saved posts
+          </div>
+        )}
       </div>
       {/* Render posts based on viewSaved state */}
-      {viewSaved
+      {(viewSaved || user.userType === "CLIENT")
         ? savedPosts.map((post: any) => (
             <PostsCard
               key={post.postId}
@@ -124,11 +130,11 @@ export default function Feed({ user, update }: any) {
             />
           ))}
 
-      {userPosts.length === 0 && !viewSaved ? (
+      {userPosts.length === 0 && !viewSaved && user.userType !== "CLIENT" ? (
         <p className="text-white py-10">No posts created yet</p>
       ) : null}
 
-      {savedPosts.length === 0 && viewSaved ? (
+      {savedPosts.length === 0 && (viewSaved || user.userType === "CLIENT") ? (
         <p className="text-white py-10">No posts saved yet</p>
       ) : null}
     </div>

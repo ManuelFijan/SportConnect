@@ -43,7 +43,7 @@ function MainPage() {
 
             <div className="w-[100%] md:w-[50%] flex justify-center items-center">
               <div className="middle-div-main-page flex flex-col justify-center items-center w-[80%] md:w-full">
-                {user.userType === "PARTNER" && (
+                {user.userType !== "CLIENT" && (
                   <AddPost handleUpdate={handleUpdate} />
                 )}
                 <Feed user={user} update={update} />

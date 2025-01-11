@@ -93,7 +93,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             Pricing
           </Link>
           {/* Admin link */}
-          {user?.email === "vid123@gmail.com" && (
+          {user?.email === "admin@admin.com" && (
             <Link to={"/admin"} className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
               Admin panel
             </Link>

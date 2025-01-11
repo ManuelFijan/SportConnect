@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostsCard from "./PostsCard";
 
-export default function Feed({ user, update }: any) {
+export default function Feed({ user, update, adminPanel }: any) {
   const [posts, setPosts] = useState<any[]>([]);
   const [sortBy, setSortBy] = useState<string>("newest");
   const [del, setDel] = useState(false);
@@ -16,7 +16,6 @@ export default function Feed({ user, update }: any) {
         const data = await response.json();
         setPosts(data); // Set posts data to state
         console.log(data);
-
       } else {
         console.error("Failed to fetch posts.");
       }
@@ -43,7 +42,6 @@ export default function Feed({ user, update }: any) {
 
   useEffect(() => {
     fetchPosts(sortBy);
-    
   }, [sortBy, del, update]);
 
   const handleSortChange = (newSortBy: string) => {
@@ -61,46 +59,47 @@ export default function Feed({ user, update }: any) {
   return (
     <div
       className={
-        "w-full h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center pt-3" +
-        (user.userType === "PARTNER" ? "" : " mt-3")
+        "w-full h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center" +
+        (user.userType === "PARTNER" ? "" : " mt-3") + (adminPanel ? " pt-5" : " pt-3")
       }
     >
       {/* Toggle buttons for sorting */}
-      <div className="flex gap-4 mb-3">
-        <button
-          className={`px-4 py-2 ${
-            sortBy === "newest"
-              ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 "
-              : "bg-gray-200 hover:bg-gray-300 transition duration-400"
-          } text-gray-700 rounded-lg`}
-          onClick={() => handleSortChange("newest")}
-        >
-          Newest
-        </button>
+      {!adminPanel && (
+        <div className="flex gap-3 md:gap-4 mb-3 text-gray-600 pt-3">
+          <button
+            className={`px-3 lg:w-28 py-2 font-semibold ${
+              sortBy === "newest"
+                ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 "
+                : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+            } rounded-lg`}
+            onClick={() => handleSortChange("newest")}
+          >
+            Newest
+          </button>
 
-        <button
-          className={`px-4 py-2 ${
-            sortBy === "mostLikes"
-              ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 "
-              : "bg-gray-200 hover:bg-gray-300 transition duration-400"
-          } text-gray-700 rounded-lg`}
-          onClick={() => handleSortChange("mostLikes")}
-        >
-          Most Likes
-        </button>
+          <button
+            className={`px-2 lg:w-28 py-2 font-semibold ${
+              sortBy === "mostLikes"
+                ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 "
+                : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+            } rounded-lg`}
+            onClick={() => handleSortChange("mostLikes")}
+          >
+            Most Likes
+          </button>
 
-        <button
-          className={`px-4 py-2 ${
-            sortBy === "mostSaves"
-              ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 "
-              : "bg-gray-200 hover:bg-gray-300 transition duration-400"
-          } text-gray-700 rounded-lg`}
-          onClick={() => handleSortChange("mostSaves")}
-        >
-          Most Saves
-        </button>
-      </div>
-      {/* Render posts based on viewSaved state */}
+          <button
+            className={`px-2 lg:w-28 py-2 font-semibold ${
+              sortBy === "mostSaves"
+                ? "bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-400 "
+                : "bg-gray-200 hover:bg-gray-300 transition duration-400"
+            } rounded-lg`}
+            onClick={() => handleSortChange("mostSaves")}
+          >
+            Most Saves
+          </button>
+        </div>
+      )}
       {posts.map((post: any) => (
         <PostsCard
           key={post.postId}

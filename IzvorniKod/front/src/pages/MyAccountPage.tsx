@@ -21,7 +21,7 @@ function MyAccountPage() {
 
   return (
     <div className="bg-gray-700 min-w-screen min-h-screen">
-      <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={user.profilePicture || "/user.png"} />
+      <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen}/>
       {!isMenuOpen && (
         <div className="flex justify-center align-items-top py-2 gap-4">
           <div className="bg-gray-700 hidden md:w-[25%] md:flex flex-col items-center pt-2">
@@ -34,7 +34,7 @@ function MyAccountPage() {
             <ProfileFeed user={user} />
           </div>
           <div className="bg-gray-700 hidden md:w-[25%] md:flex flex-col items-center">
-            {user.subscriptionPlan !== "GOLD" && (
+            {(user.subscriptionPlan !== "GOLD" && user.userType !== "ADMIN") && (
               <div className="bg-[rgb(83,94,109)] rounded-lg p-6 text-center mt-3 mr-5 hidden md:block">
                 <h1 className="text-lg lg:text-2xl font-bold text-[#a7fbcb] mb-4">
                   Unlock Better Features!

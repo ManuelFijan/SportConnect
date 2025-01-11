@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoIosMore } from "react-icons/io";
 import ReadMore from "../ReadMore";
+import { RiAdminLine } from "react-icons/ri";
 
 export default function Comments({ bool, comments, addCom, user }: any) {
   const [input, setInput] = useState("");
@@ -16,7 +17,7 @@ export default function Comments({ bool, comments, addCom, user }: any) {
     let tmp2 = tmp.get("comment") || "";
 
     setInput("");
-    addCom(tmp2);    
+    addCom(tmp2);
   };
 
   const handleDeleteCom = async (comId: any) => {
@@ -47,13 +48,17 @@ export default function Comments({ bool, comments, addCom, user }: any) {
     >
       {/* WRITING */}
       <div className={"flex flex-row gap-2 mb-" + (bool ? "3" : "0")}>
-        <img
-          src={user.profilePicture || "./user.png"}
-          alt="user_picture"
-          width={20}
-          height={20}
-          className="rounded-full mt-[0.15rem] text-gray-700 w-5 h-5"
-        />
+        {user.userType === "ADMIN" ? (
+          <RiAdminLine className="border-1 border-gray-700 rounded-full p-1 h-7 w-7" />
+        ) : (
+          <img
+            src={user.profilePicture || "./user.png"}
+            alt="user_picture"
+            width={20}
+            height={20}
+            className="rounded-full mt-[0.15rem] text-gray-700 w-5 h-5"
+          />
+        )}
         <form className="w-full" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -74,21 +79,26 @@ export default function Comments({ bool, comments, addCom, user }: any) {
           {comments.map((comInfo: any, ind: any) => (
             <div className="flex flex-row gap-3  w-full mt-[-1rem]" key={ind}>
               <div>
-                <img
-                  src={comInfo.user.profilePicture || "./user.png"}
-                  alt="user_picture"
-                  width={20}
-                  height={16}
-                  className="rounded-full mt-[0.1rem] text-gray-700 w-5 h-4"
-                />
+                {comInfo.user.userType === "ADMIN" ? (
+                  <RiAdminLine className="border-1 border-gray-700 rounded-full p-1 h-6 w-6 mt-1" />
+                ) : (
+                  <img
+                    src={comInfo?.profilePicture || "./user.png"}
+                    alt="user_picture"
+                    height={24}
+                    width={24}
+                    className="rounded-full flex-1 w-[1.5rem] h-[1.5rem] mt-1 text-gray-700"
+                  />
+                )}
               </div>
               <div className="w-[90%] flex flex-col gap-3">
                 <span className="font-semibold">
-                  {comInfo.user.firstName + " " + comInfo.user.lastName}
+                  {comInfo.user.firstName}{" "}
+                  {comInfo.user.userType !== "ADMIN" && comInfo.user.lastName}
                 </span>
                 <ReadMore message={comInfo.text} post={false} />
               </div>
-              {comInfo.user.userId == user.userId ? (
+              {(comInfo.user.userId == user.userId || user.userType === "ADMIN") ? (
                 <div className="dropdown">
                   <IoIosMore
                     data-bs-toggle="dropdown"
