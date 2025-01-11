@@ -6,7 +6,10 @@ interface MessageListProps {
 	currentUserEmail: string | null;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages, currentUserEmail }) => {
+const MessageList: React.FC<MessageListProps> = ({
+	messages,
+	currentUserEmail,
+}) => {
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
 	const scrollToBottom = () => {
@@ -27,7 +30,9 @@ const MessageList: React.FC<MessageListProps> = ({ messages, currentUserEmail })
 					<div
 						key={msg.id}
 						className={`mb-6 flex items-center ${
-							msg.sender.email === currentUserEmail ? "justify-end" : "justify-start"
+							msg.sender.email === currentUserEmail
+								? "justify-end"
+								: "justify-start"
 						}`}
 					>
 						{/* Profile slika ako user nismo mi */}
@@ -63,7 +68,10 @@ const MessageList: React.FC<MessageListProps> = ({ messages, currentUserEmail })
 										? "bg-blue-500 text-white rounded-br-none"
 										: "bg-gray-300 text-black rounded-bl-none"
 								}`}
-								style={{ wordWrap: "break-word", overflowWrap: "break-word" }}
+								style={{
+									wordWrap: "break-word",
+									overflowWrap: "break-word",
+								}}
 							>
 								{msg.content}
 							</div>
@@ -71,16 +79,21 @@ const MessageList: React.FC<MessageListProps> = ({ messages, currentUserEmail })
 							{/* Vrijeme */}
 							<span
 								className={`text-xs text-gray-500 mt-1 ${
-									msg.sender.email === currentUserEmail ? "text-right" : "text-left"
+									msg.sender.email === currentUserEmail
+										? "text-right"
+										: "text-left"
 								}`}
 							>
-								{new Date(msg.timestamp).toLocaleTimeString([], {
+								{new Date(
+									msg.timestamp + "Z"
+								).toLocaleTimeString("en-GB", {
 									day: "2-digit",
 									month: "2-digit",
 									year: "numeric",
 									hour: "2-digit",
 									minute: "2-digit",
 									hour12: false, // da format bude 24 satni kao kod nas (bez am i pm)
+									timeZone: "Europe/Zagreb", // dodana vremenska zona
 								})}
 							</span>
 						</div>
