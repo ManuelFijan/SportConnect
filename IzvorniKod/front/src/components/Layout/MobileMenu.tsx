@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "../../styles/MobileMenu.css";
 
@@ -9,12 +9,19 @@ interface MobileMenuProps {
 }
 
 function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
+  const navigate = useNavigate();
   const [isScreenWide, setIsScreenWide] = useState(window.innerWidth > 767);
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   let path = location.pathname;
   path = path.substring(1, path.length);
 
+  // Logout handler
+  const handleLogout = () => {
+    logout(); // Brise token i user data iz AuthContext
+    navigate("/"); // vraca na pocetak
+  };
+  
   /* prilikom rendera stranice postavlja bool varijablu je li sirina prozora veca od 767 px i prema tome ako je
      zatvara mobile menu, ako je na screen-u manje sirine od 767 px mobile menu ostao otvoren
   */
@@ -110,7 +117,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             Profile
           </Link>
           <Link to="/" 
-          className="sign-out-button ml-8">
+          className="sign-out-button ml-8" onClick={handleLogout}>
             <button>Sign Out</button>
           </Link>
         </div>
