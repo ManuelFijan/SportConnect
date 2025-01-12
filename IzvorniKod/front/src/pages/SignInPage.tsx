@@ -74,7 +74,7 @@ const SignInPage = () => {
     //tek ako je sve dobrog formata radimo fetch podataka na backend
    if (var1 && var2) {
 			try {
-				const response = await fetch(`${process.env.VITE_BACKEND_API}/users/login`, {
+				const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/users/login`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
