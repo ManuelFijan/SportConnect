@@ -121,8 +121,8 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:3000/set-up-your-account")
-                        .failureUrl("http://localhost:3000")
+                        .defaultSuccessUrl("https://sportconnect-8b7o.onrender.com/set-up-your-account")
+                        .failureUrl("https://sportconnect-8b7o.onrender.com")
                 );
 
         return http.build();

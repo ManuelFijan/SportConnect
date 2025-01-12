@@ -15,7 +15,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Allow requests from localhost:3000
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://sportconnect-8b7o.onrender.com"));
 
         // Allow credentials (cookies, authorization headers, etc.)
         configuration.setAllowCredentials(true);
