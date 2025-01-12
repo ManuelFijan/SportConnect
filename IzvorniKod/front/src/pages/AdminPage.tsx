@@ -1,5 +1,4 @@
 import "../styles/AdminPage.css";
-
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -12,35 +11,17 @@ import PostsCard from "../components/Posts/PostsCard";
 
 const AdminPage: React.FC = () => {
   const navigate = useNavigate();
-  const { token, user } = useContext(AuthContext); // Access AuthContext
+  const { token, user } = useContext(AuthContext);
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [users, setUsers] = useState<any[]>([]);
   const [showUsers, setShowUsers] = useState(false);
-  const [showFeed, setShowFeed] = useState(true);
+  const [showFeed, setShowFeed] = useState(false);
   const [selectedUserPosts, setSelectedUserPosts] = useState<any[]>([]);
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
-  // Redirect na home ako nije authenticated
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
   }, [token, navigate]);
-  /*
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch('YOUR_API_ENDPOINT/users', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  };
-*/
 
   const openUser = async (email: any) => {
     try {
@@ -57,36 +38,31 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  const handleUserPosts = (posts: any[], userId: string) => {
-    setSelectedUserPosts(posts);
-    setSelectedUserId(userId);
-  };
-
   return (
     <div className="admin-page text-white bg-gray-700 min-h-screen min-w-screen">
       {user ? (
         <div>
           <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
-
-          <div className="body-admin-page">
-            <div className="left-div-admin-page mt-1">
-              <div className="flex flex-col gap-2">
+          <div className="body-admin-page flex flex-col items-center md:flex-row md:items-start overflow-hidden">
+            {/* Left Div */}
+            <div className="left-div-admin-page mt-[rem] md:mt-1">
+              <div className="flex md:flex-col gap-2">
                 <button
-                  className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-4 rounded"
+                  className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-3 rounded"
                   onClick={() => {
-                    setShowUsers(true);
+                    setShowUsers(!showUsers);
                     setShowFeed(false);
-                    //if (!users.length) fetchUsers();
                   }}
                 >
                   {showUsers ? "Hide Users" : "Show Users"}
                 </button>
 
                 <button
-                  className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-4 rounded"
+                  className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-3 rounded"
                   onClick={() => {
                     setShowUsers(false);
                     setShowFeed(true);
+                    setSelectedUserPosts([]);
                   }}
                 >
                   All Posts
@@ -94,41 +70,62 @@ const AdminPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="middle-div-admin-page flex flex-col justify-center items-center">
-              {showFeed && <Feed user={user} adminPanel={true} />}
-              {showUsers && (
-                <div className="users-list mt-4 w-full flex flex-col items-center">
-                  <UserFeed
-                    //onUserPostsUpdate={handleUserPosts}
-                    //selectedUserId={selectedUserId}
-                    openUser={openUser}
-                  />
-                </div>
-              )}
-            </div>
+            <div className="flex flex-col lg:flex-row h-[100%] w-full">
+              {/* Middle Div */}
+              <div
+                className={
+                  "middle-div-admin-page scrollbar-none " +
+                  (showFeed
+                    ? "w-full pl-16 md:pl-0 md:w-[90%] mt-[-8rem] md:mt-0 md:ml-[6rem] lg:ml-[10rem] overflow-y-auto"
+                    : "") +
+                  (showUsers
+                    ? "mt-[-8.7rem] ml-[4rem] md:ml-0 h-[13rem] lg:h-[100%] md:mt-0 overflow-y-auto lg:flex-1"
+                    : "") +
+                  (!showFeed && !showUsers ? " flex-1" : "")
+                }
+              >
+                {!showFeed && !showUsers && (
+                  <p className={"ml-[12rem] md:ml-[5.5rem] pt-[2.5rem]"}>
+                    Select an option.
+                  </p>
+                )}
+                {showFeed && <Feed user={user} adminPanel={true} />}
+                {showUsers && (
+                  <div className="users-list mt-4 w-full ">
+                    <UserFeed openUser={openUser} />
+                  </div>
+                )}
+              </div>
 
-            <div className="right-div-admin-page mt-4">
-              {selectedUserPosts.length > 0 ? (
-                selectedUserPosts.map((post: any) => (
-                  <PostsCard
-                    key={post.postId}
-                    postId={post.postId}
-                    creator={post.partner}
-                    firstname={post.partner.firstName}
-                    lastname={post.partner.lastName}
-                    profilePic={post.partner.profilePicture}
-                    pic={post.imageUrl}
-                    message={post.textContent}
-                    like={post.likeCount}
-                    user={user}
-                    delPost={openUser}
-                  />
-                ))
-              ) : (
-                <p className="text-center mt-4">
-                  Select a user to view their posts
-                </p>
-              )}
+              {/* Right Div */}
+              <div className="right-div-admin-page flex-1 mt-[12px] lg:mt-[0rem] overflow-y-auto scrollbar-none">
+                {showUsers && (
+                  <div className="w-[97%] pl-[4.5rem] md:pl-[0rem] md:w-full mt-4">
+                    {selectedUserPosts.length > 0 ? (
+                      selectedUserPosts.map((post: any) => (
+                        <PostsCard
+                          key={post.postId}
+                          postId={post.postId}
+                          creator={post.partner}
+                          firstname={post.partner.firstName}
+                          lastname={post.partner.lastName}
+                          profilePic={post.partner.profilePicture}
+                          pic={post.imageUrl}
+                          message={post.textContent}
+                          like={post.likeCount}
+                          user={user}
+                          delPost={openUser}
+                          adminDelUser={true}
+                        />
+                      ))
+                    ) : (
+                      <p className="text-center flex mt-4">
+                        Select a user to view their posts
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

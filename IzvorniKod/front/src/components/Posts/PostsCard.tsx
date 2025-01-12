@@ -18,6 +18,7 @@ export default function PostsCard({
   user,
   delPost,
   newSaved,
+  adminDelUser
 }: any) {
   const [likes, setLikes] = useState(isLiked);
   const [comm, setComm] = useState(false);
@@ -136,7 +137,10 @@ export default function PostsCard({
       console.log(data);
 
       if (response.ok) {
-        delPost();
+        if(adminDelUser)
+          delPost(creator.email);
+        else
+          delPost();
       } else {
         console.error("Error deleting comment.");
       }
@@ -146,7 +150,7 @@ export default function PostsCard({
   };
 
   return (
-    <div className="h-auto w-[87%] bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg">
+    <div className={"h-auto bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg "+(adminDelUser ? "w-[95%]" : "w-[87%]")}>
       {/* USER */}
       <div className="flex flex-row justify-between text-gray-700">
         <div className="flex flex-row gap-2">
@@ -162,7 +166,7 @@ export default function PostsCard({
             />
           )}
           <span className="text-gray-700 mt-2">
-            {creator.firstName} {user.userType !== "ADMIN" && creator.lastName}
+            {creator.firstName} {creator.userType !== "ADMIN" && creator.lastName}
           </span>
         </div>
         <div className="flex gap-2 mt-2">

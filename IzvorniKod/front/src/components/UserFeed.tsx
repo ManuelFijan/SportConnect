@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
-import { User } from "../types/User"; 
+import { User } from "../types/User";
 
-export default function UserFeed({openUser}:any) {
+export default function UserFeed({ openUser }: any) {
   const [users, setUsers] = useState<User[]>([]);
 
   const fetchUsers = async () => {
     try {
-      const url = `${import.meta.env.VITE_BACKEND_API}/users/all`; 
+      const url = `${import.meta.env.VITE_BACKEND_API}/users/all`;
       const response = await fetch(url);
       if (response.ok) {
         const data: User[] = await response.json();
@@ -25,11 +25,11 @@ export default function UserFeed({openUser}:any) {
   }, []);
 
   return (
-    <div className="w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] h-auto bg-white rounded-lg flex flex-col justify-center items-center pt-3">
+    <div className="w-[95%] md:bg-white rounded-lg flex flex-col justify-center items-center">
       {/* Posts list */}
       {users.map((user) => (
         <UserCard
-          key={user.id} 
+          key={user.email}
           id={user.id}
           email={user.email}
           firstName={user.firstName}

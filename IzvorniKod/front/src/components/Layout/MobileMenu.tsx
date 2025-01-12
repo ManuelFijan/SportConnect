@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Dispatch, SetStateAction, useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import "../../styles/MobileMenu.css";
 
 interface MobileMenuProps {
@@ -9,7 +10,7 @@ interface MobileMenuProps {
 
 function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
   const [isScreenWide, setIsScreenWide] = useState(window.innerWidth > 767);
-  const { user } = useLocation().state || {};
+  const { user } = useContext(AuthContext);
 
   let path = location.pathname;
   path = path.substring(1, path.length);
@@ -93,7 +94,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             Pricing
           </Link>
           {/* Admin link */}
-          {user?.email === "admin@admin.com" && (
+          {user?.userType === "ADMIN" && (
             <Link to={"/admin"} className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
               Admin panel
             </Link>

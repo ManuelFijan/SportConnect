@@ -112,14 +112,14 @@ function AddPost({ handleUpdate }: any) {
           className="text-gray-500 p-1"
         />
       </div>
-
+      
       {/* gumbi za biranje ranka objave */}
       <div className="flex gap-1 text-gray-700 w-full">
         <label
           htmlFor="file-upload"
           className={
             "image-upload gap-2 py-[6px] hover:text-gray-500" +
-            (user.subscriptionPlan === "FREE" ? (user.userType === "ADMIN" ? " w-[42%]":" w-full") : " w-[42%]")
+            (user.subscriptionPlan === "FREE" ? (user.userType === "ADMIN" ? " w-[42%]" : " w-full") : " w-[42%]")
           }
         >
           <RiImageAddLine />

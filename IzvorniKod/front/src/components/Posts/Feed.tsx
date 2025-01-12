@@ -59,8 +59,8 @@ export default function Feed({ user, update, adminPanel }: any) {
   return (
     <div
       className={
-        "w-full h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center" +
-        (user.userType === "PARTNER" ? "" : " mt-3") + (adminPanel ? " pt-5" : " pt-3")
+        (adminPanel ? "w-[85%] md:w-[70%]" : "w-full")+" h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center" +
+        (user.userType === "PARTNER" ? "" : " mt-3") + (adminPanel ? " mt-4 pt-[30px]" : " pt-3")
       }
     >
       {/* Toggle buttons for sorting */}
