@@ -83,7 +83,7 @@ export default function Comments({ bool, comments, addCom, user }: any) {
                   <RiAdminLine className="border-1 border-gray-700 rounded-full p-1 h-6 w-6 mt-1" />
                 ) : (
                   <img
-                    src={comInfo?.profilePicture || "./user.png"}
+                    src={comInfo.user.profilePicture || "./user.png"}
                     alt="user_picture"
                     height={24}
                     width={24}
