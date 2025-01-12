@@ -9,6 +9,9 @@ export default function UserCard({
   profilePicture,
   openUser,
 }: any) {
+
+  console.log(id);
+  
   return (
     <div className="h-auto w-[96%] bg-gray-100 flex flex-col gap-3 mb-2 p-2 rounded-lg mr-2 md:mr-0 md:mt-2">
       <div className="flex flex-row justify-between text-gray-700">
