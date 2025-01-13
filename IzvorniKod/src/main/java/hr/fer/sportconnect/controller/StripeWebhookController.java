@@ -17,8 +17,8 @@ import com.stripe.model.EventDataObjectDeserializer;
 @RequestMapping("/stripe-webhooks")
 public class StripeWebhookController {
 
-    @Value("${stripe.key}")
-    private String STRIPE_API_KEY;
+    @Value("${stripe.webhook.secret}")
+    private String STRIPE_WEBHOOK_KEY;
 
     private final UserService userService;
 
@@ -28,7 +28,7 @@ public class StripeWebhookController {
 
     @PostMapping("/events")
     public ResponseEntity<String> handleStripeEvent(@RequestBody String payload, @RequestHeader("Stripe-Signature") String sigHeader) {
-        String stripe_secret_key = STRIPE_API_KEY;
+        String stripe_secret_key = STRIPE_WEBHOOK_KEY;
 
         try {
             Event event = Webhook.constructEvent(payload, sigHeader, stripe_secret_key);
