@@ -1,6 +1,7 @@
 package hr.fer.sportconnect.service.impl;
 
 import hr.fer.sportconnect.db.SupabaseS3Service;
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.model.Comment;
 import hr.fer.sportconnect.model.Post;
 import hr.fer.sportconnect.model.User;
@@ -28,8 +29,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(User partner, String textContent, String imageUrl) {
-        Post post = new Post(partner, textContent, imageUrl);
+    public Post createPost(User partner, String textContent, String imageUrl, SubscriptionPlan tier) {
+        Post post = new Post(partner, textContent, imageUrl, tier);
         return postRepository.save(post);
     }
 
@@ -173,6 +174,40 @@ public class PostServiceImpl implements PostService {
         }
 
         commentRepository.delete(comment);
+    }
+
+    public List<Post> getAvailablePostsForUser(User user, String sortBy) {
+        // Determine which plans the user has access to
+        List<SubscriptionPlan> allowedPlans = user.getSubscriptionPlan().accessiblePlans();
+
+        // Get only posts from those plans
+        List<Post> filteredPosts = postRepository.findByTierIn(allowedPlans);
+
+        return sortPosts(filteredPosts, sortBy);
+    }
+
+    private List<Post> sortPosts(List<Post> posts, String sortBy) {
+        if (sortBy == null || sortBy.isBlank()) {
+            return posts;
+        }
+        switch (sortBy.toLowerCase()) {
+            case "newest":
+                return posts.stream()
+                        .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
+                        .collect(Collectors.toList());
+            case "mostlikes":
+                return posts.stream()
+                        .sorted(Comparator.comparingInt((Post p) -> p.getLikedBy().size())
+                                .reversed())
+                        .collect(Collectors.toList());
+            case "mostsaves":
+                return posts.stream()
+                        .sorted(Comparator.comparingInt((Post p) -> p.getSavedBy().size())
+                                .reversed())
+                        .collect(Collectors.toList());
+            default:
+                return posts;
+        }
     }
 
 }
