@@ -47,9 +47,9 @@ public class PostController {
         // Get the user
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
 
-        // Only Partner can create a post
-        if (user.getUserType() != UserType.PARTNER) {
-            return ResponseEntity.badRequest().body("Only a Partner can create posts.");
+        // Only Partner and Admin can create a post
+        if (user.getUserType() != UserType.PARTNER && user.getUserType() != UserType.ADMIN) {
+            return ResponseEntity.badRequest().body("Only a Partner and Admin can create posts.");
         }
 
         // If file is present, upload to supabase
