@@ -42,7 +42,6 @@ public class StripeWebhookController {
                 Customer customer = Customer.retrieve(customerId);
                 String email = customer.getEmail();
                 String subscriptionPlan = session.getSuccessUrl().substring(session.getSuccessUrl().indexOf('=')+1, session.getSuccessUrl().indexOf('&'));
-                System.out.println("subscriptionPlan: " + subscriptionPlan);
 
                 userService.updateSubscriptionPlan(email, SubscriptionPlan.valueOf(subscriptionPlan.toUpperCase()));
             }

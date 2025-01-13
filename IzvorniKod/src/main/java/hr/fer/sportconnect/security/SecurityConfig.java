@@ -93,7 +93,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(
                                 "/users/register", "/users/login", "/users/update",
-                                "/users/get-information/**", "/users/signedin",
+                                "/users/get-information/**", "/users/signedin", "/users/update-rank",
                                 "/posts/create", "/posts/*/like", "/posts/*/comment",
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
                                 "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**",
@@ -105,7 +105,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/", "/login", "/login/oauth2/code/**", "/error",
                                 "/users/register", "/users/login", "/users/update",
-                                "/users/get-information/**", "/users/test",
+                                "/users/get-information/**", "/users/test", "/users/update-rank",
                                 "/posts/create", "/posts/*/like", "/posts/*/comment",
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
                                 "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**",

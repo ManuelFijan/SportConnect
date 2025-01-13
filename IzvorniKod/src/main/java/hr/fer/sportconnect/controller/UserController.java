@@ -1,6 +1,7 @@
 package hr.fer.sportconnect.controller;
 
 import hr.fer.sportconnect.dto.*;
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.exceptions.LoginException;
 import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
@@ -121,6 +122,16 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to update profile picture.");
+        }
+    }
+
+    @PostMapping("/update-rank")
+    public ResponseEntity<?> updateRank(@Valid @RequestBody updateSubscriptionDTO subscriptionDto) {
+        try{
+            UserDto updatedUser = userService.updateSubscriptionPlan(subscriptionDto.getEmail(), SubscriptionPlan.valueOf(subscriptionDto.getSubscriptionPlan().toUpperCase()));
+            return ResponseEntity.ok(updatedUser);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("tu sam " + e.getMessage());
         }
     }
 }

@@ -10,6 +10,7 @@ import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData;
 import hr.fer.sportconnect.dao.ProductDAO;
 import hr.fer.sportconnect.dto.PurchaseRequestDTO;
 import hr.fer.sportconnect.service.impl.CustomerServiceImpl;
+import net.minidev.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class PaymentController {
             System.out.println("Array length is 0");
             return ResponseEntity.badRequest().body("Input array cannot be null");
         }
-        Stripe.apiKey = STRIPE_API_KEY;
+        Stripe.apiKey = "sk_test_" + STRIPE_API_KEY;
         String clientBaseURL = "http://localhost:3000";
 
         // Start by finding an existing customer record from Stripe or creating a new one if needed
