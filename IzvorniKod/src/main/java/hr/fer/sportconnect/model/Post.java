@@ -1,6 +1,7 @@
 package hr.fer.sportconnect.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -49,15 +50,19 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Comment> comments = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name="post_tier")
+    private SubscriptionPlan tier;
 
     public Post() {
     }
 
-    public Post(User partner, String textContent, String imageUrl) {
+    public Post(User partner, String textContent, String imageUrl, SubscriptionPlan tier) {
         this.partner = partner;
         this.textContent = textContent;
         this.imageUrl = imageUrl;
         this.createdAt = LocalDateTime.now();
+        this.tier = tier;
     }
 
     public Long getPostId() {
@@ -114,6 +119,14 @@ public class Post {
 
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public SubscriptionPlan getTier() {
+        return tier;
+    }
+
+    public void setTier(SubscriptionPlan tier) {
+        this.tier = tier;
     }
 
     public void incrementLikeCount() {

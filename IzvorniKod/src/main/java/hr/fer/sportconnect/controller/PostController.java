@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import hr.fer.sportconnect.enums.SubscriptionPlan;
+
 /**
  * Controller for managing posts, likes, comments, and saved posts.
  */
@@ -41,13 +43,13 @@ public class PostController {
      * Create a post
      */
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> createPost(@RequestParam String userEmail, @RequestParam String textContent, @RequestPart(value = "file", required = false) MultipartFile file) {
+    public ResponseEntity<?> createPost(@RequestParam String userEmail, @RequestParam String textContent, @RequestPart(value = "file", required = false) MultipartFile file, @RequestParam SubscriptionPlan tier) {
         // Get the user
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
 
-        // Only Partner can create a post
-        if (user.getUserType() != UserType.PARTNER) {
-            return ResponseEntity.badRequest().body("Only a Partner can create posts.");
+        // Only Partner and Admin can create a post
+        if (user.getUserType() != UserType.PARTNER && user.getUserType() != UserType.ADMIN) {
+            return ResponseEntity.badRequest().body("Only a Partner and Admin can create posts.");
         }
 
         // If file is present, upload to supabase
@@ -82,7 +84,7 @@ public class PostController {
         }
 
         // Create the Post in DB
-        Post newPost = postService.createPost(user, textContent, imageUrl);
+        Post newPost = postService.createPost(user, textContent, imageUrl, tier);
 
         // Return the newly created post
         return ResponseEntity.ok(newPost);
@@ -155,18 +157,15 @@ public class PostController {
     @GetMapping("/user")
     public ResponseEntity<?> getPostsByUserEmail(@RequestParam String userEmail) {
         try {
-            User user = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+            User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
 
             List<Post> userPosts = postService.getPostsByUser(user);
 
             return ResponseEntity.ok(userPosts);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while fetching posts.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching posts.");
         }
     }
 
@@ -174,19 +173,16 @@ public class PostController {
     public ResponseEntity<?> deleteComment(@PathVariable Long commentId, @RequestParam String userEmail) {
         try {
             // Fetch the user
-            User user = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+            User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
 
             // Delete the comment
             postService.deleteComment(commentId, user);
 
             return ResponseEntity.ok("Comment deleted successfully.");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while deleting the comment.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the comment.");
         }
     }
 
@@ -194,19 +190,34 @@ public class PostController {
     public ResponseEntity<?> deletePost(@PathVariable Long postId, @RequestParam String userEmail) {
         try {
             // Fetch the user
-            User user = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+            User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
 
             // Delete the post
             postService.deletePost(postId, user);
 
             return ResponseEntity.ok("Post deleted successfully.");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while deleting the post.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the post.");
+        }
+    }
+
+    /**
+     * Get all posts that a user can see based on their subscription rank, with optional sorting.
+     */
+    @GetMapping("/available")
+    public ResponseEntity<?> getAvailablePostsForUser(@RequestParam String userEmail, @RequestParam(required = false) String sortBy) {
+        try {
+            User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+
+            // Fetch all posts user can see
+            List<Post> posts = postService.getAvailablePostsForUser(user, sortBy);
+            return ResponseEntity.ok(posts);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching available posts.");
         }
     }
 
