@@ -7,6 +7,7 @@ import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
 import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.stripe.model.Event;
@@ -16,6 +17,9 @@ import com.stripe.model.EventDataObjectDeserializer;
 @RequestMapping("/stripe-webhooks")
 public class StripeWebhookController {
 
+    @Value("${stripe.key}")
+    private String STRIPE_API_KEY;
+
     private final UserService userService;
 
     public StripeWebhookController(UserService userService) {
@@ -24,7 +28,7 @@ public class StripeWebhookController {
 
     @PostMapping("/events")
     public ResponseEntity<String> handleStripeEvent(@RequestBody String payload, @RequestHeader("Stripe-Signature") String sigHeader) {
-        String stripe_secret_key = System.getenv("SPRING_STRIPE_API_SECRET_KEY");
+        String stripe_secret_key = STRIPE_API_KEY;
 
         try {
             Event event = Webhook.constructEvent(payload, sigHeader, stripe_secret_key);
