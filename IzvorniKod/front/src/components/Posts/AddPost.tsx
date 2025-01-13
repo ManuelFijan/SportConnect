@@ -60,7 +60,7 @@ function AddPost({ handleUpdate }: any) {
     if (selectedImage) {
       formData.append("file", selectedImage);
     }
-    formData.append("subscriptionPlan", rank);
+    formData.append("tier", rank);
 
     try {
       const response = await fetch(
@@ -130,7 +130,7 @@ function AddPost({ handleUpdate }: any) {
             onChange={handleImageChange}
             style={{ display: "none" }}
           />
-          <p className="mt-0 mb-0">Add image</p>
+          <p className="mt-0 mb-0 text-xs xs:text-base">Add image</p>
         </label>
         {ranks.map(
           (rank) =>
@@ -138,7 +138,7 @@ function AddPost({ handleUpdate }: any) {
             (user.subscriptionPlan !== "FREE" || user.userType === "ADMIN") && (
               <label
                 key={rank}
-                className="has-[:checked]:bg-[#97a6b9] has-[:checked]:text-gray-100 text-gray-500 text-sm hover:bg-[#d3e0f0] transition duration-300 hover:text-gray-500 bg-[#ffff] border-1 border-gray-300 rounded-md w-[5rem] h-9 flex justify-center items-center cursor-pointer"
+                className="has-[:checked]:bg-[#97a6b9] has-[:checked]:text-gray-100 text-gray-500 text-xs xs:text-sm hover:bg-[#d3e0f0] transition duration-300 hover:text-gray-500 bg-[#ffff] border-1 border-gray-300 rounded-md w-[3.5rem] xs:w-[5rem] h-9 flex justify-center items-center cursor-pointer"
               >
                 <input
                   type="radio"

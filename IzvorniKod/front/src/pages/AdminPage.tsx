@@ -16,6 +16,7 @@ const AdminPage: React.FC = () => {
   const [showUsers, setShowUsers] = useState(false);
   const [showFeed, setShowFeed] = useState(false);
   const [selectedUserPosts, setSelectedUserPosts] = useState<any[]>([]);
+  const [noPosts, setNoPosts] = useState(true);
 
   useEffect(() => {
     if (!token) {
@@ -30,6 +31,7 @@ const AdminPage: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         setSelectedUserPosts(data);
+        setNoPosts(data.length);
       } else {
         console.error("Failed to fetch user posts");
       }
@@ -52,6 +54,8 @@ const AdminPage: React.FC = () => {
                   onClick={() => {
                     setShowUsers(!showUsers);
                     setShowFeed(false);
+                    setNoPosts(true);
+                    setSelectedUserPosts([]);
                   }}
                 >
                   {showUsers ? "Hide Users" : "Show Users"}
@@ -63,6 +67,7 @@ const AdminPage: React.FC = () => {
                     setShowUsers(false);
                     setShowFeed(true);
                     setSelectedUserPosts([]);
+                    setNoPosts(true);
                   }}
                 >
                   All Posts
@@ -116,11 +121,16 @@ const AdminPage: React.FC = () => {
                           user={user}
                           delPost={openUser}
                           adminDelUser={true}
+                          tier={post.tier}
                         />
                       ))
-                    ) : (
+                    ) : noPosts ? (
                       <p className="text-center flex mt-4">
                         Select a user to view their posts
+                      </p>
+                    ) : (
+                      <p className="text-center flex mt-4">
+                        User has no posts yet.
                       </p>
                     )}
                   </div>

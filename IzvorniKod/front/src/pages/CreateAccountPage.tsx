@@ -327,7 +327,7 @@ function CreateAccountPage() {
 
   return (
     <div className="create-acc-container bg-gray-700 min-h-screen min-w-screen">
-      <div className="logopic">
+      <div className="logopic ml-[9rem] xs:ml-[30px]">
         <img src="/logo.png" />
       </div>
       <div className="create-card border border-[#cd3636]">

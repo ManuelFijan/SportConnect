@@ -29,7 +29,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
 
   return (
     <div className="navbar-container bg-[#535e6d] sticky top-0 z-50 flex justify-between md:justify-center items-center py-6">
-      <div className="name w-[35%] md:w-[20%] mt-1 md:mt-2">
+      <div className="name w-[45%] xs:w-[35%] md:w-[20%] mt-1 md:mt-2">
         <h4>
           <strong>SportConnect</strong>
         </h4>

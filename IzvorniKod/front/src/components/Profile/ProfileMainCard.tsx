@@ -1,6 +1,6 @@
-import "../styles/ProfileMainCard.css";
+import "../../styles/ProfileMainCard.css";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext, User } from "../context/AuthContext";
+import { AuthContext, User } from "../../context/AuthContext";
 import defaultProfilePicture from "/user.png";
 import { FaMedal } from "react-icons/fa6";
 import { Link } from "react-router-dom";

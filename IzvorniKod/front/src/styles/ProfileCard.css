@@ -20,7 +20,7 @@
   border-radius: 10rem;
   width: 35%;
 }
-.profile-container p {
+.profile-container div p {
   font-size: medium;
   margin-bottom: 0.5rem;
   font-weight: bold;
@@ -45,7 +45,7 @@
     font-size: 12px;
   }
 
-  .profile-container p {
+  .profile-container div p {
     font-size: 15px;
     margin-bottom: 0.2rem;
   }
@@ -57,7 +57,7 @@
     padding: 0.3rem 0.6rem;
   }
 
-  .profile-container p {
+  .profile-container div p {
     font-size: 12px;
     margin-bottom: 0.2rem;
   }
@@ -73,7 +73,7 @@
     height: 4rem;
   }
 
-  .profile-container p {
+  .profile-container div p {
     margin-bottom: 0.2rem;
     margin-top: -1rem;
   }

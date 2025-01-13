@@ -2,7 +2,7 @@ import "../styles/MainPage.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Layout/Navbar";
 import { useEffect, useState, useContext } from "react";
-import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../components/Profile/ProfileCard";
 import Feed from "../components/Posts/Feed";
 import AddPost from "../components/Posts/AddPost";
 import { AuthContext } from "../context/AuthContext";
@@ -41,8 +41,8 @@ function MainPage() {
               <ProfileCard />
             </div>
 
-            <div className="w-[100%] md:w-[50%] flex justify-center items-center">
-              <div className="middle-div-main-page flex flex-col justify-center items-center w-[80%] md:w-full">
+            <div className="w-[100%] md:w-[50%] flex justify-center items-start">
+              <div className="middle-div-main-page flex flex-col justify-center items-center w-[93%] xs:w-[80%] md:w-full">
                 {user.userType !== "CLIENT" && (
                   <AddPost handleUpdate={handleUpdate} />
                 )}

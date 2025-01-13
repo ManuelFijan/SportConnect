@@ -18,7 +18,8 @@ export default function PostsCard({
   user,
   delPost,
   newSaved,
-  adminDelUser
+  adminDelUser,
+  tier
 }: any) {
   const [likes, setLikes] = useState(isLiked);
   const [comm, setComm] = useState(false);
@@ -171,7 +172,7 @@ export default function PostsCard({
         </div>
         <div className="flex gap-2 mt-2">
           {/*ovisno koji je plan takve je boje medalja*/}
-          {creator.subscriptionPlan === "GOLD" && (
+          {tier === "GOLD" && (
             <>
               <div className="text-[#f0bf0d] flex gap-1 items-center justify-center rounded-full border-1 border-[#f0bf0d] px-2 opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
@@ -180,7 +181,7 @@ export default function PostsCard({
             </>
           )}
 
-          {creator.subscriptionPlan === "SILVER" && (
+          {tier === "SILVER" && (
             <>
               <div className="text-[#cecdcd] flex gap-1 items-center justify-center rounded-full border-1 border-[#cecdcd] px-2 opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
@@ -189,7 +190,7 @@ export default function PostsCard({
             </>
           )}
 
-          {creator.subscriptionPlan === "BRONZE" && (
+          {tier === "BRONZE" && (
             <>
               <div className="text-[#b3652c] flex gap-1 items-center justify-center rounded-full border-1 border-[#b3652c] px-2 opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />
@@ -198,7 +199,7 @@ export default function PostsCard({
             </>
           )}
 
-          {creator.subscriptionPlan === "FREE" && (
+          {tier === "FREE" && (
             <>
               <div className="text-[#279536] flex gap-1 items-center justify-center rounded-full border-1 border-[#279536] px-[10px] opacity-60 h-7">
                 <FaMedal className="w-[14px] h-[14px]" />

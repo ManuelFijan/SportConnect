@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PostsCard from "./PostsCard";
+import PostsCard from "../Posts/PostsCard";
 
 export default function ProfileFeed({ user }: any) {
   const [userPosts, setUserPosts] = useState<any[]>([]);
@@ -109,6 +109,7 @@ export default function ProfileFeed({ user }: any) {
               user={user}
               delPost={delPost}
               newSaved={newSaved}
+              tier={post.tier}
             />
           ))
         : userPosts.map((post: any) => (
@@ -127,6 +128,7 @@ export default function ProfileFeed({ user }: any) {
               user={user}
               delPost={delPost}
               newSaved={newSaved}
+              tier={post.tier}
             />
           ))}
 

@@ -7,10 +7,20 @@ export default function Feed({ user, update, adminPanel }: any) {
   const [del, setDel] = useState(false);
 
   const fetchPosts = async (sortBy: string | null = null) => {
+    let api1;
+    let api2;
+
+    if (user.userType === "ADMIN") {
+      api1 = `posts?sortBy=${sortBy}`;
+      api2 = `posts`;
+    } else {
+      api1 = `posts/available?userEmail=${user.email}&sortBy=${sortBy}`;
+      api2 = `posts/available?userEmail=${user.email}`;
+    }
     try {
       const url = sortBy
-        ? `${import.meta.env.VITE_BACKEND_API}/posts?sortBy=${sortBy}`
-        : `${import.meta.env.VITE_BACKEND_API}/posts`;
+        ? `${import.meta.env.VITE_BACKEND_API}/`+ api1
+        : `${import.meta.env.VITE_BACKEND_API}/`+ api2;
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
@@ -59,8 +69,10 @@ export default function Feed({ user, update, adminPanel }: any) {
   return (
     <div
       className={
-        (adminPanel ? "w-[85%] md:w-[70%]" : "w-full")+" h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center" +
-        (user.userType === "PARTNER" ? "" : " mt-3") + (adminPanel ? " mt-4 pt-[30px]" : " pt-3")
+        (adminPanel ? "w-[85%] md:w-[70%]" : "w-full") +
+        " h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center" +
+        (user.userType === "PARTNER" ? "" : " mt-3") +
+        (adminPanel ? " mt-4 pt-[30px]" : " pt-3")
       }
     >
       {/* Toggle buttons for sorting */}
@@ -116,6 +128,7 @@ export default function Feed({ user, update, adminPanel }: any) {
           user={user}
           delPost={delPost}
           newSaved={newSaved}
+          tier={post.tier}
         />
       ))}
     </div>

@@ -246,3 +246,12 @@ div div h2 {
     margin-top: 58rem;
   }
 }
+
+@media (max-width: 450px) {
+  .create-card {
+    width: 90%;
+    left: 6%;
+  }
+
+}
+

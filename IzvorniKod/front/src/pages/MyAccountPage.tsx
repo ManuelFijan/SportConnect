@@ -1,10 +1,10 @@
 import Navbar from "../components/Layout/Navbar.tsx";
 import { useState, useContext } from "react";
-import ProfileMainCard from "../components/ProfileMainCard.tsx";
+import ProfileMainCard from "../components/Profile/ProfileMainCard.tsx";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import AdsList from "../components/AdsList.tsx";
-import ProfileFeed from "../components/Posts/ProfileFeed.tsx";
+import ProfileFeed from "../components/Profile/ProfileFeed.tsx";
 
 function MyAccountPage() {
   const [isMenuOpen, setMenuOpen] = useState(false);

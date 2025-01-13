@@ -117,7 +117,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             Profile
           </Link>
           <Link to="/" 
-          className="sign-out-button ml-8" onClick={handleLogout}>
+          className="sign-out-button ml-28 xs:ml-8" onClick={handleLogout}>
             <button>Sign Out</button>
           </Link>
         </div>

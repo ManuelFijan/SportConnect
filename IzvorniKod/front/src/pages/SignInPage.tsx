@@ -127,7 +127,7 @@ const SignInPage = () => {
   // prvi div unutar se ne smije zvat login jer vec imamo takvu klasu u Homepage-u pa se mijesa css(razlog proslog scroll problema)
   return (
     <div className="login-container">
-      <div className="login2">
+      <div className="login2 w-[90%] ml-[-3.5rem] mt-[-2.5rem] xs:ml-0 xs:mt-0 xs:w-[30%]">
         <h2>
           Welcome back <img src="/party-popper.png" alt="welcome pic" className='pic w-7'/><br />
         </h2>
