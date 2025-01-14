@@ -117,9 +117,6 @@ export default function Feed({ user, update, adminPanel }: any) {
           key={post.postId}
           postId={post.postId}
           creator={post.partner}
-          firstname={post.partner.firstName}
-          lastname={post.partner.lastName}
-          profilePic={post.partner.profilePicture}
           pic={post.imageUrl}
           message={post.textContent}
           like={post.likeCount}

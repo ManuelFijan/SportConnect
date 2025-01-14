@@ -6,6 +6,7 @@ import { VscCommentDiscussion } from "react-icons/vsc";
 import { IoIosMore, IoIosHeartEmpty, IoMdHeart } from "react-icons/io";
 import { FaMedal } from "react-icons/fa6";
 import { RiAdminLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 export default function PostsCard({
   postId,
@@ -19,7 +20,7 @@ export default function PostsCard({
   delPost,
   newSaved,
   adminDelUser,
-  tier
+  tier,
 }: any) {
   const [likes, setLikes] = useState(isLiked);
   const [comm, setComm] = useState(false);
@@ -138,10 +139,8 @@ export default function PostsCard({
       console.log(data);
 
       if (response.ok) {
-        if(adminDelUser)
-          delPost(creator.email);
-        else
-          delPost();
+        if (adminDelUser) delPost(creator.email);
+        else delPost();
       } else {
         console.error("Error deleting comment.");
       }
@@ -151,7 +150,12 @@ export default function PostsCard({
   };
 
   return (
-    <div className={"h-auto bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg "+(adminDelUser ? "w-[95%]" : "w-[87%]")}>
+    <div
+      className={
+        "h-auto bg-gray-100 flex flex-col gap-3 mb-4 p-2 rounded-lg " +
+        (adminDelUser ? "w-[95%]" : "w-[87%]")
+      }
+    >
       {/* USER */}
       <div className="flex flex-row justify-between text-gray-700">
         <div className="flex flex-row gap-2">
@@ -167,7 +171,8 @@ export default function PostsCard({
             />
           )}
           <span className="text-gray-700 mt-2">
-            {creator.firstName} {creator.userType !== "ADMIN" && creator.lastName}
+            {creator.firstName}{" "}
+            {creator.userType !== "ADMIN" && creator.lastName}
           </span>
         </div>
         <div className="flex gap-2 mt-2">
@@ -208,8 +213,8 @@ export default function PostsCard({
             </>
           )}
           {/* odreduje moze li  user birsati objavu (...) */}
-          {user.userType !== "CLIENT" &&
-            (creator.userId === user.userId || user.userType === "ADMIN" ? (
+          {user.userType !== "CLIENT" ? (
+            creator.userId === user.userId || user.userType === "ADMIN" ? (
               <div className="dropdown mr-1">
                 <IoIosMore
                   data-bs-toggle="dropdown"
@@ -222,17 +227,74 @@ export default function PostsCard({
                     onClick={handleDelete}
                     className="dropdown-item cursor-pointer"
                   >
-                    Delete
+                    <p className="text-gray-100 mt-1">Delete</p>
+                  </li>
+                  <li className="dropdown-item cursor-pointer">
+                    <Link
+                      to={"/view-profile"}
+                      className="no-underline text-gray-100"
+                      state={{ data: creator }}
+                    >
+                      View Profile
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : creator.userType !== "ADMIN" ? (
+              <div className="dropdown mr-1">
+                <IoIosMore
+                  data-bs-toggle="dropdown"
+                  height={16}
+                  width={16}
+                  className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                />
+                <ul className="dropdown-menu">
+                  <li className="dropdown-item cursor-pointer">
+                    <Link
+                      to={"/view-profile"}
+                      className="no-underline text-gray-100"
+                      state={{ data: creator }}
+                    >
+                      View Profile
+                    </Link>
                   </li>
                 </ul>
               </div>
             ) : (
               <IoIosMore
+                data-bs-toggle="dropdown"
                 height={16}
                 width={16}
-                className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300 mr-1"
+                className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
               />
-            ))}
+            )
+          ) : creator.userType !== "ADMIN" ? (
+            <div className="dropdown mr-1">
+              <IoIosMore
+                data-bs-toggle="dropdown"
+                height={16}
+                width={16}
+                className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+              />
+              <ul className="dropdown-menu">
+                <li className="dropdown-item cursor-pointer">
+                  <Link
+                    to={"/view-profile"}
+                    className="no-underline text-gray-100"
+                    state={{ data: creator }}
+                  >
+                    View Profile
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <IoIosMore
+              height={16}
+              width={16}
+              className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+            />
+          )}
         </div>
       </div>
 

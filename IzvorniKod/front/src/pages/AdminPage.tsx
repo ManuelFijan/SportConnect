@@ -2,12 +2,14 @@ import "../styles/AdminPage.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { RxUpdate } from "react-icons/rx";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import Navbar from "../components/Layout/Navbar";
 import Feed from "../components/Posts/Feed";
 import UserFeed from "../components/UserFeed";
 import PostsCard from "../components/Posts/PostsCard";
+import { IoCloseCircle, IoCloseCircleOutline } from "react-icons/io5";
 
 const AdminPage: React.FC = () => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const AdminPage: React.FC = () => {
   const [showFeed, setShowFeed] = useState(false);
   const [selectedUserPosts, setSelectedUserPosts] = useState<any[]>([]);
   const [noPosts, setNoPosts] = useState(true);
+  const [update, setUpdate] = useState("");
+  const [rank, setRank] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -38,6 +42,46 @@ const AdminPage: React.FC = () => {
     } catch (error) {
       console.error("Error fetching user posts", error);
     }
+  };
+
+  const updateUser = async (email: any) => {
+    setUpdate(email);
+  };
+
+  const handleSelected = async (e: any) => {
+    setRank(e.target.value);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/users/update-rank`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: update,
+            subscriptionPlan: rank,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+      } else {
+        console.error(`Error with updating ${update} rank.`);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+
+    setUpdate("");
   };
 
   return (
@@ -97,7 +141,7 @@ const AdminPage: React.FC = () => {
                 {showFeed && <Feed user={user} adminPanel={true} />}
                 {showUsers && (
                   <div className="users-list mt-4 w-full ">
-                    <UserFeed openUser={openUser} />
+                    <UserFeed openUser={openUser} updateUser={updateUser} update={update} />
                   </div>
                 )}
               </div>
@@ -138,6 +182,46 @@ const AdminPage: React.FC = () => {
               </div>
             </div>
           </div>
+          {update && (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center">
+              <form
+                onSubmit={handleSubmit}
+                className="p-5 -pt-1 bg-gray-200 rounded text-gray-600 relative"
+              >
+                <div className="absolute top-2 right-2">
+                  <div className="group">
+                    <IoCloseCircleOutline className="cursor-pointer group-hover:hidden h-6 w-6" />
+                    <IoCloseCircle
+                      onClick={() => setUpdate("")}
+                      className="cursor-pointer h-6 w-6 hidden text-red-500 group-hover:block transition duration-300"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  <RxUpdate className="mt-1" />
+                  <span className="mb-[0.6rem]">Update <b>{update}</b> rank:</span>
+                </div>
+                <select
+                  className="form-select form-select-sm"
+                  aria-label="Small select example"
+                  defaultValue="default"
+                  onChange={handleSelected}
+                >
+                  <option value="default">Open this select menu</option>
+                  <option value="FREE">FREE</option>
+                  <option value="BRONZE">BRONZE</option>
+                  <option value="SILVER">SILVER</option>
+                  <option value="GOLD">GOLD</option>
+                </select>
+                <button
+                  type="submit"
+                  className="bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-300 rounded px-2 py-1 border mt-2 w-full font-semibold"
+                >
+                  Upgrade/Downgrade
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       ) : (
         <p>No user data available.</p>

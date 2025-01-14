@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { User } from "../types/User";
 
-export default function UserFeed({ openUser }: any) {
+export default function UserFeed({ openUser, updateUser, update}: any) {
   const [users, setUsers] = useState<User[]>([]);
 
   const fetchUsers = async () => {
@@ -22,7 +22,7 @@ export default function UserFeed({ openUser }: any) {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [update]);
 
   return (
     <div className="w-[95%] md:bg-white rounded-lg flex flex-col justify-center items-center">
@@ -39,6 +39,7 @@ export default function UserFeed({ openUser }: any) {
           userType={user.userType}
           subscriptionPlan={user.subscriptionPlan}
           openUser={openUser}
+          updateUser={updateUser}
         />
       ))}
     </div>

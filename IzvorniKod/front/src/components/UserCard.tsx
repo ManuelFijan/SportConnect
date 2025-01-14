@@ -1,5 +1,4 @@
 export default function UserCard({
-  id,
   email,
   firstName,
   lastName,
@@ -8,10 +7,9 @@ export default function UserCard({
   subscriptionPlan,
   profilePicture,
   openUser,
+  updateUser,
 }: any) {
 
-  console.log(id);
-  
   return (
     <div className="h-auto w-[96%] bg-gray-100 flex flex-col gap-3 mb-2 p-2 rounded-lg mr-2 md:mr-0 md:mt-2">
       <div className="flex flex-row justify-between text-gray-700">
@@ -29,6 +27,7 @@ export default function UserCard({
         </div>
       </div>
       <div className="flex flex-row justify-around">
+        {/* lijevi div kartice */}
         <div className="flex flex-col gap-3 text-gray-700 text-sm items-start justify-start w-1/2">
           <div className="flex flex-row gap-2 break-all">
             <span className="">
@@ -48,7 +47,8 @@ export default function UserCard({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 w-1/2">
+        {/* desni div kartice */}
+        <div className="flex flex-col gap-1 w-1/2">
           <div className="flex flex-row gap-2 text-gray-700">
             <span className="font-medium">Subscription:</span>
             <span className="capitalize truncate">
@@ -56,7 +56,13 @@ export default function UserCard({
             </span>
           </div>
           <button
-            className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white font-bold py-2 px-3 rounded"
+            className="bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-300 text-gray-400 hover:text-gray-100 text-sm font-semibold py-2 px-2 rounded"
+            onClick={() => updateUser(email)}
+          >
+            Update User's rank
+          </button>
+          <button
+            className="bg-[#5d49e0] hover:bg-[#503fbe] transition duration-300 text-white text-sm font-semibold py-2 px-2 rounded"
             onClick={() => openUser(email)}
           >
             View User's Posts

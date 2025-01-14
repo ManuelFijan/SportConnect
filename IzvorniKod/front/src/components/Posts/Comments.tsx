@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoIosMore } from "react-icons/io";
 import ReadMore from "../ReadMore";
 import { RiAdminLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 export default function Comments({ bool, comments, addCom, user }: any) {
   const [input, setInput] = useState("");
@@ -98,7 +99,63 @@ export default function Comments({ bool, comments, addCom, user }: any) {
                 </span>
                 <ReadMore message={comInfo.text} post={false} />
               </div>
-              {(comInfo.user.userId == user.userId || user.userType === "ADMIN") ? (
+              {comInfo.user.userType !== "CLIENT" ? (
+                comInfo.user.userId == user.userId ||
+                user.userType === "ADMIN" ? (
+                  <div className="dropdown">
+                    <IoIosMore
+                      data-bs-toggle="dropdown"
+                      height={16}
+                      width={16}
+                      className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                    />
+                    <ul className="dropdown-menu">
+                      <li
+                        onClick={handleDeleteCom}
+                        className="dropdown-item cursor-pointer"
+                      >
+                        <p className="text-gray-100 mt-1">Delete</p>
+                      </li>
+                      <li className="dropdown-item cursor-pointer">
+                        <Link
+                          to={"/view-profile"}
+                          className="no-underline text-gray-100"
+                          state={{ data: comInfo.user }}
+                        >
+                          View Profile
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                ) : comInfo.user.userType !== "ADMIN" ? (
+                  <div className="dropdown">
+                    <IoIosMore
+                      data-bs-toggle="dropdown"
+                      height={16}
+                      width={16}
+                      className="dropdown-toggle h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                    />
+                    <ul className="dropdown-menu">
+                      <li className="dropdown-item cursor-pointer">
+                        <Link
+                          to={"/view-profile"}
+                          className="no-underline text-gray-100"
+                          state={{ data: comInfo.user }}
+                        >
+                          View Profile
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <IoIosMore
+                    height={16}
+                    width={16}
+                    className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                  />
+                )
+              ) : comInfo.user.userId == user.userId ||
+                user.userType === "ADMIN" ? (
                 <div className="dropdown">
                   <IoIosMore
                     data-bs-toggle="dropdown"
@@ -108,19 +165,21 @@ export default function Comments({ bool, comments, addCom, user }: any) {
                   />
                   <ul className="dropdown-menu">
                     <li
-                      onClick={() => handleDeleteCom(comInfo.commentId)}
+                      onClick={handleDeleteCom}
                       className="dropdown-item cursor-pointer"
                     >
-                      Delete
+                      <p className="text-gray-100 mt-1">Delete</p>
                     </li>
                   </ul>
                 </div>
               ) : (
-                <IoIosMore
-                  height={16}
-                  width={16}
-                  className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
-                />
+                <div className="dropdown">
+                  <IoIosMore
+                    height={16}
+                    width={16}
+                    className="h-6 w-6 mt-1 p-1 rounded-xl hover:bg-gray-300 transition duration-300"
+                  />
+                </div>
               )}
             </div>
           ))}

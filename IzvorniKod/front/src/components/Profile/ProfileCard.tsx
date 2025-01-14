@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { RiAdminLine } from "react-icons/ri";
 import { FaMedal } from "react-icons/fa";
+import { AiOutlineSetting } from "react-icons/ai";
 
 function ProfileCard() {
   const { user } = useContext(AuthContext);
@@ -29,20 +30,24 @@ function ProfileCard() {
         <p className="mt-2">
           {user.firstName} {user.userType !== "ADMIN" && user.lastName}
         </p>
-        {user.subscriptionPlan === "GOLD" && (
+        {user.subscriptionPlan === "GOLD" && user.userType !== "ADMIN" && (
           <FaMedal className="w-[14px] h-[14px] text-[#f0bf0d]" />
         )}
 
-        {user.subscriptionPlan === "SILVER" && (
+        {user.subscriptionPlan === "SILVER" && user.userType !== "ADMIN" && (
           <FaMedal className="w-[14px] h-[14px] text-[#cecdcd]" />
         )}
 
-        {user.subscriptionPlan === "BRONZE" && (
+        {user.subscriptionPlan === "BRONZE" && user.userType !== "ADMIN" && (
           <FaMedal className="w-[14px] h-[14px] text-[#b3652c]" />
         )}
 
-        {user.subscriptionPlan === "FREE" && (
+        {user.subscriptionPlan === "FREE" && user.userType !== "ADMIN" && (
           <FaMedal className="w-[14px] h-[14px] text-[#279536]" />
+        )}
+
+        {user.userType === "ADMIN" && (
+          <AiOutlineSetting className="w-[15px] h-[15px] mt-[4px] text-gray-400" />
         )}
       </div>
       <Link to="/my-account" state={{ user }}>
