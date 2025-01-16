@@ -8,7 +8,7 @@ function SuccessfulPaymentPage() {
   const [countdown, setCountdown] = useState(5);
   const [loading] = useState(true);
   const [rank, setRank] = useState("");
-  const { token, user } = useContext(AuthContext); // Access AuthContext
+  const { user } = useContext(AuthContext); // Access AuthContext
 
 
   useEffect(() => {

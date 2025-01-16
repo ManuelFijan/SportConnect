@@ -6,7 +6,7 @@ function FailurePaymentPage() {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(5); 
   const [loading] = useState(true); 
-  const { token, user } = useContext(AuthContext); // Access AuthContext
+  const { user } = useContext(AuthContext); // Access AuthContext
 
   useEffect(() => {
     if(user?.banned)
