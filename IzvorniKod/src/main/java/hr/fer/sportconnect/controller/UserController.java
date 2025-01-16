@@ -132,8 +132,10 @@ public class UserController {
     public ResponseEntity<?> updateRank(@Valid @RequestBody updateSubscriptionDTO subscriptionDto) {
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println(authentication);
 
             String currentUserEmail = authentication.getName();
+            System.out.println(currentUserEmail);
             if (userService.getUserByEmail(currentUserEmail).getUserType()== UserType.ADMIN) {
                 UserDto updatedUser = userService.updateSubscriptionPlan(subscriptionDto.getEmail(), SubscriptionPlan.valueOf(subscriptionDto.getSubscriptionPlan().toUpperCase()));
                 return ResponseEntity.ok(updatedUser);
@@ -147,9 +149,9 @@ public class UserController {
     }
 
     @PutMapping("/ban")
-    public ResponseEntity<?> banUser(@RequestParam("email") String email) {
+    public ResponseEntity<?> banUser(@RequestBody BanUserDTO banUserDTO) {
         try {
-            UserDto updatedUser = userService.banUser(email);
+            UserDto updatedUser = userService.banUser(banUserDTO.getEmail());
             return ResponseEntity.ok(updatedUser);
         } catch (UpdateUserInfoException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
