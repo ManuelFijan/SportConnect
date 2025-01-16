@@ -138,7 +138,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/ban")
+    @PostMapping("/ban")
     public ResponseEntity<?> banUser(@RequestBody BanUserDTO banUserDTO) {
         try {
             UserDto updatedUser = userService.banUser(banUserDTO.getEmail());
