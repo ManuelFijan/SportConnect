@@ -17,6 +17,7 @@ public class UserDto {
     private SubscriptionPlan subscriptionPlan;
     private String mobileNumber;
     private String profilePicture;
+    private boolean isBanned;
 
     public Long getUserId() {
         return userId;
@@ -88,5 +89,13 @@ public class UserDto {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 }
