@@ -147,4 +147,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
+
+    @PostMapping("/unban")
+    public ResponseEntity<?> unbanUser(@RequestBody BanUserDTO banUserDTO) {
+        try {
+            UserDto updatedUser = userService.unbanUser(banUserDTO.getEmail());
+            return ResponseEntity.ok(updatedUser);
+        } catch (UpdateUserInfoException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
+        }
+    }
 }

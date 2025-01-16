@@ -283,6 +283,22 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(user);
     }
 
+    @Override
+    public UserDto unbanUser(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        User user = optionalUser.get();
+
+        user.setBanned(false);
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
     public UserDto updateProfilePicture(String email, MultipartFile file) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
