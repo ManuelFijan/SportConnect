@@ -1,3 +1,5 @@
+import { FaBan, FaCheckDouble } from "react-icons/fa";
+
 export default function UserCard({
   email,
   firstName,
@@ -8,8 +10,10 @@ export default function UserCard({
   profilePicture,
   openUser,
   updateUser,
+  banUser,
+  unbanUser,
+  isBanned,
 }: any) {
-
   return (
     <div className="h-auto w-[96%] bg-gray-100 flex flex-col gap-3 mb-2 p-2 rounded-lg mr-2 md:mr-0 md:mt-2">
       <div className="flex flex-row justify-between text-gray-700">
@@ -24,7 +28,21 @@ export default function UserCard({
           <span className="text-gray-700 mt-2">
             {firstName} {lastName}
           </span>
+          {isBanned && (
+            <div className="text-red-600 flex gap-1 mt-2 items-center justify-center rounded-full border-1 border-red-600 px-[10px] opacity-60 h-7">
+              <span className="text-sm">Banned</span>
+            </div>
+          )}
         </div>
+        {isBanned ? (
+          <div className="cursor-pointer mt-2 hover:text-green-500 transition duration-300">
+            <FaCheckDouble onClick={() => unbanUser(email)} />
+          </div>
+        ) : (
+          <div className="cursor-pointer mt-2 hover:text-red-600 transition duration-300">
+            <FaBan onClick={() => banUser(email)} />
+          </div>
+        )}
       </div>
       <div className="flex flex-row justify-around">
         {/* lijevi div kartice */}

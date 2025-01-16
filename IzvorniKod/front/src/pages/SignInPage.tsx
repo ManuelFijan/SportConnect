@@ -85,7 +85,7 @@ const SignInPage = () => {
 					}),
 				});
 
-				const data = await response.json();
+				const data = await response.json();        
 
 				if (response.ok) {
 					console.log("Login successful:", data);
@@ -101,12 +101,21 @@ const SignInPage = () => {
 						setUser(data.user as User); 
 
 						// Odlazak na /main-page
-            navigate("/main-page", {
-              state: {
-                user: data.user,
-                fromSignIn: true
-              }
-            });
+            if(data.user.banned){
+              navigate("/banned-page", {
+                state: {
+                  firstName: data.user.firstName,
+                  lastName: data.user.lastName
+                }
+              });
+            } else {
+              navigate("/main-page", {
+                state: {
+                  user: data.user,
+                  fromSignIn: true
+                }
+              });
+            }
 					} else {
 						setServerErrorMessage("Invalid response from server.");
 					}

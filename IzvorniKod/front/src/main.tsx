@@ -23,6 +23,7 @@ import { AuthProvider } from "./context/AuthContext";
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import ViewUserProfile from './pages/ViewUserProfile.tsx'
+import BannedPage from './pages/BannedPage.tsx'
 
 /*ovdje imamo ruter, koji samo switch-a izmedu ruta i prikazuje ono sto se nalazi u element polju
   ako se bilo gdje napravi greska, prikaze se errorElement (NotFoundPage)
@@ -106,6 +107,11 @@ const router = createBrowserRouter([
   {
 		path: "/view-profile",
 		element: <ViewUserProfile/>,
+		errorElement: <NotFoundPage/>,
+	},
+  {
+		path: "/banned-page",
+		element: <BannedPage/>,
 		errorElement: <NotFoundPage/>,
 	}
 ])

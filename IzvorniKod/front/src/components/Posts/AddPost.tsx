@@ -88,6 +88,7 @@ function AddPost({ handleUpdate }: any) {
     }
   };
 
+
   return (
     <div className="add-post-container w-full pt-4 md:pt-5 px-3 bg-[#535e6d]">
       <div className="image-text-container">

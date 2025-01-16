@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function SuccessfulPaymentPage() {
   const navigate = useNavigate();
@@ -7,6 +8,13 @@ function SuccessfulPaymentPage() {
   const [countdown, setCountdown] = useState(5);
   const [loading] = useState(true);
   const [rank, setRank] = useState("");
+  const { token, user } = useContext(AuthContext); // Access AuthContext
+
+
+  useEffect(() => {
+    if(user?.banned)
+      navigate("/banned-page")
+  }, [user]);
 
   // iz linka poslanog sa backend-a izvlacimo rank da ga mozemo prikazati na stranici
   useEffect(() => {

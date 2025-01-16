@@ -20,6 +20,7 @@
     "pusher-js": "^8.4.0-rc2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-easy-crop": "^5.2.0",
     "react-icons": "^5.4.0",
     "react-router-dom": "^6.28.0",
     "tailwind-scrollbar": "^3.0.0"

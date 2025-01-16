@@ -3,6 +3,8 @@ import { IoIosMore } from "react-icons/io";
 import ReadMore from "../ReadMore";
 import { RiAdminLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { IoSend } from "react-icons/io5";
+
 
 export default function Comments({ bool, comments, addCom, user }: any) {
   const [input, setInput] = useState("");
@@ -60,7 +62,7 @@ export default function Comments({ bool, comments, addCom, user }: any) {
             className="rounded-full mt-[0.15rem] text-gray-700 w-5 h-5"
           />
         )}
-        <form className="w-full" onSubmit={handleSubmit}>
+        <form className="w-full flex" onSubmit={handleSubmit}>
           <input
             type="text"
             name="comment"
@@ -69,8 +71,8 @@ export default function Comments({ bool, comments, addCom, user }: any) {
             className="w-full text-xs outline-none rounded-lg px-2 py-1 mt-[0.1rem]"
             onChange={handleChange}
           />
-          <button type="submit" className="hidden">
-            Submit
+          <button type="submit" className="text-xs ml-2 rounded bg-gray-200 hover:bg-gray-300 transition duration-300 px-[10px] py-1">
+            <IoSend/>
           </button>
         </form>
       </div>
@@ -111,7 +113,7 @@ export default function Comments({ bool, comments, addCom, user }: any) {
                     />
                     <ul className="dropdown-menu">
                       <li
-                        onClick={handleDeleteCom}
+                        onClick={() => handleDeleteCom(comInfo.commentId)}
                         className="dropdown-item cursor-pointer"
                       >
                         <p className="text-gray-100 mt-1">Delete</p>
@@ -165,7 +167,7 @@ export default function Comments({ bool, comments, addCom, user }: any) {
                   />
                   <ul className="dropdown-menu">
                     <li
-                      onClick={handleDeleteCom}
+                      onClick={() => handleDeleteCom(comInfo.commentId)}
                       className="dropdown-item cursor-pointer"
                     >
                       <p className="text-gray-100 mt-1">Delete</p>

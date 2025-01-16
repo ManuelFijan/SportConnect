@@ -20,14 +20,17 @@ function MainPage() {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
+    if(user?.banned){
+      navigate("/banned-page")
+    }
+  }, [token, navigate, user]);
 
   const handleUpdate = () => {
     setUpdate(!update);
   };
 
   return (
-    <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
+    <div className={"main-page text-white bg-gray-700 min-h-screen min-w-screen "+(user ? "":"flex justify-center items-center")}>
       {user ? (
         <div>
           <Navbar

@@ -7,4 +7,5 @@ export interface User {
 	userType: string;
 	subscriptionPlan: string;
 	profilePicture?: string;
+	banned: boolean;
 }

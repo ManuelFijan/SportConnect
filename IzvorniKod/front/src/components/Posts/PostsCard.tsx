@@ -305,7 +305,7 @@ export default function PostsCard({
           <img
             src={pic}
             alt="post_image"
-            className="w-full h-[320px] rounded-md object-cover"
+            className="w-full h-[360px] rounded-md object-contain"
           />
         )}
       </div>

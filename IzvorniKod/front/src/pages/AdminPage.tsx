@@ -4,12 +4,12 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { RxUpdate } from "react-icons/rx";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-
 import Navbar from "../components/Layout/Navbar";
 import Feed from "../components/Posts/Feed";
 import UserFeed from "../components/UserFeed";
 import PostsCard from "../components/Posts/PostsCard";
 import { IoCloseCircle, IoCloseCircleOutline } from "react-icons/io5";
+
 
 const AdminPage: React.FC = () => {
   const navigate = useNavigate();
@@ -21,12 +21,16 @@ const AdminPage: React.FC = () => {
   const [noPosts, setNoPosts] = useState(true);
   const [update, setUpdate] = useState("");
   const [rank, setRank] = useState("");
+  const [ban, setBan] = useState("");
+  const [unban, setUnBan] = useState("");
 
   useEffect(() => {
     if (!token) {
       navigate("/");
     }
-  }, [token, navigate]);
+    if(user?.userType !== "ADMIN")
+      navigate("/error")
+  }, [token, navigate, user]);
 
   const openUser = async (email: any) => {
     try {
@@ -84,8 +88,78 @@ const AdminPage: React.FC = () => {
     setUpdate("");
   };
 
+  const banUser = (email : string) => {
+    setBan(email);
+  }
+
+  const handleBan = async (e : any) => {
+    e.preventDefault()
+    
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/users/ban`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: ban,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+      } else {
+        console.error(`Error with banning user ${ban}.`);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+
+    setBan("");
+  }
+
+  const unbanUser = (email : string) => {
+    setUnBan(email);
+  }
+
+  const handleUnBan = async (e : any) => {
+    e.preventDefault()
+    
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/users/unban`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: unban,
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+      } else {
+        console.error(`Error with unbanning user ${unban}.`);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+
+    setUnBan("");
+  }
+
   return (
-    <div className="admin-page text-white bg-gray-700 min-h-screen min-w-screen">
+    <div className={"admin-page text-white bg-gray-700 min-h-screen min-w-screen "+(user ? "":"flex justify-center items-center")}>
       {user ? (
         <div>
           <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
@@ -141,7 +215,7 @@ const AdminPage: React.FC = () => {
                 {showFeed && <Feed user={user} adminPanel={true} />}
                 {showUsers && (
                   <div className="users-list mt-4 w-full ">
-                    <UserFeed openUser={openUser} updateUser={updateUser} update={update} />
+                    <UserFeed openUser={openUser} updateUser={updateUser} update={update} ban={ban} unban={unban} banUser={banUser} unbanUser={unbanUser}/>
                   </div>
                 )}
               </div>
@@ -218,6 +292,62 @@ const AdminPage: React.FC = () => {
                   className="bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-300 rounded px-2 py-1 border mt-2 w-full font-semibold"
                 >
                   Upgrade/Downgrade
+                </button>
+              </form>
+            </div>
+          )}
+          {ban && (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center">
+              <form
+                onSubmit={handleBan}
+                className="p-5 -pt-1 bg-gray-200 rounded text-gray-600 relative"
+              >
+                <div className="absolute top-2 right-2">
+                  <div className="group">
+                    <IoCloseCircleOutline className="cursor-pointer group-hover:hidden h-6 w-6" />
+                    <IoCloseCircle
+                      onClick={() => setBan("")}
+                      className="cursor-pointer h-6 w-6 hidden text-red-500 group-hover:block transition duration-300"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  <span className="mb-[0.6rem]">Are you sure you want to ban this user?</span>
+                </div>
+
+                <button
+                  type="submit"
+                  className="bg-red-600 text-gray-100 hover:bg-red-700 transition duration-300 rounded px-2 py-1 border mt-2 w-full font-semibold"
+                >
+                  Ban user with email: {ban}
+                </button>
+              </form>
+            </div>
+          )}
+          {unban && (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center">
+              <form
+                onSubmit={handleUnBan}
+                className="p-5 -pt-1 bg-gray-200 rounded text-gray-600 relative"
+              >
+                <div className="absolute top-2 right-2">
+                  <div className="group">
+                    <IoCloseCircleOutline className="cursor-pointer group-hover:hidden h-6 w-6" />
+                    <IoCloseCircle
+                      onClick={() => setUnBan("")}
+                      className="cursor-pointer h-6 w-6 hidden text-red-500 group-hover:block transition duration-300"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  <span className="mb-[0.6rem]">Are you sure you want to unban this user?</span>
+                </div>
+
+                <button
+                  type="submit"
+                  className="bg-[#a7fbcb] hover:bg-[#51bf81] transition duration-300 rounded px-2 py-1 border mt-2 w-full font-semibold"
+                >
+                  Unban user with email: {unban}
                 </button>
               </form>
             </div>

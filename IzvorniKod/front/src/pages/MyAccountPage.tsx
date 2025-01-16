@@ -1,19 +1,25 @@
 import Navbar from "../components/Layout/Navbar.tsx";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import ProfileMainCard from "../components/Profile/ProfileMainCard.tsx";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdsList from "../components/AdsList.tsx";
 import ProfileFeed from "../components/Profile/ProfileFeed.tsx";
 
 function MyAccountPage() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { user } = useContext(AuthContext); //Pristupanje user-u iz AuthContext
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(user?.banned)
+      navigate("/banned-page")
+  }, [user])
 
   //Ako se jos load-a user samo neki loading screen
 	if (!user) {
 		return (
-			<div className="flex items-center justify-center h-screen">
+			<div className="flex items-center justify-center min-h-screen min-w-screen">
 				<p className="text-white text-xl">Loading user data...</p>
 			</div>
 		);

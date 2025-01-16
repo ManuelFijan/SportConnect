@@ -1,7 +1,7 @@
 import Navbar from "../components/Layout/Navbar.tsx";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AdsList from "../components/AdsList.tsx";
 import ProfileUserCard from "../components/Profile/ProfileUserCard.tsx";
 import ProfileUserFeed from "../components/Profile/ProfileUserFeed.tsx";
@@ -11,12 +11,18 @@ function ViewUserProfile() {
   const { user } = useContext(AuthContext); //Pristupanje user-u iz AuthContext
 
   const location = useLocation();
-  const data = location.state;
+  const data = location.state || null;
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(user?.banned)
+      navigate("/banned-page")
+  }, [user])
 
   //Ako se jos load-a user samo neki loading screen
   if (!user) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center min-h-screen min-w-screen">
         <p className="text-white text-xl">Loading user data...</p>
       </div>
     );

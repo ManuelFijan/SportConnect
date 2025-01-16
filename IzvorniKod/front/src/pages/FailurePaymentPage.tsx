@@ -1,13 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function FailurePaymentPage() {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(5); 
   const [loading] = useState(true); 
+  const { token, user } = useContext(AuthContext); // Access AuthContext
+
+  useEffect(() => {
+    if(user?.banned)
+      navigate("/banned-page")
+  }, [user]);
 
   // timer
   useEffect(() => {
+    if(user?.banned)
+      navigate("/banned-page")
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev === 1) {

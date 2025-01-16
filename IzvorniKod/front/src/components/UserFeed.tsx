@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { User } from "../types/User";
 
-export default function UserFeed({ openUser, updateUser, update}: any) {
+export default function UserFeed({ openUser, updateUser, update, ban, unban, banUser, unbanUser}: any) {
   const [users, setUsers] = useState<User[]>([]);
 
   const fetchUsers = async () => {
@@ -21,8 +21,8 @@ export default function UserFeed({ openUser, updateUser, update}: any) {
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, [update]);
+    fetchUsers();    
+  }, [update, ban, unban]);
 
   return (
     <div className="w-[95%] md:bg-white rounded-lg flex flex-col justify-center items-center">
@@ -40,6 +40,9 @@ export default function UserFeed({ openUser, updateUser, update}: any) {
           subscriptionPlan={user.subscriptionPlan}
           openUser={openUser}
           updateUser={updateUser}
+          banUser={banUser}
+          unbanUser={unbanUser}
+          isBanned={user.banned}
         />
       ))}
     </div>

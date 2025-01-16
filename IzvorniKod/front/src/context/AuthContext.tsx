@@ -10,6 +10,7 @@ export interface User {
 	subscriptionPlan: string;
 	mobileNumber: string;
 	profilePicture: string;
+	banned: boolean;
 }
 
 interface AuthContextType {

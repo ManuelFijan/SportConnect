@@ -15,10 +15,12 @@ function ChatPage() {
 		if (!token) {
 			navigate("/");
 		}
-	}, [token, navigate]);
+        if(user?.banned)
+            navigate("/banned-page")
+	}, [token, navigate, user]);
 
     return (
-        <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
+        <div className={"main-page text-white bg-gray-700 min-h-screen min-w-screen "+(user ? "":"flex justify-center items-center")}>
             {user ? (
                 <div>
                     <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={user.profilePicture || "/user.png"}/>
