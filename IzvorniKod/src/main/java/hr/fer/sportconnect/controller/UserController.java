@@ -131,18 +131,8 @@ public class UserController {
     @PostMapping("/update-rank")
     public ResponseEntity<?> updateRank(@Valid @RequestBody updateSubscriptionDTO subscriptionDto) {
         try{
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            System.out.println(authentication);
-
-            String currentUserEmail = authentication.getName();
-            System.out.println(currentUserEmail);
-            if (userService.getUserByEmail(currentUserEmail).getUserType()== UserType.ADMIN) {
-                UserDto updatedUser = userService.updateSubscriptionPlan(subscriptionDto.getEmail(), SubscriptionPlan.valueOf(subscriptionDto.getSubscriptionPlan().toUpperCase()));
-                return ResponseEntity.ok(updatedUser);
-            }
-            else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not an admin");
-            }
+            UserDto updatedUser = userService.updateSubscriptionPlan(subscriptionDto.getEmail(), SubscriptionPlan.valueOf(subscriptionDto.getSubscriptionPlan().toUpperCase()));
+            return ResponseEntity.ok(updatedUser);
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
