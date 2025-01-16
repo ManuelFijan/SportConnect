@@ -2,6 +2,7 @@ package hr.fer.sportconnect.controller;
 
 import hr.fer.sportconnect.dto.*;
 import hr.fer.sportconnect.enums.SubscriptionPlan;
+import hr.fer.sportconnect.enums.UserType;
 import hr.fer.sportconnect.exceptions.LoginException;
 import hr.fer.sportconnect.exceptions.RegistrationException;
 import hr.fer.sportconnect.exceptions.UpdateUserInfoException;
@@ -11,7 +12,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -131,7 +134,17 @@ public class UserController {
             UserDto updatedUser = userService.updateSubscriptionPlan(subscriptionDto.getEmail(), SubscriptionPlan.valueOf(subscriptionDto.getSubscriptionPlan().toUpperCase()));
             return ResponseEntity.ok(updatedUser);
         }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("tu sam " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/ban")
+    public ResponseEntity<?> banUser(@RequestBody BanUserDTO banUserDTO) {
+        try {
+            UserDto updatedUser = userService.banUser(banUserDTO.getEmail());
+            return ResponseEntity.ok(updatedUser);
+        } catch (UpdateUserInfoException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getErrors());
         }
     }
 }

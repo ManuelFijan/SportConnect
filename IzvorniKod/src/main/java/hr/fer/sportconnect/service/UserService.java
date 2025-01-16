@@ -28,4 +28,5 @@ public interface UserService {
     List<User> searchUsersByUsername(String username);
     public List<User> searchUsers(String query);
     List<UserDto> getAllUsers();
+    UserDto banUser(String email);
 }
