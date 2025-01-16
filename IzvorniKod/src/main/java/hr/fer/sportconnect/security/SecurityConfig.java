@@ -97,7 +97,7 @@ public class SecurityConfig {
                                 "/posts/create", "/posts/*/like", "/posts/*/comment",
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
                                 "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**",
-                                "/posts/**", "/chat/unread-counts/**", "/users/all", "users/ban",
+                                "/posts/**", "/chat/unread-counts/**", "/users/all", "/users/ban",
                                 "/stripe-webhooks/events", "/chat/conversations/**", "/chat/conversations/*/read", "/users/update-profile-picture"
                         )
                 )
@@ -109,7 +109,7 @@ public class SecurityConfig {
                                 "/posts/create", "/posts/*/like", "/posts/*/comment",
                                 "/posts/*/save", "/posts/saved", "/posts/*/comments",
                                 "/posts", "/posts/user", "/posts/user/**", "/posts/comment/**",
-                                "/posts/**", "/chat/unread-counts/**", "/users/all", "users/ban",
+                                "/posts/**", "/chat/unread-counts/**", "/users/all", "/users/ban",
                                 "/stripe-webhooks/events", "/chat/conversations/**", "/chat/conversations/*/read", "/users/update-profile-picture"
                         ).permitAll()
                         //.requestMatchers("/chat/**", "/pusher/**").authenticated()
