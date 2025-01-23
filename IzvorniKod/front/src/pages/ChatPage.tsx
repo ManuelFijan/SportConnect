@@ -26,13 +26,13 @@ function ChatPage() {
                     <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} userPic={user.profilePicture || "/user.png"}/>
 
                     <div className='flex'>
-                        <div className='w-[10%]'/>
+                        <div className='w-[1%] lg:w-[7%]'/>
 
-                        <div className='w-[80%] flex flex-col justify-center items-center'>
+                        <div className='w-[98%] lg:w-[86%] flex flex-col justify-center items-center'>
                             <ChatWindow/>
                         </div>
 
-                        <div className='w-[10%]'/>
+                        <div className='w-[1%] lg:w-[7%]'/>
                     </div>
 
                 </div>
