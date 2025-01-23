@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineSetting } from "react-icons/ai";
 import { RiAdminLine } from "react-icons/ri";
 
-function ProfileMainCard() {
+function ProfileMainCard({ balance }: any) {
   const { user, setUser } = useContext(AuthContext);
   const [formData, setFormData] = useState<User | null>(user);
   const [isEditing, setIsEditing] = useState(false);
@@ -194,49 +194,49 @@ function ProfileMainCard() {
     }
   };
 
-    const imgUpload = async (e: any) => {
-		const file = e.target.files?.[0];
+  const imgUpload = async (e: any) => {
+    const file = e.target.files?.[0];
 
-		if (file) {
-			setImage(URL.createObjectURL(file));
-		}
-		if (!file || !user) return;
+    if (file) {
+      setImage(URL.createObjectURL(file));
+    }
+    if (!file || !user) return;
 
-		try {
-			const formData = new FormData();
-			formData.append("email", user.email);
-			formData.append("file", file);
+    try {
+      const formData = new FormData();
+      formData.append("email", user.email);
+      formData.append("file", file);
 
-			const response = await fetch(
-				`${import.meta.env.VITE_BACKEND_API}/users/update-profile-picture`,
-				{
-					method: "POST",
-					body: formData,
-					credentials: "include",
-				}
-			);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/users/update-profile-picture`,
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }
+      );
 
-			if (!response.ok) {
-				throw new Error("Failed to update profile picture");
-			}
+      if (!response.ok) {
+        throw new Error("Failed to update profile picture");
+      }
 
-			const updatedUser = await response.json();
+      const updatedUser = await response.json();
 
-			setUser(updatedUser);
-			setImage(updatedUser.profilePicture);
-		} catch (err) {
-			console.error("Error uploading profile picture:", err);
-		}
-	};
+      setUser(updatedUser);
+      setImage(updatedUser.profilePicture);
+    } catch (err) {
+      console.error("Error uploading profile picture:", err);
+    }
+  };
 
-    // Ako se user ili formData nisu jos load-ali, prikazi loading
-	if (!user || !formData) {
-		return (
-			<div className="flex items-center justify-center h-full">
-				<p className="text-white text-xl">Loading...</p>
-			</div>
-		);
-	}
+  // Ako se user ili formData nisu jos load-ali, prikazi loading
+  if (!user || !formData) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-white text-xl">Loading...</p>
+      </div>
+    );
+  }
 
   // Ako se user ili formData nisu jos load-ali, prikazi loading
   if (!user || !formData) {
@@ -288,7 +288,7 @@ function ProfileMainCard() {
       </div>
 
       <div className="flex items-center gap-2 h-20 mt-[calc(7vw+0.7rem)]">
-        <span className="text-lg md:text-2xl lg:text-3xl text-white font-bold mb-2">
+        <span className="text-[20px] md:text-2xl lg:text-3xl text-white font-bold mb-2">
           {user.firstName} {user.userType !== "ADMIN" && user.lastName}
         </span>
 
@@ -353,25 +353,31 @@ function ProfileMainCard() {
         )}
       </div>
 
-      <button
-        onClick={toggleEditForm}
-        className="bg-[#5643cc] hover:bg-[#34297b] font-bold rounded-lg py-[0.4rem] lg:py-[0.7rem] px-[0.5rem] lg:px-[1.4rem] text-white text-[1rem] mb-[-0.3rem] md:mt-2"
-      >
-        Edit Profile
-      </button>
-      {user.subscriptionPlan !== "GOLD" && user.userType !== "ADMIN" && (
-        <Link
-          to="/pricing"
-          state={{
-            message1: "You are just one step away...",
-            message2:
-              "Choose the plan that best suits your needs and unlock the features you desire!",
-          }}
-          className="mt-3 text-sm lg:text-base bg-[#a7fbcb] text-gray-500 font-bold py-2 px-1 lg:px-4 rounded-lg hover:bg-[#51bf81] transition duration-200 no-underline block md:hidden"
+      <div className="flex gap-2">
+        <button
+          onClick={toggleEditForm}
+          className="bg-[#5643cc] hover:bg-[#34297b] font-bold rounded-lg text-white text-[1rem] mt-2 md:mt-2 h-10 px-3 md:w-[8.5rem]"
         >
-          Upgrade Now
-        </Link>
-      )}
+          Edit Profile
+        </button>
+        {user.subscriptionPlan !== "GOLD" && user.userType !== "ADMIN" && (
+          <Link
+            to="/pricing"
+            state={{
+              message1: "You are just one step away...",
+              message2:
+                "Choose the plan that best suits your needs and unlock the features you desire!",
+            }}
+            className="mt-2 text-sm lg:text-base bg-[#a7fbcb] text-gray-500 font-bold px-2 h-10 rounded-lg hover:bg-[#51bf81] transition duration-200 no-underline md:hidden text-center flex items-center justify-center"
+          >
+            Upgrade Now
+          </Link>
+        )}
+      </div>
+
+      <p className="mt-4 text-[#a7fbcb] text-[18px] font-bold block md:hidden">
+        My Balance: {balance?.toFixed(2)}$
+      </p>
 
       {isEditing && (
         <div className="modal-overlay bg-gray-700 bg-opacity-80">
