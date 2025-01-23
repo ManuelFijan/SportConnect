@@ -1,7 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useState, useContext } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+  useContext,
+} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "../../styles/MobileMenu.css";
+import { ConversationWithLastMessage } from "../../types/ConversationWithLastMessage";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -11,17 +18,41 @@ interface MobileMenuProps {
 function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
   const navigate = useNavigate();
   const [isScreenWide, setIsScreenWide] = useState(window.innerWidth > 767);
-  const { user, logout } = useContext(AuthContext);
+  const { token, user, logout } = useContext(AuthContext);
+  const [conversations, setConversations] = useState<
+    ConversationWithLastMessage[]
+  >([]);
 
   let path = location.pathname;
   path = path.substring(1, path.length);
+
+  useEffect(() => {
+    if (!token) return;
+    fetch(`${import.meta.env.VITE_BACKEND_API}/chat/conversations`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch conversations");
+        return res.json();
+      })
+      .then((data: ConversationWithLastMessage[]) => {
+        setConversations(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching conversations:", error);
+      });
+  }, [token]);
 
   // Logout handler
   const handleLogout = () => {
     logout(); // Brise token i user data iz AuthContext
     navigate("/"); // vraca na pocetak
   };
-  
+
   /* prilikom rendera stranice postavlja bool varijablu je li sirina prozora veca od 767 px i prema tome ako je
      zatvara mobile menu, ako je na screen-u manje sirine od 767 px mobile menu ostao otvoren
   */
@@ -56,6 +87,11 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+  const totalUnreadCount = conversations.reduce(
+    (sum, convo) => sum + (convo.unreadCount || 0),
+    0
+  );
 
   return (
     <div className="main-menu md:hidden">
@@ -97,12 +133,20 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
           >
             Services
           </Link>
-          <Link to={"/pricing?" + path} className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
+          <Link
+            to={"/pricing?" + path}
+            className="text-white transform transition-transform duration-200 hover:scale-125"
+            state={{ user }}
+          >
             Pricing
           </Link>
           {/* Admin link */}
           {user?.userType === "ADMIN" && (
-            <Link to={"/admin"} className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
+            <Link
+              to={"/admin"}
+              className="text-white transform transition-transform duration-200 hover:scale-125"
+              state={{ user }}
+            >
               Admin panel
             </Link>
           )}
@@ -112,12 +156,24 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             state={{ user, fromMainPage: true }}
           >
             Messages
+            {totalUnreadCount > 0 && (
+              <span className="ml-5 bg-red-500 text-white text-xs rounded-full cursor-pointer px-2 py-1">
+                {totalUnreadCount}
+              </span>
+            )}
           </Link>
-          <Link to="/my-account" className="text-white transform transition-transform duration-200 hover:scale-125" state={{ user }}>
+          <Link
+            to="/my-account"
+            className="text-white transform transition-transform duration-200 hover:scale-125"
+            state={{ user }}
+          >
             Profile
           </Link>
-          <Link to="/" 
-          className="sign-out-button ml-28 xs:ml-8" onClick={handleLogout}>
+          <Link
+            to="/"
+            className="sign-out-button ml-28 xs:ml-8"
+            onClick={handleLogout}
+          >
             <button>Sign Out</button>
           </Link>
         </div>
