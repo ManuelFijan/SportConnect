@@ -145,7 +145,7 @@ function Navbar({ isOpen, setIsOpen }: any) {
               ) : (
                 <img
                   src={user?.profilePicture || "./user.png"}
-                  className="profile cursor-pointer mt-[-0.2rem] rounded-full w-8 h-8 lg:w-10 lg:h-10"
+                  className="profile cursor-pointer mt-[-0.2rem] rounded-full w-8 h-8 lg:w-10 lg:h-10 object-cover"
                   id="dropdownMenuButton"
                   data-bs-toggle="dropdown"
                   alt="User Icon"
