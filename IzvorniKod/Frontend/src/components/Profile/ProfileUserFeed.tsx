@@ -3,6 +3,7 @@ import PostsCard from "../Posts/PostsCard";
 
 export default function ProfileFeed({ user, user_watching }: any) {
   const [userPosts, setUserPosts] = useState<any[]>([]);
+  const check = ["FREE", "BRONZE", "SILVER", "GOLD"];
 
   const fetchUserPosts = async () => {
     try {
@@ -46,20 +47,24 @@ export default function ProfileFeed({ user, user_watching }: any) {
         "w-full h-auto bg-[#535e6d] rounded-lg flex flex-col justify-center items-center pt-[2.3rem]"
       }
     >
-      {userPosts.map((post: any) => (
-        <PostsCard
-          key={post.postId}
-          postId={post.postId}
-          creator={post.partner}
-          pic={post.imageUrl}
-          message={post.textContent}
-          like={post.likeCount}
-          isLiked={findUserL(post)}
-          isSaved={findUserS(post)}
-          user={user_watching}
-          tier={post.tier}
-        />
-      ))}
+      {userPosts.map(
+        (post: any) =>
+          check.indexOf(post.tier) <=
+            check.indexOf(user_watching.subscriptionPlan) && (
+            <PostsCard
+              key={post.postId}
+              postId={post.postId}
+              creator={post.partner}
+              pic={post.imageUrl}
+              message={post.textContent}
+              like={post.likeCount}
+              isLiked={findUserL(post)}
+              isSaved={findUserS(post)}
+              user={user_watching}
+              tier={post.tier}
+            />
+          )
+      )}
 
       {userPosts.length === 0 && (
         <p className="text-white py-10">No posts created yet</p>

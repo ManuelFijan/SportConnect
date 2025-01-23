@@ -22,7 +22,7 @@ export default function ReadMore({ message, post }: any) {
 
   return (
     <div className={"" + (!post && "mt-[-1rem] mb-[1.2rem]")}>
-      <span className="text-textColor break-all">{text}</span>
+      <span className="text-textColor break-before-auto ">{text}</span>
       {message.length > 190 && (
         <button onClick={toogleActive} className="text-gray-400 text-xs ml-2">
           {isOpen ? "Show less" : "Show more"}
