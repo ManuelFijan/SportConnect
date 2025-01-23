@@ -12,6 +12,7 @@ import hr.fer.sportconnect.dao.ProductDAO;
 import hr.fer.sportconnect.dto.PurchaseRequestDTO;
 import hr.fer.sportconnect.dto.UserDto;
 import hr.fer.sportconnect.enums.SubscriptionPlan;
+import hr.fer.sportconnect.enums.UserType;
 import hr.fer.sportconnect.service.UserService;
 import hr.fer.sportconnect.service.impl.CustomerServiceImpl;
 import hr.fer.sportconnect.service.impl.UserServiceImpl;
@@ -65,10 +66,10 @@ public class PaymentController {
             // Retrieve the current balance
             Balance balance = Balance.retrieve();
 
-            Long balanceAmount = null;
+            Double balanceAmount = null;
 
             if (balance.getAvailable() != null && !balance.getAvailable().isEmpty()) {
-                balanceAmount = balance.getAvailable().get(0).getAmount();
+                balanceAmount = Double.valueOf(balance.getAvailable().get(0).getAmount());
             }
             balanceAmount/=100;
             balanceAmount=balanceAmount*8/10;
@@ -85,7 +86,7 @@ public class PaymentController {
             List<UserDto> allUsers = userService.getAllUsers();
 
             for (UserDto user : allUsers) {
-                if (user.getSubscriptionPlan() == subscriptionPlan) num_users++;
+                if (user.getSubscriptionPlan() == subscriptionPlan && user.getUserType()== UserType.PARTNER) num_users++;
             }
 
             return ResponseEntity.ok(balanceAmount/num_users);
