@@ -1,5 +1,5 @@
 import '../styles/TermsOfServicePage.css';
-import Footer from "../components/Footer.tsx";
+import Footer from "../components/Layout/Footer.tsx";
 
 function CookieUsePage(){
     return (

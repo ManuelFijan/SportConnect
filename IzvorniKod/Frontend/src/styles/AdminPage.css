@@ -1,0 +1,51 @@
+.body-admin-page {
+  display: flex;
+  gap: 1rem;
+  height: calc(100vh - 6rem); /* Oduzimamo visinu navbar-a */
+}
+
+.left-div-admin-page {
+  flex: 0 0 200px; /* Širina lijevog panela */
+  padding: 1.3rem;
+}
+
+.middle-div-admin-page {
+  height: 100%; /* Osigurava visinu unutar flex layouta */
+}
+
+.right-div-admin-page {
+  height: 100%; /* Osigurava visinu unutar flex layouta */
+}
+
+.dropdown-menu {
+  background-color: rgb(135, 149, 170) !important;
+}
+.dropdown-menu:hover {
+  background-color: rgb(135, 149, 170) !important;
+}
+.dropdown-menu li {
+  background-color: rgb(135, 149, 170) !important;
+  padding-top: 0.001rem;
+  padding-bottom: 0.001rem;
+}
+li:hover {
+  background-color: rgb(135, 149, 170) !important;
+}
+
+.admin-button {
+  background: linear-gradient(to right, #4a90e2, #357abd);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%;
+}
+
+.admin-button:hover {
+  background: linear-gradient(to right, #357abd, #2d6da3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}

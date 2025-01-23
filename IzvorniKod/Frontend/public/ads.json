@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "imageUrl": "/football.jpg",  
+    "textContent": "Get ready for the next season of football! Upgrade your gear and stay ahead of the game!",
+    "theme": "football"
+  },
+  {
+    "id": "2",
+    "imageUrl": "/basketball.jpg",   
+    "textContent": "Join our basketball league today! Challenge yourself and improve your skills on the court!",
+    "theme": "basketball"
+  },
+  {
+    "id": "3",
+    "imageUrl": "/tennis.jpg",  
+    "textContent": "Become a champion in tennis! Get the best tennis rackets and accessories for your game.",
+    "theme": "tennis"
+  },
+  {
+    "id": "4",
+    "imageUrl": "/fitness-equipment.jpg", 
+    "textContent": "Upgrade your workout routine with our fitness equipment! Take your training to the next level.",
+    "theme": "fitness"
+  },
+  {
+    "id": "5",
+    "imageUrl": "/volleyball.jpg",  
+    "textContent": "Spike your way to victory! Get the best volleyball gear and accessories to dominate the court.",
+    "theme": "volleyball"
+  },
+  {
+    "id": "6",
+    "imageUrl": "/rugby.jpg",
+    "textContent": "Gear up for rugby season! Get the best rugby gear and accessories for the field.",
+    "theme": "rugby"
+  },
+  {
+    "id": "7",
+    "imageUrl": "/hockey.jpg",
+    "textContent": "Hit the ice with style! Equip yourself with top-tier hockey gear for ultimate performance.",
+    "theme": "hockey"
+  },
+  {
+    "id": "8",
+    "imageUrl": "/golf.jpg",
+    "textContent": "Swing like a pro! Upgrade your golf clubs and accessories to take your game to the next level.",
+    "theme": "golf"
+  },
+  {
+    "id": "9",
+    "imageUrl": "/archery.jpg",
+    "textContent": "Aim for the bullseye! Get the best archery equipment for your next target practice.",
+    "theme": "archery"
+  },
+  {
+    "id": "10",
+    "imageUrl": "/cycling.jpg",
+    "textContent": "Pedal to success! Get top-quality cycling gear and accessories for every ride.",
+    "theme": "cycling"
+  }
+]
