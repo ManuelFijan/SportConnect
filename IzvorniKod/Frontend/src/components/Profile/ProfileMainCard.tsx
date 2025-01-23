@@ -375,9 +375,11 @@ function ProfileMainCard({ balance }: any) {
         )}
       </div>
 
-      <p className="mt-4 text-[#a7fbcb] text-[18px] font-bold block md:hidden">
-        My Balance: {balance?.toFixed(2)}$
-      </p>
+      {user.userType === "PARTNER" && (
+        <p className="mt-4 text-[#a7fbcb] text-[18px] font-bold block md:hidden">
+          My Balance: {balance?.toFixed(2)}$
+        </p>
+      )}
 
       {isEditing && (
         <div className="modal-overlay bg-gray-700 bg-opacity-80">
