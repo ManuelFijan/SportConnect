@@ -1,5 +1,5 @@
 import '../styles/PrivacyPolicyPage.css';
-import Footer from "../components/Footer.tsx";
+import Footer from "../components/Layout/Footer.tsx";
 
 function PrivacyPolicyPage() {
     return (

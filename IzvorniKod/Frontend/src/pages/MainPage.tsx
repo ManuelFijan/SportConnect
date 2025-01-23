@@ -1,90 +1,70 @@
-import '../styles/MainPage.css';
-import { useLocation, Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import { useEffect, useState } from 'react';
-import defaultProfilePicture from '/user.png';
-import ProfileCard from '../components/ProfileCard';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-
-const api = "https://sportconnect-531910440961.europe-west3.run.app";  // base api-ja na backendu
+import "../styles/MainPage.css";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Layout/Navbar";
+import { useEffect, useState, useContext } from "react";
+import ProfileCard from "../components/Profile/ProfileCard";
+import Feed from "../components/Posts/Feed";
+import AddPost from "../components/Posts/AddPost";
+import { AuthContext } from "../context/AuthContext";
+import AdsList from "../components/AdsList.tsx";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function MainPage() {
-    const location = useLocation();
-    const { user, fromSignIn, fromCreateAccount, fromMainPage} = location.state || {};
-    const [isMenuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { token, user } = useContext(AuthContext); // Access AuthContext
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [update, setUpdate] = useState(false);
 
-    const [updatedUser, setUpdatedUser] = useState(user);
+  // Redirect na home ako nije authenticated
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+    if(user?.banned){
+      navigate("/banned-page")
+    }
+  }, [token, navigate, user]);
 
-    /* preko email-a user-a dohvaćamo najaktualnije podatke tog user-a (jer se email ne može promijeniti, to je kao id)
-       i nakon toga dobivene podatke stavljamo u varijablu UpdatedUser kako bi ih mogli prikazati na page-u
-    */
-    useEffect(() => {
-            fetch(`${api}/users/get-information/${user.email}`)
-                .then(response => response.json())
-                .then(data => {
-                    setUpdatedUser(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
-        }
-    , []);
+  const handleUpdate = () => {
+    setUpdate(!update);
+  };
 
-    return (
-        <div className="main-page text-white bg-gray-700 min-h-screen min-w-screen">
-            {user ? (
-                <div>
-                    <Navbar isOpen={isMenuOpen} setIsOpen={setMenuOpen} />
-                    <ProfileCard/>
+  return (
+    <div className={"main-page text-white bg-gray-700 min-h-screen min-w-screen "+(user ? "":"flex justify-center items-center")}>
+      {user ? (
+        <div>
+          <Navbar
+            isOpen={isMenuOpen}
+            setIsOpen={setMenuOpen}
+            userPic={user.profilePicture || "/user.png"}
+          />
 
-                    <div className="ml-36 mt-20">
+          <div className="body-main-page flex gap-5">
+            <div className="left-div-main-page hidden md:block">
+              <ProfileCard />
+            </div>
 
-                        {(fromSignIn || fromMainPage) && (
-                            <h2 className={`text-xl font-bold ${isMenuOpen ? 'mt-[490px]' : ''}`}>
-                                Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
-                            </h2>
-                        )}
-                        
-                        {fromCreateAccount && (
-                            <div className={`${isMenuOpen ? 'mt-[500px] mr-[40px]' : ''}`}>
-                                <h2 className="text-xl font-bold">
-                                    Welcome, {updatedUser.userName}! [{updatedUser.userType}, {updatedUser.subscriptionPlan}]
-                                </h2>
+            <div className="w-[100%] md:w-[50%] flex justify-center items-start">
+              <div className="middle-div-main-page flex flex-col justify-center items-center w-[93%] xs:w-[80%] md:w-full">
+                {user.userType !== "CLIENT" && (
+                  <AddPost handleUpdate={handleUpdate} />
+                )}
+                <Feed user={user} update={update} />
+              </div>
+            </div>
 
-                                <p className="font-bold">Your account has been created successfully.</p>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className='top-right'>
-                        <div>
-                            <img src="./message1.png" alt="messageIcon" />
-                        </div>
-                        
-                        <div className="dropdown">
-                            <img
-                                src={updatedUser.profilePicture || defaultProfilePicture}
-                                className="profile"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                alt="User Icon"
-                                style={{ cursor: 'pointer' }}
-                            />
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><Link className="dropdown-item" to="/my-account" state={{user}}>Profile</Link></li>
-                                <li><hr className="dropdown-divider"/></li>
-                                <li><a className="dropdown-item" href="/">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            ) : (
-                <p>No user data available.</p>
-            )}
+            <div className="right-div-main-page hidden md:block">
+              <div className="mr-3 mt-3">
+                <AdsList />
+              </div>
+            </div>
+          </div>
         </div>
-
-    );
+      ) : (
+        <p>No user data available.</p>
+      )}
+    </div>
+  );
 }
 
 export default MainPage;

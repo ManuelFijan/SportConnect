@@ -7,6 +7,6 @@ interface ImportMetaEnv {
     // Add more environment variables as needed
   }
   
-  interface ImportMeta {
-    readonly env: ImportMetaEnv;
-  }
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
