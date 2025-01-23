@@ -1,11 +1,11 @@
 export interface User {
-	id: number;
-	email: string;
-	firstName: string;
-	lastName: string;
-	userName: string;
-	userType: string;
-	subscriptionPlan: string;
-	profilePicture?: string;
-	banned: boolean;
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  userType: string;
+  subscriptionPlan: string;
+  profilePicture?: string;
+  banned: boolean;
 }

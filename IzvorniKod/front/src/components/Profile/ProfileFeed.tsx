@@ -83,7 +83,7 @@ export default function ProfileFeed({ user }: any) {
       <div className="flex gap-4 mb-4">
         {user.userType !== "CLIENT" ? (
           <button
-            className="px-4 py-2 bg-[#5643CC] hover:bg-[#40319e] transition duration-300 text-white rounded-lg"
+            className="px-4 py-2 bg-[#5643CC] hover:bg-[#40319e] transition duration-300 text-white rounded-lg font-bold"
             onClick={() => setViewSaved(!viewSaved)}
           >
             {viewSaved ? "View My Posts" : "View Saved"}
@@ -95,7 +95,7 @@ export default function ProfileFeed({ user }: any) {
         )}
       </div>
       {/* Render posts based on viewSaved state */}
-      {(viewSaved || user.userType === "CLIENT")
+      {viewSaved || user.userType === "CLIENT"
         ? savedPosts.map((post: any) => (
             <PostsCard
               key={post.postId}
