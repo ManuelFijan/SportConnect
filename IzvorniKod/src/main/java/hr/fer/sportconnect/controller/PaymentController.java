@@ -73,6 +73,11 @@ public class PaymentController {
             balanceAmount/=100;
             balanceAmount=balanceAmount*8/10;
 
+            if (subscriptionPlan == SubscriptionPlan.FREE) balanceAmount=balanceAmount/10;
+            else if (subscriptionPlan == SubscriptionPlan.BRONZE) balanceAmount=balanceAmount*2/10;
+            else if (subscriptionPlan == SubscriptionPlan.SILVER) balanceAmount=balanceAmount*3/10;
+            else  balanceAmount=balanceAmount*4/10;
+
             int num_users = 0;
 
             List<UserDto> allUsers = userService.getAllUsers();
