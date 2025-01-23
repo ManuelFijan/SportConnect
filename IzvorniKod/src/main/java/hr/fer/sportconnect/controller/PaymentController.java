@@ -57,7 +57,7 @@ public class PaymentController {
 
     // za vracanje balance-a za partnera zadane razine
     @GetMapping("/balance")
-    public ResponseEntity<?> getStripeBalance(@RequestParam SubscriptionPlan subscriptionPlan) {
+    public ResponseEntity<?> getStripeBalance(@RequestParam String subscriptionPlanStr) {
         try {
             // Set the Stripe API key
             Stripe.apiKey = STRIPE_API_KEY;
@@ -72,6 +72,8 @@ public class PaymentController {
             }
             balanceAmount/=100;
             balanceAmount=balanceAmount*8/10;
+
+            SubscriptionPlan subscriptionPlan = SubscriptionPlan.valueOf(subscriptionPlanStr.toUpperCase());
 
             if (subscriptionPlan == SubscriptionPlan.FREE) balanceAmount=balanceAmount/10;
             else if (subscriptionPlan == SubscriptionPlan.BRONZE) balanceAmount=balanceAmount*2/10;
