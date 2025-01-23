@@ -3,6 +3,8 @@ package hr.fer.sportconnect.repository;
 import hr.fer.sportconnect.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,5 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
     boolean existsByFirstName(String firstName);
     boolean existsByLastName(String lastName);
-
+    List<User> findByEmailContainingIgnoreCase(String email);
+    List<User> findByUserNameContainingIgnoreCase(String userName);
+    List<User> findByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCase(String email, String userName);
+    List<User> findByEmailStartingWithIgnoreCase(String email);
 }

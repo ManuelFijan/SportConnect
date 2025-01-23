@@ -1,6 +1,8 @@
 package hr.fer.sportconnect.service.impl;
 
+import hr.fer.sportconnect.db.SupabaseS3Service;
 import hr.fer.sportconnect.dto.*;
+import hr.fer.sportconnect.enums.SubscriptionPlan;
 import hr.fer.sportconnect.enums.UserType;
 import hr.fer.sportconnect.exceptions.LoginException;
 import hr.fer.sportconnect.exceptions.RegistrationException;
@@ -24,9 +26,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Implementacija koja definira osnovne metode za upravljanje korisnicima.
@@ -42,7 +47,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
-    public UserServiceImpl(UserRepository userRepository, ClientRepository clientRepository, PartnerRepository partnerRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
+    private final SupabaseS3Service supabaseS3Service;
+    public UserServiceImpl(UserRepository userRepository, ClientRepository clientRepository, PartnerRepository partnerRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider, SupabaseS3Service supabaseS3Service) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
         this.partnerRepository = partnerRepository;
@@ -50,6 +56,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
+        this.supabaseS3Service = supabaseS3Service;
     }
 
     public UserDto registerUser(UserRegistrationDto registrationDto) {
@@ -151,8 +158,23 @@ public class UserServiceImpl implements UserService {
         user.setLastName(updateDto.getLastName());
         user.setUserName(updateDto.getUserName());
         user.setMobileNumber(updateDto.getMobileNumber());
-        user.setSubscriptionPlan(updateDto.getSubscriptionPlan());
 
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserDto updateSubscriptionPlan(String email, SubscriptionPlan newSubscriptionPlan) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        User user = optionalUser.get();
+
+        user.setSubscriptionPlan(newSubscriptionPlan);
         userRepository.save(user);
 
         return userMapper.toDto(user);
@@ -221,5 +243,101 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public List<User> searchUsersByEmail(String email) {
+        return userRepository.findByEmailStartingWithIgnoreCase(email);
+    }
 
+    @Override
+    public List<User> searchUsersByUsername(String username) {
+        return userRepository.findByUserNameContainingIgnoreCase(username);
+    }
+
+    @Override
+    public List<User> searchUsers(String query) {
+        List<User> users = userRepository.findByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCase(query, query);
+        return users;
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto banUser(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        User user = optionalUser.get();
+
+        user.setBanned(true);
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserDto unbanUser(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+
+        User user = optionalUser.get();
+
+        user.setBanned(false);
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
+    public UserDto updateProfilePicture(String email, MultipartFile file) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
+        if (file == null || file.isEmpty()) {
+            throw new RuntimeException("No file provided or file is empty.");
+        }
+
+        try {
+            // Generate a unique filename
+            String originalFilename = file.getOriginalFilename();
+            String uniqueFilename = UUID.randomUUID().toString()
+                    + (originalFilename != null ? "-" + originalFilename : "");
+
+            // Save the file to a temporary location
+            File tempFile = File.createTempFile("profilepic-", "-" + uniqueFilename);
+            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                fos.write(file.getBytes());
+            }
+
+            // Upload the file to Supabase bucket
+            String bucketName = "profilne";
+            supabaseS3Service.uploadFile(bucketName, uniqueFilename, tempFile.getAbsolutePath());
+
+            // Construct the public URL
+            String newProfilePicUrl = "https://pccmxztqfmfucdbgcydr.supabase.co/storage/v1/object/public/"
+                    + bucketName + "/" + uniqueFilename;
+
+            // Clean up temp file
+            tempFile.delete();
+
+            // Save the URL to the user record
+            user.setProfilePicture(newProfilePicUrl);
+            userRepository.save(user);
+
+            return userMapper.toDto(user);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload new profile picture.", e);
+        }
+    }
 }

@@ -11,7 +11,6 @@ public class UserUpdateDto {
     private String lastName;
     private String userName;
     private String mobileNumber;
-    private SubscriptionPlan subscriptionPlan;
 
     public String getFirstName() {
         return firstName;
@@ -43,13 +42,5 @@ public class UserUpdateDto {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-    }
-
-    public SubscriptionPlan getSubscriptionPlan() {
-        return subscriptionPlan;
-    }
-
-    public void setSubscriptionPlan(SubscriptionPlan subscriptionPlan) {
-        this.subscriptionPlan = subscriptionPlan;
     }
 }
