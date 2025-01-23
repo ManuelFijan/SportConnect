@@ -75,6 +75,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         //.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow OPTIONS globally
                         .requestMatchers("/api/users/register", "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/checkout/balance").permitAll()
                         .requestMatchers(HttpMethod.POST, "/checkout/hosted").permitAll()
                         // Allow OPTIONS requests globally
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
