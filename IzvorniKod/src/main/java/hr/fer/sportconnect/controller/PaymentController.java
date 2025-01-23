@@ -2,6 +2,7 @@ package hr.fer.sportconnect.controller;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Balance;
 import com.stripe.model.Customer;
 import com.stripe.model.Product;
 import com.stripe.model.checkout.Session;
@@ -9,11 +10,20 @@ import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionCreateParams.LineItem.PriceData;
 import hr.fer.sportconnect.dao.ProductDAO;
 import hr.fer.sportconnect.dto.PurchaseRequestDTO;
+import hr.fer.sportconnect.dto.UserDto;
+import hr.fer.sportconnect.enums.SubscriptionPlan;
+import hr.fer.sportconnect.service.UserService;
 import hr.fer.sportconnect.service.impl.CustomerServiceImpl;
+import hr.fer.sportconnect.service.impl.UserServiceImpl;
 import net.minidev.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Upravlja pozivima endpointova s frontenda vezano za placanje.
@@ -38,10 +48,45 @@ public class PaymentController {
     }
 
     private final CustomerServiceImpl customerService;
-    public PaymentController(CustomerServiceImpl customerService) {
+    private final UserServiceImpl userService;
+    public PaymentController(CustomerServiceImpl customerService, UserServiceImpl userService) {
         this.customerService = customerService;
+        this.userService = userService;
     }
     //String STRIPE_API_KEY = System.getenv("SPRING_STRIPE_API_SECRET_KEY");
+
+    // za vracanje balance-a za partnera zadane razine
+    @GetMapping("/balance")
+    public ResponseEntity<?> getStripeBalance(@RequestParam SubscriptionPlan subscriptionPlan) {
+        try {
+            // Set the Stripe API key
+            Stripe.apiKey = STRIPE_API_KEY;
+
+            // Retrieve the current balance
+            Balance balance = Balance.retrieve();
+
+            Long balanceAmount = null;
+
+            if (balance.getAvailable() != null && !balance.getAvailable().isEmpty()) {
+                balanceAmount = balance.getAvailable().get(0).getAmount();
+            }
+            balanceAmount/=100;
+            balanceAmount=balanceAmount*8/10;
+
+            int num_users = 0;
+
+            List<UserDto> allUsers = userService.getAllUsers();
+
+            for (UserDto user : allUsers) {
+                if (user.getSubscriptionPlan() == subscriptionPlan) num_users++;
+            }
+
+            return ResponseEntity.ok(balanceAmount/num_users);
+        } catch (StripeException e) {
+            // Handle exceptions and return an error response
+            return ResponseEntity.status(500).body("Error retrieving balance: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/hosted")
     public ResponseEntity<String> hostedCheckout(@RequestBody PurchaseRequestDTO requestDTO) throws StripeException{
