@@ -50,11 +50,11 @@ Plaćanje: PayPal/Stripe
 # Članovi tima 
 | Ime člana | Područje rada | 
 |----------|----------|
-| Klara Katić | Dizajn, baza podataka, frontend | 
-| Hana Čerić | Baza podataka, backend | 
+| Klara Katić | Dizajn, Dokumentacija | 
+| Hana Čerić | Baza podataka, Dokumenatcija | 
 | Vid Knežević | Frontend | 
-| Luka Zuanović | Frontend | 
-| Luka Đuretić | Frontend, backend | 
+| Luka Zuanović | Frontend (Voditelj tima) | 
+| Luka Đuretić | Frontend | 
 | Viktor Pijanec | Backend, baza podataka | 
 | Manuel Fijan | Backend, baza podataka | 
 
